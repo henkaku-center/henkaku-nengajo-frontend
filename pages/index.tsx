@@ -5,6 +5,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { useMounted } from '../hooks'
 import { Connect } from '../components/Connect'
 import { Profile } from '../components/Profile'
+import { Balance } from '../components/Balance'
 
 const Home: NextPage = () => {
   const isMounted = useMounted()
@@ -24,11 +25,14 @@ const Home: NextPage = () => {
             <Profile />
           </Box>
         )}
+        {isMounted && (
+          <Box mt="2em">
+            <Balance />
+          </Box>
+        )}
       </Container>
     </Box>
   )
 }
-
-
 
 export default Home
