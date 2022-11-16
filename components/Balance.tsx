@@ -6,7 +6,7 @@ export function Balance() {
   const { address, isConnected } = useAccount()
 
   const { data } = useBalance({
-    addressOrName: address,
+    address: address,
     token: henkakuV2,
     onError(error) {
       console.log('Error', error)
