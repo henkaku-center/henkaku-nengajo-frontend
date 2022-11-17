@@ -13,6 +13,10 @@ import { useMounted } from '../hooks'
 import { Connect } from '../components/Connect'
 import { useAccount } from 'wagmi'
 
+const IPFS_API_KEY = process.env.NEXT_PUBLIC_IPFS_API_KEY
+const IPFS_API_SECRET = process.env.NEXT_PUBLIC_IPFS_API_SECRET
+const IPFS_API_ENDPOINT = process.env.NEXT_PUBLIC_IPFS_API_ENDPOINT
+
 const Home: NextPage = () => {
   const isMounted = useMounted()
   const { address, isConnected } = useAccount()
