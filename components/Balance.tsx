@@ -1,8 +1,15 @@
 import { Box } from '@chakra-ui/react'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount, useBalance, useNetwork } from 'wagmi'
+import { getContractAddress } from '../utils/contractAddress'
 
 export function Balance() {
-  const henkakuV2 = '0x0cc91a5FFC2E9370eC565Ab42ECE33bbC08C11a2'
+  const { chain } = useNetwork()
+
+  const henkakuV2 = getContractAddress({
+    name: 'henkakuErc20',
+    chainId: chain?.id
+  }) as `0x${string}`
+
   const { address, isConnected } = useAccount()
 
   const { data, isSuccess } = useBalance({
