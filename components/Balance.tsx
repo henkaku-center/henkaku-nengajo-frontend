@@ -2,12 +2,15 @@ import { Box } from '@chakra-ui/react'
 import { useAccount, useBalance } from 'wagmi'
 
 export function Balance() {
-  const henkakuV2 = '0x0cc91a5FFC2E9370eC565Ab42ECE33bbC08C11a2'
+  const henkakuV2 = process.env
+    .NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`
+  const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
   const { address, isConnected } = useAccount()
 
   const { data, isSuccess } = useBalance({
     address: address,
     token: henkakuV2,
+    chainId: chainId,
     onError(error) {
       console.log('Error', error)
     },
@@ -17,7 +20,7 @@ export function Balance() {
   })
 
   if (!isConnected) return <></>
-  if (!isSuccess) return <>Not on Polygon?</>
+  if (!isSuccess) return <>Not on proper chain?</>
   return (
     <Box>
       You have {data?.formatted} {data?.symbol} now.
