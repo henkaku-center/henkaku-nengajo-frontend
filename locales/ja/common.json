@@ -1,0 +1,13 @@
+{
+  "CONNECT_WALLET_BUTTON": "ウォレットを接続",
+  "BUTTON_SUBMITTING": "送信中...",
+  "BUTTON_CANCEL": "キャンセル",
+
+  "LAYOUT_HEADING": "Nengajo – HENKAKU",
+  "HOME_LINK": "Home",
+  "COLLECTION_LINK": "コレクション",
+  "REGISTER_LINK": "登録する",
+  "NENGAJO_LINK": "年賀状一覧",
+  "LANG_SWITCHER": "English",
+  "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved."
+}
