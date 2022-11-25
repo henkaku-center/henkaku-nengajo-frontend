@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react'
 import { Box, Container } from '@chakra-ui/react'
-import Header from 'components/header'
-import Footer from 'components/footer'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 interface Props {
   children: ReactElement | ReactNode

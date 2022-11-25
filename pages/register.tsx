@@ -8,9 +8,9 @@ import {
   FormLabel,
   Input
 } from '@chakra-ui/react'
-import { useMounted } from 'hooks'
-import { Connect } from 'components/Connect'
-import Layout from 'components/layouts/layout'
+import { useMounted } from '@/hooks'
+import { Connect } from '@/components/Connect'
+import Layout from '@/components/layouts/layout'
 import { useAccount } from 'wagmi'
 
 const IPFS_API_KEY = process.env.NEXT_PUBLIC_IPFS_API_KEY
