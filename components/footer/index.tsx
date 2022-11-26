@@ -65,14 +65,14 @@ const Footer: React.FC = () => {
             label={'github'}
             href={'https://github.com/henkaku-center/henkaku-nengajo-frontend'}
           >
-            <Text mr={1}>I/F</Text>
+            <Text mr={1}>Frontend</Text>
             <Icon as={FaGithubAlt} />
           </SocialButton>
           <SocialButton
             label={'github'}
             href={'https://github.com/henkaku-center/henkaku-nengajo-contract'}
           >
-            <Text mr={1}>SC</Text>
+            <Text mr={1}>Contract</Text>
             <Icon as={FaGithubAlt} />
           </SocialButton>
         </Stack>
