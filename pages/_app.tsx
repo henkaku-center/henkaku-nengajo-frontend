@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
-import theme from '@/components/layouts/theme'
+import '@/styles/globals.css'
+import theme from '@/components/Layout/theme'
 import {
   WagmiConfig,
   createClient,

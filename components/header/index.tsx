@@ -24,7 +24,9 @@ const Header: React.FC = () => {
         <Box p={2}>
           <NextLink passHref href="/" locale={router.locale}>
             <Link href="/">
-              <Heading size="md">{t('LAYOUT_HEADING')}</Heading>
+              <Heading size="md">
+                HENKAKU <span className="text_nengajo">{t('NENGAJO')}</span>
+              </Heading>
             </Link>
           </NextLink>
         </Box>

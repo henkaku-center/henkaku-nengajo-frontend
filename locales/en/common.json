@@ -3,10 +3,10 @@
   "BUTTON_SUBMITTING": "Submitting...",
   "BUTTON_CANCEL": "Cancel",
 
-  "LAYOUT_HEADING": "Nengajo – HENKAKU",
+  "NENGAJO": "Nengajo",
   "HOME_LINK": "Home",
   "COLLECTION_LINK": "Collections",
-  "REGISTER_LINK": "Register",
+  "REGISTER_LINK": "Create Nengajo",
   "NENGAJO_LINK": "Nengajo",
   "LANG_SWITCHER": "日本語",
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved."

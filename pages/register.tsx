@@ -10,8 +10,9 @@ import {
 } from '@chakra-ui/react'
 import { useMounted } from '@/hooks'
 import { Connect } from '@/components/Connect'
-import Layout from '@/components/layouts/layout'
+import Layout from '@/components/Layout'
 import { useAccount } from 'wagmi'
+import useTranslation from 'next-translate/useTranslation'
 
 const IPFS_API_KEY = process.env.NEXT_PUBLIC_IPFS_API_KEY
 const IPFS_API_SECRET = process.env.NEXT_PUBLIC_IPFS_API_SECRET
@@ -19,6 +20,7 @@ const IPFS_API_ENDPOINT = process.env.NEXT_PUBLIC_IPFS_API_ENDPOINT
 
 const Home: NextPage = () => {
   const isMounted = useMounted()
+  const { t } = useTranslation('common')
   const { address, isConnected } = useAccount()
 
   const submitGenerateImage = async () => {
@@ -31,7 +33,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Heading as="h1" size="4xl">
-        Henkaku Nengajo
+        HENKAKU <span className="text_nengajo">{t('NENGAJO')}</span>
       </Heading>
       {isMounted && (
         <Box mt="2em">
