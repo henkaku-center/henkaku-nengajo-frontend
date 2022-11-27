@@ -1,5 +1,7 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
+import '@/styles/globals.css'
+import theme from '@/components/Layout/theme'
 import {
   WagmiConfig,
   createClient,
@@ -21,7 +23,7 @@ const client = createClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={client}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </WagmiConfig>
