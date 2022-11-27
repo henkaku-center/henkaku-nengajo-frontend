@@ -14,7 +14,6 @@ import useTranslation from 'next-translate/useTranslation'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import setLanguage from 'next-translate/setLanguage'
 
-// COMMENT
 const Header: React.FC = () => {
   const router = useRouter()
   const { colorMode, toggleColorMode } = useColorMode()
