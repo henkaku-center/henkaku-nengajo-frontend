@@ -19,10 +19,3 @@ a {
   display: inline-block;
   font-family: 'Zen Old Mincho', serif;
 }
-
-.text_nengajo::first-letter {
-  color: #f00;
-}
-[data-theme='dark'] .text_nengajo::first-letter {
-  color: rgb(255, 32, 32);
-}

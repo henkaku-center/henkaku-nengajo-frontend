@@ -33,7 +33,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Heading as="h1" size="4xl">
-        HENKAKU <span className="text_nengajo">{t('NENGAJO')}</span>
+        {t('HENKAKU')} <span className="text_nengajo">{t('NENGAJO')}</span>
       </Heading>
       {isMounted && (
         <Box mt="2em">

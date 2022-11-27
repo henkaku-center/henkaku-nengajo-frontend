@@ -25,7 +25,8 @@ const Header: React.FC = () => {
           <NextLink passHref href="/" locale={router.locale}>
             <Link href="/">
               <Heading size="md">
-                HENKAKU <span className="text_nengajo">{t('NENGAJO')}</span>
+                {t('HENKAKU')}{' '}
+                <span className="text_nengajo">{t('NENGAJO')}</span>
               </Heading>
             </Link>
           </NextLink>
