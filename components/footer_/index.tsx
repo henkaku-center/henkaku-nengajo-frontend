@@ -40,6 +40,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
   )
 }
 
+// COMMENT
 const Footer: React.FC = () => {
   const { t } = useTranslation('common')
   return (
