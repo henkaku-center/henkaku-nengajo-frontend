@@ -13,7 +13,7 @@ import useTranslation from 'next-translate/useTranslation'
 const Home: NextPage = () => {
   const isMounted = useMounted()
   const { t } = useTranslation('common')
-  const { address } = useAccount()
+  const { address, isConnected } = useAccount()
   const henkakuV2 = process.env
     .NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`
   const nengajo = process.env
@@ -31,29 +31,33 @@ const Home: NextPage = () => {
           <Connect />
         </Box>
       )}
-      {isMounted && (
-        <Box mt="2em">
-          <Profile />
-        </Box>
-      )}
-      {isMounted && (
-        <Box mt="2em">
-          <Balance />
-        </Box>
-      )}
-      {approved ? (
-        <Box mt="2em">
-          <p>
-            Your allowance to {nengajo.toString()} is{' '}
-            {allowanceValue?.toString()} HENKAKU.
-          </p>
-        </Box>
-      ) : (
-        <Box mt="2em">
-          <Approve erc20={henkakuV2} spender={nengajo} style={{ width: '90%' }}>
-            {'approve'}
-          </Approve>
-        </Box>
+      {isMounted && isConnected && (
+        <>
+          <Box mt="2em">
+            <Profile />
+          </Box>
+          <Box mt="2em">
+            <Balance />
+          </Box>
+          {approved ? (
+            <Box mt="2em">
+              <p>
+                Your allowance to {nengajo.toString()} is{' '}
+                {allowanceValue?.toString()} HENKAKU.
+              </p>
+            </Box>
+          ) : (
+            <Box mt="2em">
+              <Approve
+                erc20={henkakuV2}
+                spender={nengajo}
+                style={{ width: '90%' }}
+              >
+                Approve
+              </Approve>
+            </Box>
+          )}
+        </>
       )}
     </Layout>
   )

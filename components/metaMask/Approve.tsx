@@ -22,7 +22,7 @@ export const Approve: React.FC<Props> = ({
       colorScheme="teal"
       mt={2}
       style={style}
-      onClick={approve}
+      onClick={Approve}
       isLoading={status == APPROVE_CALLBACK_STATUS.PENDING}
       loadingText="Enabling..."
     >
