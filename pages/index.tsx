@@ -42,8 +42,7 @@ const Home: NextPage = () => {
           {approved ? (
             <Box mt="2em">
               <p>
-                Your allowance to {nengajo.toString()} is{' '}
-                {allowanceValue?.toString()} HENKAKU.
+                あなたは、次のアドレスのコントラクトにHENKAKU支払いの許可を与えました（文面要検討）。 {nengajo.toString()}
               </p>
             </Box>
           ) : (
