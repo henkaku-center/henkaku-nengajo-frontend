@@ -2,12 +2,12 @@ import type { NextPage } from 'next'
 import { Box, Container, Heading } from '@chakra-ui/react'
 import { useAccount, useConnect, useEnsName } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
-import { Approve } from 'components/metaMask/Approve'
 import { useMounted, useApproval } from '@/hooks'
 import Layout from '@/components/Layout'
 import { Connect } from '@/components/Connect'
 import { Profile } from '@/components/Profile'
 import { Balance } from '@/components/Balance'
+import { Approve } from '@/components/Approve'
 import useTranslation from 'next-translate/useTranslation'
 
 const Home: NextPage = () => {
@@ -18,8 +18,7 @@ const Home: NextPage = () => {
     .NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`
   const nengajo = process.env
     .NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS as `0x${string}`
-  const { approved, allowanceValue } = useApproval(henkakuV2, nengajo, address)
-  // const approved = useApproval(henkakuV2, nengajo, address)
+  const { approved } = useApproval(henkakuV2, nengajo, address)
 
   return (
     <Layout>
