@@ -15,7 +15,6 @@ const APPROVE_CALLBACK_STATUS = {
 }
 
 const useApprove = (erc20: string, spender: string) => {
-  console.log(spender)
   const [status, setStatus] = useState<number>()
   const { config } = usePrepareContractWrite({
     address: erc20,

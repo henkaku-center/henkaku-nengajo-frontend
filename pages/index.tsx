@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
-import { Box, Container, Heading } from '@chakra-ui/react'
-import { useAccount, useConnect, useEnsName } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+import { Box, Heading } from '@chakra-ui/react'
+import { useAccount } from 'wagmi'
 import { useMounted, useApproval } from '@/hooks'
 import Layout from '@/components/Layout'
 import { Connect } from '@/components/Connect'
@@ -22,8 +21,6 @@ const Home: NextPage = () => {
     name: 'nengajo',
     chainId: chainId
   }) as `0x${string}`
-  console.log('henkakuV2', henkakuV2)
-  console.log('nengajo', nengajo)
   const isMounted = useMounted()
   const { t } = useTranslation('common')
   const { address, isConnected } = useAccount()
