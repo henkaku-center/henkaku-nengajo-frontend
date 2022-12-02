@@ -1,19 +1,9 @@
 import { Box } from '@chakra-ui/react'
-import { useAccount, useEnsName, } from 'wagmi'
-
+import { useAccount } from 'wagmi'
 
 export function Profile() {
-    const { address, isConnected } = useAccount()
-    const { data: ensName } = useEnsName({ address })
+  const { address, isConnected } = useAccount()
 
-    if (!isConnected) return <></>
-    return (
-
-        <Box>
-            Connected to {ensName ?? address}
-        </Box>
-
-    )
-
-
+  if (!isConnected) return <></>
+  return <Box>Connected to {address}</Box>
 }
