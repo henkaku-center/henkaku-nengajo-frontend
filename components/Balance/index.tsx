@@ -22,10 +22,10 @@ export function Balance() {
       console.error('token', henkakuV2)
       console.error('chainId', chainId)
       console.error(error)
-    },
-    onSuccess(data) {
-      console.log('Success', data)
     }
+    // onSuccess(data) {
+    //   console.log('Success', data)
+    // }
   })
 
   if (!isConnected) return <></>
