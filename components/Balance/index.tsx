@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import { useAccount, useBalance, useNetwork } from 'wagmi'
+import { useAccount, useBalance } from 'wagmi'
 import { getContractAddress } from '../utils/contractAddresses'
 import { useChainId } from '../hooks'
 
