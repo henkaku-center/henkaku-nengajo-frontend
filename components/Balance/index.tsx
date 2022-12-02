@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { useAccount, useBalance } from 'wagmi'
-import { getContractAddress } from '../utils/contractAddresses'
-import { useChainId } from '../hooks'
+import { getContractAddress } from '@/utils/contractAddresses'
+import { useChainId } from '@/hooks'
 
 export function Balance() {
   const { chainId, wrongNetwork } = useChainId()
