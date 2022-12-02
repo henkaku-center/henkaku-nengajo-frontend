@@ -1,10 +1,15 @@
 import { Box } from '@chakra-ui/react'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount, useBalance, useNetwork } from 'wagmi'
+import { getContractAddress } from '../utils/contractAddresses'
+import { useChainId } from '../hooks'
 
 export function Balance() {
-  const henkakuV2 = process.env
-    .NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`
-  const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
+  const { chainId, wrongNetwork } = useChainId()
+  const henkakuV2 = getContractAddress({
+    name: 'henkakuErc20',
+    chainId: chainId
+  }) as `0x${string}`
+
   const { address, isConnected } = useAccount()
 
   const { data, isSuccess } = useBalance({
@@ -12,7 +17,11 @@ export function Balance() {
     token: henkakuV2,
     chainId: chainId,
     onError(error) {
-      console.log('Error', error)
+      console.error('Error checking ERC-20 balance')
+      console.error('address', address)
+      console.error('token', henkakuV2)
+      console.error('chainId', chainId)
+      console.error(error)
     },
     onSuccess(data) {
       console.log('Success', data)
@@ -20,7 +29,8 @@ export function Balance() {
   })
 
   if (!isConnected) return <></>
-  if (!isSuccess) return <>Not on proper chain?</>
+  if (wrongNetwork) return <>Not on expected chain</>
+  if (!isSuccess) return <>Balance check failed</>
   return (
     <Box>
       You have {data?.formatted} {data?.symbol} now.
