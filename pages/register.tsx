@@ -26,7 +26,6 @@ const Home: NextPage = () => {
   const { address, isConnected } = useAccount()
   const [fileImg, setFileImg] = useState<File | null>()
   const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
   const [imageUri, setImageUri] = useState('')
 
   const handleImageChange = async (e: any) => {
@@ -49,7 +48,6 @@ const Home: NextPage = () => {
         }
       })
       setImageUri(`https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`)
-      setIsSuccess(true)
     } catch (error) {
       console.error('Error sending File to IPFS: ')
       console.error(error)
@@ -85,7 +83,7 @@ const Home: NextPage = () => {
                   name="profilePicture"
                   onChange={handleImageChange}
                 />
-                {isSuccess ? (
+                {imageUri !== '' ? (
                   <Box>
                     Upload Success
                     <Image
