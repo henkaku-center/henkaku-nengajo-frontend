@@ -1,23 +1,29 @@
 import type { NextPage } from 'next'
-import { Box, Container, Heading } from '@chakra-ui/react'
-import { useAccount, useConnect, useEnsName } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+import { Box, Heading } from '@chakra-ui/react'
+import { useAccount } from 'wagmi'
 import { useMounted, useApproval } from '@/hooks'
 import Layout from '@/components/Layout'
 import { Connect } from '@/components/Connect'
 import { Profile } from '@/components/Profile'
 import { Balance } from '@/components/Balance'
 import { Approve } from '@/components/Approve'
+import { getContractAddress } from '@/utils/contractAddresses'
+import { useChainId } from '@/hooks'
 import useTranslation from 'next-translate/useTranslation'
 
 const Home: NextPage = () => {
+  const { chainId, wrongNetwork } = useChainId()
+  const henkakuV2 = getContractAddress({
+    name: 'henkakuErc20',
+    chainId: chainId
+  }) as `0x${string}`
+  const nengajo = getContractAddress({
+    name: 'nengajo',
+    chainId: chainId
+  }) as `0x${string}`
   const isMounted = useMounted()
   const { t } = useTranslation('common')
   const { address, isConnected } = useAccount()
-  const henkakuV2 = process.env
-    .NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`
-  const nengajo = process.env
-    .NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS as `0x${string}`
   const { approved } = useApproval(henkakuV2, nengajo, address)
 
   return (
@@ -41,7 +47,8 @@ const Home: NextPage = () => {
           {approved ? (
             <Box mt="2em">
               <p>
-                あなたは、次のアドレスのコントラクトにHENKAKU支払いの許可を与えました（文面要検討）。 {nengajo.toString()}
+                あなたは、次のアドレスのコントラクトにHENKAKU支払いの許可を与えました（文面要検討）。{' '}
+                {nengajo.toString()}
               </p>
             </Box>
           ) : (
