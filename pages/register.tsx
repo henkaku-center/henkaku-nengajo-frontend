@@ -23,7 +23,7 @@ const IPFS_API_ENDPOINT = process.env.NEXT_PUBLIC_IPFS_API_ENDPOINT
 const Home: NextPage = () => {
   const isMounted = useMounted()
   const { t } = useTranslation('common')
-  const { address, isConnected } = useAccount()
+  const { isConnected } = useAccount()
   const [fileImg, setFileImg] = useState<File | null>()
   const [isLoading, setIsLoading] = useState(false)
   const [imageUri, setImageUri] = useState('')
@@ -39,11 +39,11 @@ const Home: NextPage = () => {
       formData.append('file', fileImg)
       const resFile = await axios({
         method: 'post',
-        url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
+        url: IPFS_API_ENDPOINT + '/pinning/pinFileToIPFS',
         data: formData,
         headers: {
-          pinata_api_key: `${process.env.NEXT_PUBLIC_IPFS_API_KEY}`,
-          pinata_secret_api_key: `${process.env.NEXT_PUBLIC_IPFS_API_SECRET}`,
+          pinata_api_key: `${IPFS_API_KEY}`,
+          pinata_secret_api_key: `${IPFS_API_SECRET}`,
           'Content-Type': 'multipart/form-data'
         }
       })
