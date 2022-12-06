@@ -1,3 +1,6 @@
 {
-  "NOT_EXPECTED_CHAIN": "Not on expected chain"
+  "NOT_EXPECTED_CHAIN": "Not on expected chain",
+  "BALANCE_CHECK_FAILED": "Balance check failed",
+  "BALANCE": "You have {{balance}} {{symbol}} now."
+
 }

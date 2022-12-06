@@ -32,10 +32,10 @@ export function Balance() {
 
   if (!isConnected) return <></>
   if (wrongNetwork) return <>{t('NOT_EXPECTED_CHAIN')}</>
-  if (!isSuccess) return <>Balance check failed</>
+  if (!isSuccess) return <>{t('BALANCE_CHECK_FAILED')}</>
   return (
     <Box>
-      You have {data?.formatted} {data?.symbol} now.
+      {t('BALANCE', { balance: data?.formatted, symbol: data?.symbol })}
     </Box>
   )
 }
