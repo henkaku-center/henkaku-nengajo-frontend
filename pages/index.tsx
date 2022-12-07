@@ -58,7 +58,7 @@ const Home: NextPage = () => {
                 spender={nengajo}
                 style={{ width: '90%' }}
               >
-                Approve
+                {t('BUTTON_APPROVE')}
               </Approve>
             </Box>
           )}

@@ -16,14 +16,20 @@ export function Connect() {
   return (
     <Box>
       {isConnected ? (
-        <Button onClick={() => disconnect()}> {t('BUTTON_DISCONNECT_WALLET')}</Button>
+        <Button onClick={() => disconnect()}>
+          {' '}
+          {t('BUTTON_DISCONNECT_WALLET')}
+        </Button>
       ) : (
         connectors
           .filter((x) => isMounted && x.ready && x.id !== connector?.id)
           .map((x) => (
             <Button key={x.id} onClick={() => connect({ connector: x })}>
               {t('BUTTON_CONNECT_WALLET')} [ {x.name} ]
-              {isLoading && x.id === pendingConnector?.id && ' (connecting)'}
+              {isLoading &&
+                x.id === pendingConnector?.id &&
+                ' ' &&
+                t('CONNECTING')}
             </Button>
           ))
       )}
