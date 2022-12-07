@@ -43,7 +43,7 @@ const MintNengajo: React.FC<Props> = ({ id, imageOnly, ...props }) => {
   // TODO: dummy data
   const tokenURIJSON = {
     name: 'Nengajo Name ID:' + id,
-    image: 'https://via.placeholder.com/950x1400',
+    image: 'https://via.placeholder.com/500',
     description:
       'Nengajo description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
   }
