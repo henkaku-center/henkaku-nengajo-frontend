@@ -67,11 +67,11 @@ const Home: NextPage = () => {
       {isMounted && isConnected && (
         <>
           <Heading as="h2" color="white.600">
-            Register a new nengajo
+            {t('REGISTER_NEW_NENGAJO')}
           </Heading>
           <FormControl color="white.700">
             <FormControl isRequired mt={5}>
-              <FormLabel htmlFor="imageFile">Picture</FormLabel>
+              <FormLabel htmlFor="imageFile">{t('PICTURE')}</FormLabel>
               <form onSubmit={sendFileToIPFS}>
                 <Input
                   variant="outline"
@@ -85,7 +85,7 @@ const Home: NextPage = () => {
                 />
                 {imageUri !== '' ? (
                   <Box>
-                    Upload Success
+                    {t('UPLOAD_SUCCESS')}
                     <Image
                       src={imageUri ?? ''}
                       alt={'Uploaded image: ' + imageUri}
@@ -98,7 +98,7 @@ const Home: NextPage = () => {
                     onClick={sendFileToIPFS}
                     isLoading={isLoading}
                   >
-                    Register
+                    {t('BUTTON_REGISTER')}
                   </Button>
                 )}
               </form>

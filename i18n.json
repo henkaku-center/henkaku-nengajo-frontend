@@ -2,6 +2,6 @@
   "locales": ["en", "ja"],
   "defaultLocale": "ja",
   "pages": {
-    "*": ["common"]
+    "*": ["common", "balance", "connect", "approve", "profile"]
   }
 }
