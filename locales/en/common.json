@@ -1,5 +1,6 @@
 {
   "CONNECT_WALLET_BUTTON": "Connect wallet",
+  "DISCONNECT_WALLET_BUTTON": "Disconnect wallet",
   "BUTTON_SUBMITTING": "Submitting...",
   "BUTTON_CANCEL": "Cancel",
 
@@ -10,9 +11,12 @@
   "REGISTER_LINK": "Create Nengajo",
   "NENGAJO_LINK": "Nengajo",
   "LANG_SWITCHER": "日本語",
+
   "REGISTER_NEW_NENGAJO": "Register a new nengajo",
   "PICTURE": "Picture",
   "BUTTON_REGISTER": "Register",
   "BUTTON_APPROVE": "Approve",
+  "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
+
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved."
 }

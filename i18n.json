@@ -2,6 +2,7 @@
   "locales": ["en", "ja"],
   "defaultLocale": "ja",
   "pages": {
-    "*": ["common", "balance", "connect", "approve", "profile"]
+    "*": ["common", "balance", "connect", "approve", "profile"],
+    "/nengajo/[id]": ["nengajo"]
   }
 }
