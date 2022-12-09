@@ -1,0 +1,6 @@
+{
+  "NOT_EXPECTED_CHAIN": "期待されたチェーンではありません",
+  "BALANCE_CHECK_FAILED": "残高のチェックに失敗しました",
+  "BALANCE": "現在の残高は {{balance}} {{symbol}} です。"
+
+}
