@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import {
   Box,
   Heading,
+  Link,
   Button,
   Image,
   FormControl,
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
   const [fileImg, setFileImg] = useState<File | null>()
   const [isLoading, setIsLoading] = useState(false)
   const [imageUri, setImageUri] = useState('')
+  const [metadataUri, setMetadataUri] = useState('')
 
   const handleImageChange = async (e: any) => {
     setFileImg(e?.target?.files[0])
@@ -81,6 +83,23 @@ const Home: NextPage = () => {
 
     const putMetadataOnIPFS = async (metadata: NengajoTokenMetadata) => {
       console.log('Putting metadata on IPFS', metadata)
+      const url = IPFS_API_ENDPOINT + '/pinning/pinJSONToIPFS'
+
+      const pinataRequest = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          pinata_api_key: `${IPFS_API_KEY}`,
+          pinata_secret_api_key: `${IPFS_API_SECRET}`
+        },
+        body: JSON.stringify(metadata)
+      })
+      var res = await pinataRequest.json()
+      setMetadataUri(`https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`)
+      console.log(
+        'Metadata IPFS URI:',
+        `https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`
+      )
     }
     const metadata: NengajoTokenMetadata = {
       name: metadataName,
@@ -113,7 +132,7 @@ const Home: NextPage = () => {
         </Box>
       )}
       {isMounted && isConnected && (
-        <>
+        <Box mt="2em">
           <Heading as="h2" color="white.600">
             {t('CREATE_NEW_NENGAJO')}
           </Heading>
@@ -131,13 +150,14 @@ const Home: NextPage = () => {
                   name="profilePicture"
                   onChange={handleImageChange}
                 />
-                {imageUri !== '' ? (
+                {metadataUri !== '' ? (
                   <Box>
                     {t('UPLOAD_SUCCESS')}
                     <Image
                       src={imageUri ?? ''}
                       alt={'Uploaded image: ' + imageUri}
                     ></Image>
+                    <Link href={metadataUri}>Metadata JSON</Link>
                   </Box>
                 ) : (
                   <Button
@@ -152,7 +172,7 @@ const Home: NextPage = () => {
               </form>
             </FormControl>
           </FormControl>
-        </>
+        </Box>
       )}
     </Layout>
   )
