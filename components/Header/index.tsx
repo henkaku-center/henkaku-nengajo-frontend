@@ -38,9 +38,9 @@ const Header: React.FC = () => {
               {t('HOME_LINK')}
             </Link>
           </NextLink>
-          <NextLink passHref href="/register" locale={router.locale}>
+          <NextLink passHref href="/create" locale={router.locale}>
             <Link _focus={{ boxShadow: 'none' }} p={4}>
-              {t('REGISTER_LINK')}
+              {t('CREATE_LINK')}
             </Link>
           </NextLink>
           {/* <NextLink passHref href="/nengajo" locale={router.locale}>

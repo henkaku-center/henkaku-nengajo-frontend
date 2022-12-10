@@ -8,14 +8,14 @@
   "NENGAJO": "年賀状",
   "HOME_LINK": "ホーム",
   "COLLECTION_LINK": "コレクション",
-  "REGISTER_LINK": "年賀状を作る",
+  "CREATE_LINK": "年賀状を作る",
   "NENGAJO_LINK": "年賀状一覧",
   "LANG_SWITCHER": "English",
 
-  "REGISTER_NEW_NENGAJO": "新しい年賀状を登録する",
+  "CREATE_NEW_NENGAJO": "新しい年賀状を作る",
   "PICTURE": "画像",
   "UPLOAD_SUCCESS": "アップロードが完了しました",
-  "BUTTON_REGISTER": "登録",
+  "BUTTON_CREATE": "作る",
   "BUTTON_APPROVE": "承認",
   "IMAGE_PREVIEW_ALT": "年賀状 NFTのプレビュー",
 

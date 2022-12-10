@@ -8,13 +8,13 @@
   "NENGAJO": "Nengajo",
   "HOME_LINK": "Home",
   "COLLECTION_LINK": "Collections",
-  "REGISTER_LINK": "Create Nengajo",
+  "CREATE_LINK": "Create Nengajo",
   "NENGAJO_LINK": "Nengajo",
   "LANG_SWITCHER": "日本語",
 
-  "REGISTER_NEW_NENGAJO": "Register a new nengajo",
+  "CREATE_NEW_NENGAJO": "Create a new nengajo",
   "PICTURE": "Picture",
-  "BUTTON_REGISTER": "Register",
+  "BUTTON_CREATE": "Create",
   "BUTTON_APPROVE": "Approve",
   "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
 
