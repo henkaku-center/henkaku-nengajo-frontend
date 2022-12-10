@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import {
   Box,
@@ -23,7 +23,8 @@ const IPFS_API_ENDPOINT = process.env.NEXT_PUBLIC_IPFS_API_ENDPOINT
 const Home: NextPage = () => {
   const isMounted = useMounted()
   const { t } = useTranslation('common')
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
+  const [metadataName, setMetadataName] = useState('Test') // TODO: replace with form input
   const [fileImg, setFileImg] = useState<File | null>()
   const [isLoading, setIsLoading] = useState(false)
   const [imageUri, setImageUri] = useState('')
@@ -53,6 +54,53 @@ const Home: NextPage = () => {
       console.error(error)
     }
   }
+
+  interface NengajoTokenMetadata {
+    name: string
+    image: string
+    description?: string | null | undefined
+    animation_url?: string | null | undefined
+    external_url?: string | null | undefined
+    attributes: TokenAttribute[]
+  }
+  interface TokenAttribute {
+    trait_type: string
+    value: number | string
+    display_type?: string | null | undefined
+    max_value?: number | null | undefined
+    trait_count?: number | null | undefined
+    order?: number | null | undefined
+  }
+  const metadata_description = 'A Nengajo sent using HENKAKU Nengajo.'
+  const metadata_external_url = 'https://henkaku-nengajo.vercel.app'
+
+  useEffect(() => {
+    if (imageUri === '') return
+    if (address === undefined) return
+    if (metadataName === '') return
+
+    const putMetadataOnIPFS = async (metadata: NengajoTokenMetadata) => {
+      console.log('Putting metadata on IPFS', metadata)
+    }
+    const metadata: NengajoTokenMetadata = {
+      name: metadataName,
+      description: metadata_description,
+      image: imageUri,
+      external_url: metadata_external_url,
+      attributes: [
+        {
+          trait_type: 'Author',
+          value: address,
+          display_type: null,
+          max_value: null,
+          trait_count: 0,
+          order: null
+        }
+      ]
+    }
+
+    putMetadataOnIPFS(metadata)
+  }, [imageUri, address, metadataName])
 
   return (
     <Layout>
