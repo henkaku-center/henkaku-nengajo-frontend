@@ -67,7 +67,7 @@ const Home: NextPage = () => {
       {isMounted && isConnected && (
         <>
           <Heading as="h2" color="white.600">
-            {t('REGISTER_NEW_NENGAJO')}
+            {t('CREATE_NEW_NENGAJO')}
           </Heading>
           <FormControl color="white.700">
             <FormControl isRequired mt={5}>
@@ -98,7 +98,7 @@ const Home: NextPage = () => {
                     onClick={sendFileToIPFS}
                     isLoading={isLoading}
                   >
-                    {t('BUTTON_REGISTER')}
+                    {t('BUTTON_CREATE')}
                   </Button>
                 )}
               </form>
