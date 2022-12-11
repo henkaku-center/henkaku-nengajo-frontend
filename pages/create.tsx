@@ -143,44 +143,44 @@ const Home: NextPage = () => {
             {t('CREATE_NEW_NENGAJO')}
           </Heading>
           <FormControl color="white.700">
-            <FormControl isRequired mt={5}>
-              <form onSubmit={sendFileToIPFS}>
-                <FormLabel mt="1em" htmlFor="nengajoName">
-                  Nengajo title
-                </FormLabel>
-                <Input
-                  variant="outline"
-                  id="nengajoName"
-                  type="text"
-                  isRequired={true}
-                  placeholder="Nengajo name"
-                  name="nengajoName"
-                  onChange={handleNameChange}
-                />
-                <FormLabel mt="1em" htmlFor="imageFile">
-                  {t('PICTURE')}
-                </FormLabel>
-                <Input
-                  variant="outline"
-                  id="imageFile"
-                  type="file"
-                  accept={'image/*'}
-                  isRequired={true}
-                  placeholder="Your nengajo"
-                  name="profilePicture"
-                  onChange={handleImageChange}
-                />
-                {metadataUri !== '' ? (
-                  <Box mt="1em">
-                    {t('UPLOAD_SUCCESS')} (
-                    <Link href={metadataUri}>Metadata JSON</Link>)
-                    <Image
-                      mt="1em"
-                      src={imageUri ?? ''}
-                      alt={'Uploaded image: ' + imageUri}
-                    ></Image>
-                  </Box>
-                ) : (
+            {metadataUri !== '' ? (
+              <Box mt="1em">
+                {t('UPLOAD_SUCCESS')} (
+                <Link href={metadataUri}>Metadata JSON</Link>)
+                <Image
+                  mt="1em"
+                  src={imageUri ?? ''}
+                  alt={'Uploaded image: ' + imageUri}
+                ></Image>
+              </Box>
+            ) : (
+              <FormControl isRequired mt={5}>
+                <form onSubmit={sendFileToIPFS}>
+                  <FormLabel mt="1em" htmlFor="nengajoName">
+                    Nengajo title
+                  </FormLabel>
+                  <Input
+                    variant="outline"
+                    id="nengajoName"
+                    type="text"
+                    isRequired={true}
+                    placeholder="Nengajo name"
+                    name="nengajoName"
+                    onChange={handleNameChange}
+                  />
+                  <FormLabel mt="1em" htmlFor="imageFile">
+                    {t('PICTURE')}
+                  </FormLabel>
+                  <Input
+                    variant="outline"
+                    id="imageFile"
+                    type="file"
+                    accept={'image/*'}
+                    isRequired={true}
+                    placeholder="Your nengajo"
+                    name="profilePicture"
+                    onChange={handleImageChange}
+                  />
                   <Button
                     mt={10}
                     colorScheme="green"
@@ -189,9 +189,9 @@ const Home: NextPage = () => {
                   >
                     {t('BUTTON_CREATE')}
                   </Button>
-                )}
-              </form>
-            </FormControl>
+                </form>
+              </FormControl>
+            )}
           </FormControl>
         </Box>
       )}
