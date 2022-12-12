@@ -35,7 +35,6 @@ const Home: NextPage = () => {
     setFileImg(e?.target?.files[0])
   }
   const handleNameChange = async (e: any) => {
-    console.log(e.target.value)
     setMetadataName(e.target.value)
   }
   const sendFileToIPFS = async (e: any) => {
@@ -150,26 +149,26 @@ const Home: NextPage = () => {
                 <Image
                   mt="1em"
                   src={imageUri ?? ''}
-                  alt={'Uploaded image: ' + imageUri}
+                  alt={t('IMAGE_PREVIEW_ALT') + ': ' + imageUri}
                 ></Image>
               </Box>
             ) : (
               <FormControl isRequired mt={5}>
                 <form onSubmit={sendFileToIPFS}>
                   <FormLabel mt="1em" htmlFor="nengajoName">
-                    Nengajo title
+                    {t('NEW_NENGAJO_TITLE_LABEL')}
                   </FormLabel>
                   <Input
                     variant="outline"
                     id="nengajoName"
                     type="text"
                     isRequired={true}
-                    placeholder="Nengajo name"
+                    placeholder={t('NEW_NENGAJO_TITLE_LABEL')}
                     name="nengajoName"
                     onChange={handleNameChange}
                   />
                   <FormLabel mt="1em" htmlFor="imageFile">
-                    {t('PICTURE')}
+                    {t('NEW_NENGAJO_PICTURE_LABEL')}
                   </FormLabel>
                   <Input
                     variant="outline"
@@ -177,7 +176,6 @@ const Home: NextPage = () => {
                     type="file"
                     accept={'image/*'}
                     isRequired={true}
-                    placeholder="Your nengajo"
                     name="profilePicture"
                     onChange={handleImageChange}
                   />
