@@ -38,6 +38,7 @@ const Home: NextPage = () => {
     setMetadataName(e.target.value)
   }
   const sendFileToIPFS = async (e: any) => {
+    e.preventDefault()
     if (fileImg === undefined || fileImg === null) return
     if (metadataName === '') return
     setIsLoading(true)
