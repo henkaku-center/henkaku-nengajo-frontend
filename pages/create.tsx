@@ -91,21 +91,26 @@ const Home: NextPage = () => {
       console.log('Putting metadata on IPFS', metadata)
       const url = IPFS_API_ENDPOINT + '/pinning/pinJSONToIPFS'
 
-      const pinataRequest = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          pinata_api_key: `${IPFS_API_KEY}`,
-          pinata_secret_api_key: `${IPFS_API_SECRET}`
-        },
-        body: JSON.stringify(metadata)
-      })
-      var res = await pinataRequest.json()
-      setMetadataUri(`https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`)
-      console.log(
-        'Metadata IPFS URI:',
-        `https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`
-      )
+      try {
+        const pinataRequest = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            pinata_api_key: `${IPFS_API_KEY}`,
+            pinata_secret_api_key: `${IPFS_API_SECRET}`
+          },
+          body: JSON.stringify(metadata)
+        })
+        var res = await pinataRequest.json()
+        setMetadataUri(`https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`)
+        console.log(
+          'Metadata IPFS URI:',
+          `https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`
+        )
+      } catch (error) {
+        console.error('Error sending metadata to IPFS: ')
+        console.error(error)
+      }
     }
     const metadata: NengajoTokenMetadata = {
       name: metadataName,
