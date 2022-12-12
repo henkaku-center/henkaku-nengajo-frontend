@@ -137,60 +137,58 @@ const Home: NextPage = () => {
         </Box>
       )}
       {isMounted && isConnected && (
-        <Box mt="2em">
+        <Box mt="2em" color="white.700">
           <Heading as="h2" color="white.600">
             {t('CREATE_NEW_NENGAJO')}
           </Heading>
-          <FormControl color="white.700">
-            {metadataUri !== '' ? (
-              <Box mt="1em">
-                {t('UPLOAD_SUCCESS')} (
-                <Link href={metadataUri}>Metadata JSON</Link>)
-                <Image
-                  mt="1em"
-                  src={imageUri ?? ''}
-                  alt={t('IMAGE_PREVIEW_ALT') + ': ' + imageUri}
-                ></Image>
-              </Box>
-            ) : (
-              <FormControl isRequired mt={5}>
-                <form onSubmit={sendFileToIPFS}>
-                  <FormLabel mt="1em" htmlFor="nengajoName">
-                    {t('NEW_NENGAJO_TITLE_LABEL')}
-                  </FormLabel>
-                  <Input
-                    variant="outline"
-                    id="nengajoName"
-                    type="text"
-                    isRequired={true}
-                    placeholder={t('NEW_NENGAJO_TITLE_LABEL')}
-                    name="nengajoName"
-                    onChange={handleNameChange}
-                  />
-                  <FormLabel mt="1em" htmlFor="imageFile">
-                    {t('NEW_NENGAJO_PICTURE_LABEL')}
-                  </FormLabel>
-                  <Input
-                    variant="outline"
-                    id="imageFile"
-                    type="file"
-                    accept={'image/*'}
-                    isRequired={true}
-                    name="profilePicture"
-                    onChange={handleImageChange}
-                  />
-                  <Button
-                    mt={10}
-                    colorScheme="green"
-                    onClick={sendFileToIPFS}
-                    isLoading={isLoading}
-                  >
-                    {t('BUTTON_CREATE')}
-                  </Button>
-                </form>
-              </FormControl>
-            )}
-          </FormControl>
+          {metadataUri !== '' ? (
+            <Box mt="1em">
+              {t('UPLOAD_SUCCESS')} (
+              <Link href={metadataUri}>Metadata JSON</Link>)
+              <Image
+                mt="1em"
+                src={imageUri ?? ''}
+                alt={t('IMAGE_PREVIEW_ALT') + ': ' + imageUri}
+              ></Image>
+            </Box>
+          ) : (
+            <FormControl isRequired mt={5}>
+              <form onSubmit={sendFileToIPFS}>
+                <FormLabel mt="1em" htmlFor="nengajoName">
+                  {t('NEW_NENGAJO_TITLE_LABEL')}
+                </FormLabel>
+                <Input
+                  variant="outline"
+                  id="nengajoName"
+                  type="text"
+                  isRequired={true}
+                  placeholder={t('NEW_NENGAJO_TITLE_LABEL')}
+                  name="nengajoName"
+                  onChange={handleNameChange}
+                />
+                <FormLabel mt="1em" htmlFor="imageFile">
+                  {t('NEW_NENGAJO_PICTURE_LABEL')}
+                </FormLabel>
+                <Input
+                  variant="outline"
+                  id="imageFile"
+                  type="file"
+                  accept={'image/*'}
+                  isRequired={true}
+                  name="profilePicture"
+                  onChange={handleImageChange}
+                />
+                <Button
+                  mt={10}
+                  colorScheme="green"
+                  onClick={sendFileToIPFS}
+                  isLoading={isLoading}
+                >
+                  {t('BUTTON_CREATE')}
+                </Button>
+              </form>
+            </FormControl>
+          )}
         </Box>
       )}
     </Layout>
