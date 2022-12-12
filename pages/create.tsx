@@ -86,6 +86,7 @@ const Home: NextPage = () => {
       setImageUri(imageUriPath)
       return imageUriPath
     } catch (error) {
+      setIsLoading(false)
       console.error('Error sending File to IPFS: ')
       console.error(error)
     }
@@ -133,6 +134,7 @@ const Home: NextPage = () => {
         `https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`
       )
     } catch (error) {
+      setIsLoading(false)
       console.error('Error sending metadata to IPFS: ')
       console.error(error)
     }
