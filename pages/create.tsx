@@ -15,6 +15,7 @@ import Layout from '@/components/Layout'
 import { useAccount } from 'wagmi'
 import axios from 'axios'
 import useTranslation from 'next-translate/useTranslation'
+import { useRegisterNengajo } from '@/hooks/useNengajoContract'
 
 const IPFS_API_KEY = process.env.NEXT_PUBLIC_IPFS_API_KEY
 const IPFS_API_SECRET = process.env.NEXT_PUBLIC_IPFS_API_SECRET
@@ -27,6 +28,7 @@ const Home: NextPage = () => {
   const [fileImg, setFileImg] = useState<File | null>()
   const [isLoading, setIsLoading] = useState(false)
   const [imageUri, setImageUri] = useState('')
+  const { isLoading: txIsLoading, isSuccess, writeAsync } = useRegisterNengajo()
 
   const handleImageChange = async (e: any) => {
     setFileImg(e?.target?.files[0])
@@ -48,9 +50,25 @@ const Home: NextPage = () => {
         }
       })
       setImageUri(`https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`)
+      await txWithContract(
+        10,
+        `ipfs://${resFile.data.IpfsHash}/${fileImg.name}`
+      )
     } catch (error) {
       console.error('Error sending File to IPFS: ')
       console.error(error)
+    }
+  }
+
+  const txWithContract = async (maxSupply: number, metaDataURL: string) => {
+    try {
+      if (!writeAsync) return
+      await writeAsync({
+        recklesslySetUnpreparedArgs: [maxSupply, metaDataURL]
+      })
+      return
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -106,6 +124,8 @@ const Home: NextPage = () => {
           </FormControl>
         </>
       )}
+
+      {isSuccess ? 'Success' : 'Waiting'}
     </Layout>
   )
 }
