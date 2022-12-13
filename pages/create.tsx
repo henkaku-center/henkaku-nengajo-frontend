@@ -66,8 +66,8 @@ const Home: NextPage = () => {
     }
   }
   const sendFileToIPFS = async () => {
-    if (fileImg === undefined || fileImg === null) return
-    if (metadataName === '') return
+    if (fileImg === undefined || fileImg === null) return false
+    if (metadataName === '') return false
     setIsLoading(true)
     try {
       const formData = new FormData()
