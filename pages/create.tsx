@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import {
   Box,
@@ -28,7 +28,12 @@ const Home: NextPage = () => {
   const [fileImg, setFileImg] = useState<File | null>()
   const [isLoading, setIsLoading] = useState(false)
   const [imageUri, setImageUri] = useState('')
-  const { isLoading: txIsLoading, isSuccess, writeAsync } = useRegisterNengajo()
+  const {
+    isLoading: txIsLoading,
+    isSuccess,
+    writeAsync,
+    registeredTokenId
+  } = useRegisterNengajo()
 
   const handleImageChange = async (e: any) => {
     setFileImg(e?.target?.files[0])
@@ -71,6 +76,12 @@ const Home: NextPage = () => {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    if (isSuccess && registeredTokenId) {
+      alert(`your registered tokenId is ${registeredTokenId}`)
+    }
+  }, [registeredTokenId, isSuccess])
 
   return (
     <Layout>

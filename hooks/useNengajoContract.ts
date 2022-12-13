@@ -1,4 +1,5 @@
 import {
+  useContractEvent,
   useContractRead,
   useContractWrite,
   usePrepareContractWrite
@@ -6,6 +7,7 @@ import {
 import { getContractAddress } from '@/utils/contractAddresses'
 import NengajoABI from '@/abi/Nengajo.json'
 import { Nengajo } from '@/types'
+import { useState } from 'react'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
@@ -29,11 +31,29 @@ const useNengajoContractRead = (functionName: string, args: unknown[] = []) => {
   return result
 }
 
+const useNengajoContractEvent = (
+  eventName: string,
+  callback: (tokenId: number) => void
+) => {
+  useContractEvent({
+    address: getContractAddress({ name: 'nengajo', chainId }),
+    abi: NengajoABI.abi,
+    eventName,
+    listener(creator, _tokenId, metaDataURL, maxSupply) {
+      callback(_tokenId)
+    }
+  })
+}
+
 export const useRegisterNengajo = () => {
+  const [registeredTokenId, setRegisteredTokenId] = useState<number>()
   const config = usePrepareNengajoContractWrite('registerNengajo')
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
+  useNengajoContractEvent('RegisterNengajo', (tokenId: number) =>
+    setRegisteredTokenId(tokenId)
+  )
 
-  return { data, isLoading, isSuccess, writeAsync }
+  return { data, isLoading, isSuccess, writeAsync, registeredTokenId }
 }
 
 export const useRetrieveNengajo = (tokenId: number) => {
