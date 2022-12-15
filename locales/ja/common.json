@@ -13,7 +13,8 @@
   "LANG_SWITCHER": "English",
 
   "CREATE_NEW_NENGAJO": "新しい年賀状を作る",
-  "PICTURE": "画像",
+  "NEW_NENGAJO_TITLE_LABEL": "年賀状題名",
+  "NEW_NENGAJO_PICTURE_LABEL": "画像",
   "UPLOAD_SUCCESS": "アップロードが完了しました",
   "BUTTON_CREATE": "作る",
   "BUTTON_APPROVE": "承認",

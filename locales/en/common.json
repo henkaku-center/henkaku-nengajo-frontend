@@ -13,7 +13,9 @@
   "LANG_SWITCHER": "日本語",
 
   "CREATE_NEW_NENGAJO": "Create a new nengajo",
-  "PICTURE": "Picture",
+  "NEW_NENGAJO_TITLE_LABEL": "Nengajo title",
+  "NEW_NENGAJO_PICTURE_LABEL": "Picture",
+  "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",
   "BUTTON_APPROVE": "Approve",
   "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
