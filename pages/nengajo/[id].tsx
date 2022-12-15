@@ -19,9 +19,9 @@ const NengajoDetail: NextPage = () => {
   return (
     <Layout>
       <Box>
-        <Text>MetadataURI: {data.uri}</Text>
-        <Text>Creator Address: {data.creator}</Text>
-        <Text>MaxSupply: {data.maxSupply.toNumber()}</Text>
+        <Text>MetadataURI: {data?.uri}</Text>
+        <Text>Creator Address: {data?.creator}</Text>
+        <Text>MaxSupply: {data?.maxSupply.toNumber()}</Text>
       </Box>
 
       {isMounted && !isConnected && (
