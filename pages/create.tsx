@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { NextPage } from 'next'
 import {
   Box,
@@ -16,6 +16,7 @@ import Layout from '@/components/Layout'
 import { useAccount } from 'wagmi'
 import axios from 'axios'
 import useTranslation from 'next-translate/useTranslation'
+import { useRegisterNengajo } from '@/hooks/useNengajoContract'
 
 const IPFS_API_KEY = process.env.NEXT_PUBLIC_IPFS_API_KEY
 const IPFS_API_SECRET = process.env.NEXT_PUBLIC_IPFS_API_SECRET
@@ -46,10 +47,25 @@ const Home: NextPage = () => {
   const { t } = useTranslation('common')
   const { isConnected, address } = useAccount()
   const [metadataName, setMetadataName] = useState('')
+  const [isUploadingIPFS, setIsUploadingIPFS] = useState(false)
   const [fileImg, setFileImg] = useState<File | null>()
-  const [isLoading, setIsLoading] = useState(false)
   const [imageUri, setImageUri] = useState('')
+  const {
+    isLoading: txIsLoading,
+    isSuccess,
+    writeAsync,
+    registeredTokenId
+  } = useRegisterNengajo()
   const [metadataUri, setMetadataUri] = useState('')
+  useEffect(() => {
+    if (isSuccess && registeredTokenId) {
+      alert(`your registered tokenId is ${registeredTokenId}`)
+    }
+  }, [registeredTokenId, isSuccess])
+
+  const isLoading = useMemo(() => {
+    return txIsLoading || isUploadingIPFS ? true : false
+  }, [txIsLoading, isUploadingIPFS])
 
   const handleImageChange = async (e: any) => {
     setFileImg(e?.target?.files[0])
@@ -60,15 +76,15 @@ const Home: NextPage = () => {
   const handleSubmit = async (e: any) => {
     if (e.preventDefault) e.preventDefault()
     const imageUriPath = await sendFileToIPFS()
-    if (imageUriPath) {
-      setImageUri(imageUriPath)
-      putMetadataOnIPFS(imageUriPath)
-    }
+    if (!imageUriPath) return
+    const metadataUriPath = await putMetadataOnIPFS(imageUriPath)
+    if (!metadataUriPath) return
+    await txWithContract(3, metadataUriPath)
   }
   const sendFileToIPFS = async () => {
     if (fileImg === undefined || fileImg === null) return false
     if (metadataName === '') return false
-    setIsLoading(true)
+    setIsUploadingIPFS(true)
     try {
       const formData = new FormData()
       formData.append('file', fileImg)
@@ -82,11 +98,12 @@ const Home: NextPage = () => {
           'Content-Type': 'multipart/form-data'
         }
       })
+      setImageUri(`https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`)
       const imageUriPath = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`
       setImageUri(imageUriPath)
       return imageUriPath
     } catch (error) {
-      setIsLoading(false)
+      setIsUploadingIPFS(false)
       console.error('Error sending File to IPFS: ')
       console.error(error)
     }
@@ -96,6 +113,7 @@ const Home: NextPage = () => {
     if (metadataUri !== '') return
     if (address === undefined) return
     if (metadataName === '') return
+    setIsUploadingIPFS(true)
 
     const metadata: NengajoTokenMetadata = {
       name: metadataName,
@@ -133,10 +151,23 @@ const Home: NextPage = () => {
         'Metadata IPFS URI:',
         `https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`
       )
+      return `https://gateway.pinata.cloud/ipfs/${res.IpfsHash}`
     } catch (error) {
-      setIsLoading(false)
+      setIsUploadingIPFS(false)
       console.error('Error sending metadata to IPFS: ')
       console.error(error)
+    }
+  }
+
+  const txWithContract = async (maxSupply: number, metaDataURL: string) => {
+    try {
+      if (!writeAsync) return
+      await writeAsync({
+        recklesslySetUnpreparedArgs: [maxSupply, metaDataURL]
+      })
+      return
+    } catch (error) {
+      console.log(error)
     }
   }
 

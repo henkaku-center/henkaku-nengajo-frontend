@@ -13,14 +13,14 @@ interface getContractAddressArg {
 
 const contractAddresses: ContractAddresses = {
   henkakuErc20: {
-    [chainId.localhost]:
+    [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`) ??
       '',
     [chainId.goerli]: '0x02Dd992774aBCacAD7D46155Da2301854903118D',
     [chainId.polygon]: '0x0cc91a5FFC2E9370eC565Ab42ECE33bbC08C11a2'
   },
   nengajo: {
-    [chainId.localhost]:
+    [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS as `0x${string}`) ?? '',
     // added Badge contract just to test approval
     [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
