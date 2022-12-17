@@ -30,11 +30,8 @@ const Lists: NextPage = () => {
                   <Image src="https://via.placeholder.com/500" alt="" />
                 </Box>
               </AspectRatio>
-              <Box pt={2} pb={2}>
-                <Text>{nengajoList.name}</Text>
-              </Box>
               <Box bg="" w="100%" p={1.5} color="white"></Box>
-              <Button width="100%">Mint Nengajo</Button>
+              <Button width="100%">Get Nengajo</Button>
             </div>
           ))}
       </SimpleGrid>
