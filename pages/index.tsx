@@ -28,7 +28,7 @@ const Home: NextPage = () => {
   const { data, isError } = useRetrieveAllNengajo()
 
   const toast = useToast()
-  if (isError && !toast.isActive('RETRIEVE_NENGAJOES_FAILED'))
+  if (isError && isConnected && !toast.isActive('RETRIEVE_NENGAJOES_FAILED'))
     toast({
       id: 'RETRIEVE_NENGAJOES_FAILED',
       title: t('CLAIM.TOAST.RETRIEVE_NENGAJOES_FAILED'),
