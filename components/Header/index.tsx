@@ -43,6 +43,11 @@ const Header: React.FC = () => {
               {t('CREATE_LINK')}
             </Link>
           </NextLink>
+          <NextLink passHref href="/mypage" locale={router.locale}>
+            <Link _focus={{ boxShadow: 'none' }} p={4}>
+              {t('MYPAGE')}
+            </Link>
+          </NextLink>
           {/* <NextLink passHref href="/nengajo" locale={router.locale}>
             <Link _focus={{ boxShadow: 'none' }} p={4}>
               {t('NENGAJO_LINK')}

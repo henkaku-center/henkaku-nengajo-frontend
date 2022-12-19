@@ -16,6 +16,7 @@ import { useState, ReactElement } from 'react'
 import { NFTImage } from '@/components/NFTImage'
 import { useAccount } from 'wagmi'
 import useTranslation from 'next-translate/useTranslation'
+import { useMintNengajo } from '@/hooks/useNengajoContract'
 
 interface Props {
   id: string | string[]
@@ -28,6 +29,12 @@ interface mintStateProps {
 const MintNengajo: React.FC<Props> = ({ id, imageOnly, ...props }) => {
   const { t } = useTranslation('nengajo')
   const { isConnected } = useAccount()
+  const {
+    writeAsync,
+    isLoading: isMinting,
+    isSuccess,
+    minted
+  } = useMintNengajo(Number(id))
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable',
@@ -37,15 +44,22 @@ const MintNengajo: React.FC<Props> = ({ id, imageOnly, ...props }) => {
   // TODO: useApproval から取得
   const approved = true
 
-  // TODO: Mint中ローディング状態にさせるためのフラグ
-  const isMinting = false
-
   // TODO: dummy data
   const tokenURIJSON = {
     name: 'Nengajo Name ID:' + id,
     image: 'https://via.placeholder.com/500',
     description:
       'Nengajo description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  }
+
+  const mint = async () => {
+    if (!writeAsync) return
+    try {
+      await writeAsync({ recklesslySetUnpreparedArgs: [Number(id)] })
+    } catch (error) {
+      // TODO: errorメッセージをToastに入れる
+      console.log(error)
+    }
   }
 
   if (!isConnected) return <></>
@@ -85,6 +99,7 @@ const MintNengajo: React.FC<Props> = ({ id, imageOnly, ...props }) => {
                           mt={5}
                           loadingText="minting..."
                           isLoading={isMinting}
+                          onClick={mint}
                         >
                           {t('MINT')}
                         </Button>
