@@ -8,6 +8,7 @@ import Layout from '@/components/Layout'
 import { Connect } from '@/components/Connect'
 import { Approve } from '@/components/Approve'
 import NengajoesList from '@/components/NengajoesList'
+import StatusMenu from '@/components/StatusMenu'
 import useTranslation from 'next-translate/useTranslation'
 
 const Home: NextPage = () => {
@@ -45,6 +46,7 @@ const Home: NextPage = () => {
         <Box mt="2em">
           <Flex gap={6}>
             <Connect />
+            <StatusMenu />
           </Flex>
         </Box>
       )}
