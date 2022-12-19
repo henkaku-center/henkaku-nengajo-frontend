@@ -82,7 +82,7 @@ const MintNengajo: React.FC<Props> = ({ item, imageOnly, ...props }) => {
                         {t('MINT')}
                       </Button>
                       <Text mt={3}>
-                        {t('TITLE.MAX_SUPPLY')}: {item?.maxSupply.toNumber()}
+                        {t('TITLE.MAX_SUPPLY')}: {Number(item?.maxSupply)}
                       </Text>
                     </Box>
                   ) : (
