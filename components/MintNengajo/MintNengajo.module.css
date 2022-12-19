@@ -1,0 +1,7 @@
+.children {
+  cursor: pointer;
+  transition: 0.2s opacity;
+}
+.children:hover {
+  opacity: 0.7;
+}

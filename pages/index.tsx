@@ -1,14 +1,13 @@
 import type { NextPage } from 'next'
-import { Box, Heading } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, useToast } from '@chakra-ui/react'
 import { useAccount } from 'wagmi'
-import { useMounted, useApproval } from '@/hooks'
+import { useMounted, useApproval, useChainId } from '@/hooks'
+import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
+import { getContractAddress } from '@/utils/contractAddresses'
 import Layout from '@/components/Layout'
 import { Connect } from '@/components/Connect'
-import { Profile } from '@/components/Profile'
-import { Balance } from '@/components/Balance'
 import { Approve } from '@/components/Approve'
-import { getContractAddress } from '@/utils/contractAddresses'
-import { useChainId } from '@/hooks'
+import NengajoesList from '@/components/NengajoesList'
 import useTranslation from 'next-translate/useTranslation'
 
 const Home: NextPage = () => {
@@ -25,6 +24,17 @@ const Home: NextPage = () => {
   const { t } = useTranslation('common')
   const { address, isConnected } = useAccount()
   const { approved } = useApproval(henkakuV2, nengajo, address)
+  const { data, isError } = useRetrieveAllNengajo()
+
+  const toast = useToast()
+  if (isError && !toast.isActive('RETRIEVE_NENGAJOES_FAILED'))
+    toast({
+      id: 'RETRIEVE_NENGAJOES_FAILED',
+      title: t('CLAIM.TOAST.RETRIEVE_NENGAJOES_FAILED'),
+      status: 'error',
+      duration: 5000,
+      position: 'top'
+    })
 
   return (
     <Layout>
@@ -33,25 +43,14 @@ const Home: NextPage = () => {
       </Heading>
       {isMounted && (
         <Box mt="2em">
-          <Connect />
+          <Flex gap={6}>
+            <Connect />
+          </Flex>
         </Box>
       )}
       {isMounted && isConnected && (
         <>
-          <Box mt="2em">
-            <Profile />
-          </Box>
-          <Box mt="2em">
-            <Balance />
-          </Box>
-          {approved ? (
-            <Box mt="2em">
-              <p>
-                あなたは、次のアドレスのコントラクトにHENKAKU支払いの許可を与えました（文面要検討）。{' '}
-                {nengajo.toString()}
-              </p>
-            </Box>
-          ) : (
+          {!approved && (
             <Box mt="2em">
               <Approve
                 erc20={henkakuV2}
@@ -63,6 +62,14 @@ const Home: NextPage = () => {
             </Box>
           )}
         </>
+      )}
+      {isMounted && isConnected && data && (
+        <Box mt={10}>
+          <Text fontSize="3xl" fontWeight="bold" mb={5}>
+            {t('REGISTERD_NENGAJO_LIST')}
+          </Text>
+          {<NengajoesList items={data} />}
+        </Box>
       )}
     </Layout>
   )

@@ -1,6 +1,7 @@
 {
   "TITLE": {
     "CONNECT_WALLET": "まずメタマスクのウォレットを接続してください",
+    "MAX_SUPPLY": "最大発行数",
     "MINTABLE": "この年賀状は次の$henkakuでMintできます",
     "NOT_MINTABLE": "この年賀状はMintして手に入れることができません。手に入れるためには、条件を満たす必要があります",
     "FREE_MINTABLE": "この年賀状は無料でMintできます",

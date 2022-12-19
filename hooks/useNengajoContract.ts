@@ -68,3 +68,15 @@ export const useRetrieveNengajo = (tokenId: number) => {
 
   return { data, isLoading, isError }
 }
+
+export const useRetrieveAllNengajo = () => {
+  const { data, isError, isLoading } = useNengajoContractRead(
+    'retrieveAllNengajoes'
+  ) as {
+    data: Nengajo.NengajoInfoStructOutput[]
+    isLoading: boolean
+    isError: boolean
+  }
+
+  return { data, isError, isLoading }
+}
