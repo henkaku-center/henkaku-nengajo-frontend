@@ -90,7 +90,7 @@ const Home: NextPage = () => {
       formData.append('file', fileImg)
       const resFile = await axios({
         method: 'post',
-        url: IPFS_API_ENDPOINT + '/pinning/pinFileToIPFS',
+        url: '/pin/pinFileToIPFS',
         data: formData,
         headers: {
           pinata_api_key: `${IPFS_API_KEY}`,
@@ -133,7 +133,7 @@ const Home: NextPage = () => {
     }
 
     console.log('Putting metadata on IPFS', metadata)
-    const url = IPFS_API_ENDPOINT + '/pinning/pinJSONToIPFS'
+    const url = '/pin/pinJSONToIPFS'
 
     try {
       const pinataRequest = await fetch(url, {
