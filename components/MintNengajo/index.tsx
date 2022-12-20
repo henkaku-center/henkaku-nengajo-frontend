@@ -10,13 +10,17 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalBody,
-  useDisclosure
+  useDisclosure,
+  Flex
 } from '@chakra-ui/react'
-import { useState, ReactElement } from 'react'
+import { useState, ReactElement, useEffect } from 'react'
 import { NFTImage } from '@/components/NFTImage'
 import { useAccount } from 'wagmi'
 import useTranslation from 'next-translate/useTranslation'
 import { useMintNengajo } from '@/hooks/useNengajoContract'
+import { LinkIcon } from '@chakra-ui/icons'
+import TwitterIcon from '../Icon/Twitter'
+import OpenseaIcon from '../Icon/Opensea'
 
 interface Props {
   id: string | string[]
@@ -62,6 +66,12 @@ const MintNengajo: React.FC<Props> = ({ id, imageOnly, ...props }) => {
     }
   }
 
+  useEffect(() => {
+    if (minted) {
+      setMintState({ status: 'minted', freeMintable: false })
+    }
+  }, [minted])
+
   if (!isConnected) return <></>
   return (
     <>
@@ -85,7 +95,17 @@ const MintNengajo: React.FC<Props> = ({ id, imageOnly, ...props }) => {
           <GridItem>
             <Box mb={{ lg: 10 }}>
               <Text>
-                {mintState.status === 'minted' && t('TITLE.MINTED')}
+                {mintState.status === 'minted' && (
+                  <Box>
+                    <Text>{t('TITLE.MINTED')}</Text>
+                    <Flex>
+                      {/* リンクをつける */}
+                      <LinkIcon fontSize="25px" />
+                      <TwitterIcon fontSize="30px" />
+                      <OpenseaIcon fontSize="30px" />
+                    </Flex>
+                  </Box>
+                )}
                 {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
                 {mintState.status === 'mintable' && (
                   <>
@@ -98,7 +118,7 @@ const MintNengajo: React.FC<Props> = ({ id, imageOnly, ...props }) => {
                           colorScheme="teal"
                           mt={5}
                           loadingText="minting..."
-                          isLoading={isMinting}
+                          isLoading={isMinting || (isSuccess && !minted)}
                           onClick={mint}
                         >
                           {t('MINT')}

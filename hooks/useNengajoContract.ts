@@ -1,4 +1,5 @@
 import {
+  useAccount,
   useContractEvent,
   useContractRead,
   useContractWrite,
@@ -8,6 +9,7 @@ import { getContractAddress } from '@/utils/contractAddresses'
 import NengajoABI from '@/abi/Nengajo.json'
 import { Nengajo } from '@/types'
 import { useState } from 'react'
+import { BigNumber } from 'ethers'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
@@ -33,15 +35,13 @@ const useNengajoContractRead = (functionName: string, args: unknown[] = []) => {
 
 const useNengajoContractEvent = (
   eventName: string,
-  callback: (tokenId: number) => void
+  listener: (...args: any) => void
 ) => {
   useContractEvent({
     address: getContractAddress({ name: 'nengajo', chainId }),
     abi: NengajoABI.abi,
     eventName,
-    listener(creator, _tokenId, metaDataURL, maxSupply) {
-      callback(_tokenId)
-    }
+    listener
   })
 }
 
@@ -49,8 +49,11 @@ export const useRegisterNengajo = () => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
   const config = usePrepareNengajoContractWrite('registerNengajo', [10, ''])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useNengajoContractEvent('RegisterNengajo', (tokenId: number) =>
-    setRegisteredTokenId(tokenId)
+  useNengajoContractEvent(
+    'RegisterNengajo',
+    (creator, _tokenId, metaDataURL, maxSupply) => {
+      setRegisteredTokenId(_tokenId)
+    }
   )
 
   return { data, isLoading, isSuccess, writeAsync, registeredTokenId }
@@ -58,10 +61,13 @@ export const useRegisterNengajo = () => {
 
 export const useMintNengajo = (id: number) => {
   const [minted, setMinted] = useState(false)
+  const { address } = useAccount()
   const config = usePrepareNengajoContractWrite('mint', [id])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useNengajoContractEvent('Mint', () => {
-    setMinted(true)
+  useNengajoContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
+    if (tokenId.toNumber() === id && minter === address) {
+      setMinted(true)
+    }
   })
   return { data, isLoading, isSuccess, writeAsync, minted }
 }
