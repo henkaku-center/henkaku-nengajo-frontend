@@ -16,15 +16,15 @@ const contractAddresses: ContractAddresses = {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`) ??
       '',
+    [chainId.polygonMumbai]: '0x0a2012CaaE8ce239502873779CA862dE93128D9b',
     [chainId.goerli]: '0x02Dd992774aBCacAD7D46155Da2301854903118D',
     [chainId.polygon]: '0x0cc91a5FFC2E9370eC565Ab42ECE33bbC08C11a2'
   },
   nengajo: {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS as `0x${string}`) ?? '',
-    // added Badge contract just to test approval
+    [chainId.polygonMumbai]: '0x591C8E7393Fd961d8f367c435223E9da1220E32d',
     [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
-    // added Badge contract just to test approval
     [chainId.polygon]: '0x2C3530B4642ff8fCEb6ab5Fc740381a358968aF1'
   }
 }
