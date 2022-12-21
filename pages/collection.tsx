@@ -17,16 +17,16 @@ const Entity: FC = () => {
       ) : isError ? (
         <Box>Error</Box>
       ) : (
-        <Box>{data.map((nengajo) => JSON.stringify(nengajo))}</Box>
+        <Box>{data?.map((nengajo) => JSON.stringify(nengajo))}</Box>
       )}
     </Container>
   )
 }
 
-const MyPage: NextPage = () => {
+const CollectionPage: NextPage = () => {
   const isMounted = useMounted()
 
   return isMounted ? <Entity /> : <></>
 }
 
-export default MyPage
+export default CollectionPage

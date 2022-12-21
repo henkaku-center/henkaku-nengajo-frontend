@@ -43,21 +43,16 @@ const Header: React.FC = () => {
               {t('CREATE_LINK')}
             </Link>
           </NextLink>
-          <NextLink passHref href="/mypage" locale={router.locale}>
-            <Link _focus={{ boxShadow: 'none' }} p={4}>
-              {t('MYPAGE')}
-            </Link>
-          </NextLink>
           {/* <NextLink passHref href="/nengajo" locale={router.locale}>
             <Link _focus={{ boxShadow: 'none' }} p={4}>
               {t('NENGAJO_LINK')}
             </Link>
-          </NextLink>
+          </NextLink> */}
           <NextLink passHref href="/collection" locale={router.locale}>
             <Link _focus={{ boxShadow: 'none' }} p={4}>
               {t('COLLECTION_LINK')}
             </Link>
-          </NextLink> */}
+          </NextLink>
           <Button size="md" onClick={toggleColorMode} p={4}>
             {colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
           </Button>
