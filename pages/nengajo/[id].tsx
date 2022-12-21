@@ -6,7 +6,7 @@ import { useMounted } from '@/hooks'
 import { Connect } from '@/components/Connect'
 import Layout from '@/components/Layout'
 import MintNengajo, { PreviewNengajo } from '@/components/MintNengajo'
-import { useRetrieveNengajo } from '@/hooks/useNengajoContract'
+import { useRetrieveNengajoByTokenId } from '@/hooks/useNengajoContract'
 
 const NengajoDetail: NextPage = () => {
   const isMounted = useMounted()
@@ -14,7 +14,7 @@ const NengajoDetail: NextPage = () => {
   const router = useRouter()
   const { id } = router.query
 
-  const { data } = useRetrieveNengajo(Number(id))
+  const { data } = useRetrieveNengajoByTokenId(Number(id))
 
   return (
     <Layout>

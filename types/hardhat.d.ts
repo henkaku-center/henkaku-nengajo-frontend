@@ -13,6 +13,38 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "BasePaymaster",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BasePaymaster__factory>;
+    getContractFactory(
+      name: "BaseRelayRecipient",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BaseRelayRecipient__factory>;
+    getContractFactory(
+      name: "IForwarder",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IForwarder__factory>;
+    getContractFactory(
+      name: "IPaymaster",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IPaymaster__factory>;
+    getContractFactory(
+      name: "IRelayHub",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IRelayHub__factory>;
+    getContractFactory(
+      name: "IRelayRecipient",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IRelayRecipient__factory>;
+    getContractFactory(
+      name: "IStakeManager",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IStakeManager__factory>;
+    getContractFactory(
+      name: "GsnEip712Library",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GsnEip712Library__factory>;
+    getContractFactory(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
@@ -73,6 +105,46 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Nengajo__factory>;
 
+    getContractAt(
+      name: "BasePaymaster",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BasePaymaster>;
+    getContractAt(
+      name: "BaseRelayRecipient",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BaseRelayRecipient>;
+    getContractAt(
+      name: "IForwarder",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IForwarder>;
+    getContractAt(
+      name: "IPaymaster",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IPaymaster>;
+    getContractAt(
+      name: "IRelayHub",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IRelayHub>;
+    getContractAt(
+      name: "IRelayRecipient",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IRelayRecipient>;
+    getContractAt(
+      name: "IStakeManager",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IStakeManager>;
+    getContractAt(
+      name: "GsnEip712Library",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.GsnEip712Library>;
     getContractAt(
       name: "Ownable",
       address: string,
