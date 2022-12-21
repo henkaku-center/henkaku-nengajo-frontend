@@ -1,3 +1,4 @@
+import Layout from '@/components/Layout'
 import { useMounted } from '@/hooks'
 import { useRetrieveHoldingNengajoesByAddress } from '@/hooks/useNengajoContract'
 import { Box, Container, Spinner } from '@chakra-ui/react'
@@ -11,15 +12,17 @@ const Entity: FC = () => {
     address!
   )
   return (
-    <Container>
-      {isLoading ? (
-        <Spinner />
-      ) : isError ? (
-        <Box>Error</Box>
-      ) : (
-        <Box>{data?.map((nengajo) => JSON.stringify(nengajo))}</Box>
-      )}
-    </Container>
+    <Layout>
+      <Container>
+        {isLoading ? (
+          <Spinner />
+        ) : isError ? (
+          <Box>Error</Box>
+        ) : (
+          <Box>{data?.map((nengajo) => JSON.stringify(nengajo))}</Box>
+        )}
+      </Container>
+    </Layout>
   )
 }
 
