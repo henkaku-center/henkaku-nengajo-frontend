@@ -16,6 +16,7 @@ import { useAllNengajoesInfo } from '@/hooks/useNengajoInfo'
 // import { Search2Icon } from '@chakra-ui/icons'
 import styles from './NengajoesList.module.css'
 import useTranslation from 'next-translate/useTranslation'
+import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 
 interface NengajoesListProps {
   items: Nengajo.NengajoInfoStructOutput[]
@@ -47,7 +48,10 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
                 <Link href={`/nengajo/${nengajoInfo.id}`}>
                   <AspectRatio ratio={1}>
                     <Box>
-                      <Image src={nengajoInfo.tokenURIJSON.image} alt="" />
+                      <Image
+                        src={parseIpfs2Pinata(nengajoInfo.tokenURIJSON.image)}
+                        alt=""
+                      />
                     </Box>
                   </AspectRatio>
                 </Link>
