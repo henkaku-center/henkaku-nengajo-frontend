@@ -31,12 +31,16 @@ export const Balance = () => {
   })
 
   if (!isConnected) return <></>
-  if (wrongNetwork) return <Box>{t('NOT_EXPECTED_CHAIN')}</Box>
-  if (!isSuccess) return <Box>{t('BALANCE_CHECK_FAILED')}</Box>
   return (
     <>
       <Box mt={3} mb={3}>
-        {t('BALANCE', { balance: data?.formatted, symbol: data?.symbol })}
+        {wrongNetwork ? (
+          <Box>{t('NOT_EXPECTED_CHAIN')}</Box>
+        ) : !isSuccess ? (
+          <Box>{t('BALANCE_CHECK_FAILED')}</Box>
+        ) : (
+          t('BALANCE', { balance: data?.formatted, symbol: data?.symbol })
+        )}
       </Box>
       <Divider />
     </>

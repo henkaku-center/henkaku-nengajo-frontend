@@ -30,7 +30,7 @@ const NengajoDetail: NextPage = () => {
       {isMounted && isConnected && (
         <>
           {router.query?.id && nengajoInfo && (
-            <MintNengajo item={nengajoInfo} />
+            <MintNengajo id={Number(id)} item={nengajoInfo} />
           )}
         </>
       )}

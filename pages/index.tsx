@@ -67,9 +67,9 @@ const Home: NextPage = () => {
       )}
       {isMounted && isConnected && data && (
         <Box mt={10}>
-          <Text fontSize="3xl" fontWeight="bold" mb={5}>
+          <Heading size="xl" mb={5}>
             {t('REGISTERD_NENGAJO_LIST')}
-          </Text>
+          </Heading>
           {<NengajoesList items={data} />}
         </Box>
       )}
