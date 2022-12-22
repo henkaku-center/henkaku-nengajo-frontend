@@ -52,6 +52,7 @@ export interface NengajoInterface extends utils.Interface {
     "checkRemainingCloseTime()": FunctionFragment;
     "checkRemainingOpenTime()": FunctionFragment;
     "close_blockTimestamp()": FunctionFragment;
+    "deleteAdmin(address)": FunctionFragment;
     "exists(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "mint(uint256)": FunctionFragment;
@@ -61,7 +62,7 @@ export interface NengajoInterface extends utils.Interface {
     "open_blockTimestamp()": FunctionFragment;
     "registerNengajo(uint256,string)": FunctionFragment;
     "retrieveAllNengajoes()": FunctionFragment;
-    "retrieveMintedNengajoes()": FunctionFragment;
+    "retrieveMintedNengajoes(address)": FunctionFragment;
     "retrieveRegisteredNengajo(uint256)": FunctionFragment;
     "retrieveRegisteredNengajoes(address)": FunctionFragment;
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
@@ -83,6 +84,7 @@ export interface NengajoInterface extends utils.Interface {
       | "checkRemainingCloseTime"
       | "checkRemainingOpenTime"
       | "close_blockTimestamp"
+      | "deleteAdmin"
       | "exists"
       | "isApprovedForAll"
       | "mint"
@@ -134,6 +136,10 @@ export interface NengajoInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "deleteAdmin",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "exists",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -165,7 +171,7 @@ export interface NengajoInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "retrieveMintedNengajoes",
-    values?: undefined
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "retrieveRegisteredNengajo",
@@ -234,6 +240,10 @@ export interface NengajoInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "close_blockTimestamp",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "deleteAdmin",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "exists", data: BytesLike): Result;
@@ -450,6 +460,11 @@ export interface Nengajo extends BaseContract {
 
     close_blockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    deleteAdmin(
+      _deleteAdmin: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     exists(
       id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -488,6 +503,7 @@ export interface Nengajo extends BaseContract {
     ): Promise<[Nengajo.NengajoInfoStructOutput[]]>;
 
     retrieveMintedNengajoes(
+      _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[Nengajo.NengajoInfoStructOutput[]]>;
 
@@ -575,6 +591,11 @@ export interface Nengajo extends BaseContract {
 
   close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
+  deleteAdmin(
+    _deleteAdmin: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   exists(
     id: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -613,6 +634,7 @@ export interface Nengajo extends BaseContract {
   ): Promise<Nengajo.NengajoInfoStructOutput[]>;
 
   retrieveMintedNengajoes(
+    _address: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<Nengajo.NengajoInfoStructOutput[]>;
 
@@ -700,6 +722,11 @@ export interface Nengajo extends BaseContract {
 
     close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
+    deleteAdmin(
+      _deleteAdmin: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     exists(
       id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -738,6 +765,7 @@ export interface Nengajo extends BaseContract {
     ): Promise<Nengajo.NengajoInfoStructOutput[]>;
 
     retrieveMintedNengajoes(
+      _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<Nengajo.NengajoInfoStructOutput[]>;
 
@@ -904,6 +932,11 @@ export interface Nengajo extends BaseContract {
 
     close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
+    deleteAdmin(
+      _deleteAdmin: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     exists(
       id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -939,7 +972,10 @@ export interface Nengajo extends BaseContract {
 
     retrieveAllNengajoes(overrides?: CallOverrides): Promise<BigNumber>;
 
-    retrieveMintedNengajoes(overrides?: CallOverrides): Promise<BigNumber>;
+    retrieveMintedNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     retrieveRegisteredNengajo(
       _tokenId: PromiseOrValue<BigNumberish>,
@@ -1032,6 +1068,11 @@ export interface Nengajo extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    deleteAdmin(
+      _deleteAdmin: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     exists(
       id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1072,6 +1113,7 @@ export interface Nengajo extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     retrieveMintedNengajoes(
+      _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

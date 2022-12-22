@@ -15,10 +15,32 @@
   "CREATE_NEW_NENGAJO": "Create a new nengajo",
   "NEW_NENGAJO_TITLE_LABEL": "Nengajo title",
   "NEW_NENGAJO_PICTURE_LABEL": "Picture",
+  "NEW_NENGAJO_CREATOR_NAME": "Creator Name",
+  "NEW_NENGAJO_DESCRIPTION": "Description of NFT",
+  "NEW_NENGAJO_MAX_SUPPLY": "Max supply",
+  "REQUIRED_INPUT": "Required",
   "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",
   "BUTTON_APPROVE": "Approve",
   "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
+
+  "STATUS_BUTTON": "Status Check",
+  "STATUS_TITLE": "Status",
+
+  "REGISTERD_NENGAJO_LIST": "Registerd Nengajo List",
+
+  "CLAIM": {
+    "TOAST": {
+      "SUBMITTED": "Submitted",
+      "ERROR": "Error",
+      "SUCCESS": "You got Nengajo.",
+      "RETRIEVE_NENGAJOES_FAILED": "Retrieve Nengajo list failed.",
+      "TX_FAILED": "Transaction failed.",
+      "DEFAULT_ERROR": "Unknown Server Error"
+    }
+  },
+
+  "GET_NENGAJO": "Get Nengajo",
 
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved."
 }

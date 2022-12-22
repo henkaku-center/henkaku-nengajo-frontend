@@ -1,0 +1,18 @@
+.image {
+  cursor: pointer;
+  transition: 0.2s opacity;
+}
+.image:hover {
+  opacity: 0.7;
+}
+.list {
+  position: relative;
+}
+.preview {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.001);
+}

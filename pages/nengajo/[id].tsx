@@ -1,45 +1,38 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useAccount } from 'wagmi'
-import { Box, Button, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useMounted } from '@/hooks'
 import { Connect } from '@/components/Connect'
 import Layout from '@/components/Layout'
-import MintNengajo, { PreviewNengajo } from '@/components/MintNengajo'
-import { useRetrieveNengajo } from '@/hooks/useNengajoContract'
+import ErrorComponent from 'next/error'
+import MintNengajo from '@/components/MintNengajo'
+import { useRetrieveNengajoByTokenId } from '@/hooks/useNengajoContract'
+import { useNengajoInfo } from '@/hooks/useNengajoInfo'
 
 const NengajoDetail: NextPage = () => {
   const isMounted = useMounted()
   const { isConnected } = useAccount()
   const router = useRouter()
   const { id } = router.query
+  const { data, isError } = useRetrieveNengajoByTokenId(Number(id))
+  const { nengajoInfo } = useNengajoInfo(data)
 
-  const { data } = useRetrieveNengajo(Number(id))
+  if (isError) return <ErrorComponent statusCode={404} />
 
   return (
     <Layout>
-      <Box>
-        <Text>MetadataURI: {data?.uri}</Text>
-        <Text>Creator Address: {data?.creator}</Text>
-        <Text>MaxSupply: {data?.maxSupply.toNumber()}</Text>
-      </Box>
-
       {isMounted && !isConnected && (
         <Box>
           <Connect />
         </Box>
       )}
       {isMounted && isConnected && (
-        <>{router.query?.id && <MintNengajo id={String(id)} />}</>
-      )}
-
-      {/* プレビュー機能のテスト（削除予定） */}
-      {isMounted && isConnected && (
-        <Box mt={5}>
-          <PreviewNengajo id={String(id)}>
-            <Button>Modal Test</Button>
-          </PreviewNengajo>
-        </Box>
+        <>
+          {router.query?.id && nengajoInfo && (
+            <MintNengajo id={Number(id)} item={nengajoInfo} />
+          )}
+        </>
       )}
     </Layout>
   )

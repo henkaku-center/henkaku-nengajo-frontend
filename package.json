@@ -15,11 +15,13 @@
     "@emotion/styled": "^11",
     "@lit-protocol/sdk-browser": "^1.1.241",
     "ethers": "^5.7.2",
+    "form-data": "^4.0.0",
     "framer-motion": "^6",
     "next": "12.3.1",
     "next-translate": "^1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.41.0",
     "react-icons": "^4.6.0",
     "wagmi": "^0.8.4"
   },
