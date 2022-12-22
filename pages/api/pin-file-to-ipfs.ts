@@ -1,45 +1,49 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
+import { Readable } from 'stream'
+import FormData from 'form-data'
 
 type PinResponseData = {
   status: string
-  data?: {
-    IpfsHash?: string
-  }
+  IpfsHash?: string
   error?: string
 }
-const IPFS_API_KEY = process.env.NEXT_PUBLIC_IPFS_API_KEY
-const IPFS_API_SECRET = process.env.NEXT_PUBLIC_IPFS_API_SECRET
-const IPFS_API_ENDPOINT = process.env.NEXT_PUBLIC_IPFS_API_ENDPOINT
 
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<PinResponseData>
 ) => {
-  if (req.method !== 'POST') {
-    res
-      .status(405)
-      .json({ status: 'error', error: `'${req.method}' method not allowed` })
-  }
-
-  const resFile = await axios({
-    method: 'post',
-    url: IPFS_API_ENDPOINT + '/pinning/pinFileToIPFS',
-    data: req.body,
-    headers: {
-      pinata_api_key: `${IPFS_API_KEY}`,
-      pinata_secret_api_key: `${IPFS_API_SECRET}`,
-      'Content-Type': 'multipart/form-data'
+  try {
+    if (req.method !== 'POST') {
+      res
+        .status(405)
+        .json({ status: 'error', error: `'${req.method}' method not allowed` })
     }
-  })
-  console.log(resFile)
-  resFile.data.IpfsHash
-  let status = 200
-  let resultBody: PinResponseData = {
-    status: 'success',
-    data: { IpfsHash: resFile.data.IpfsHash }
-  }
 
-  res.status(status).json(resultBody)
+    const buffer = Buffer.from(req.body.data, 'base64')
+    const stream = Readable.from(buffer)
+    const data = new FormData() as any
+    data.append('file', stream, { filename: req.body.filename })
+
+    const resFile = await axios.post(
+      `${process.env.IPFS_API_ENDPOINT!}/pinning/pinFileToIPFS`,
+      data,
+      {
+        maxBodyLength: 'Infinity' as any,
+        headers: {
+          pinata_api_key: process.env.IPFS_API_KEY!,
+          pinata_secret_api_key: process.env.IPFS_API_SECRET!,
+          'Content-Type': `multipart/form-data; boundary=${data._boundary}`
+        }
+      }
+    )
+    resFile.data.IpfsHash
+    res.status(200).json({
+      status: 'success',
+      IpfsHash: resFile.data.IpfsHash
+    })
+  } catch (error: any) {
+    res.status(500).json({ status: 'failed', error })
+  }
 }
 export default handler

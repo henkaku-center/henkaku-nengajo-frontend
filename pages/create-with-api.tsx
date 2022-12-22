@@ -16,11 +16,10 @@ import Layout from '@/components/Layout'
 import { useAccount } from 'wagmi'
 import useTranslation from 'next-translate/useTranslation'
 import { useRegisterNengajo } from '@/hooks/useNengajoContract'
+import { useUploadImageFile } from '@/hooks/usePinata'
 
 const metadata_description = 'A Nengajo sent using HENKAKU Nengajo.'
 const metadata_external_url = 'https://henkaku-nengajo.vercel.app'
-// const gateway_url = 'https://gateway.pinata.cloud/ipfs/'
-const gateway_url = 'https://cloudflare-ipfs.com/ipfs/'
 
 interface NengajoTokenMetadata {
   name: string
@@ -46,6 +45,7 @@ const Home: NextPage = () => {
   const [metadataName, setMetadataName] = useState('')
   const [isUploadingIPFS, setIsUploadingIPFS] = useState(false)
   const [fileImg, setFileImg] = useState<File | null>()
+  const uploadFileAndPin = useUploadImageFile()
   const [imageUri, setImageUri] = useState('')
   const {
     isLoading: txIsLoading,
@@ -78,20 +78,14 @@ const Home: NextPage = () => {
     if (!metadataUriPath) return
     await txWithContract(3, metadataUriPath)
   }
+
   const sendFileToIPFS = async () => {
     if (fileImg === undefined || fileImg === null) return false
     if (metadataName === '') return false
     setIsUploadingIPFS(true)
     try {
-      const formData = new FormData()
-      formData.append('file', fileImg)
-      const pinRequest = await fetch('/api/pin-file-to-ipfs', {
-        method: 'POST',
-        body: formData
-      })
-      const pinResponse = await pinRequest.json()
-      setImageUri(gateway_url + pinResponse.data.IpfsHash)
-      const imageUriPath = gateway_url + pinResponse.data.IpfsHash
+      const ipfsHash = await uploadFileAndPin(fileImg)
+      const imageUriPath = `ipfs://ipfsHash`
       setImageUri(imageUriPath)
       return imageUriPath
     } catch (error) {

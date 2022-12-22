@@ -18,7 +18,7 @@ const Layout: React.FC<Props> = ({
     <>
       {!disableHeader && <Header />}
       <Box minH="60vh">
-        <Container maxW="container.md" mt="4em">
+        <Container maxW="container.md" mt="3em">
           {children}
         </Container>
       </Box>
