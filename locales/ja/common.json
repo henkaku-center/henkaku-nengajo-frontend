@@ -36,5 +36,7 @@
     }
   },
 
+  "GET_NENGAJO": "受け取る",
+
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved."
 }

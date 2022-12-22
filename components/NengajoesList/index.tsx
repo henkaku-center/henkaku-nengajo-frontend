@@ -10,8 +10,12 @@ import {
   SimpleGrid
 } from '@chakra-ui/react'
 import { Nengajo } from '@/types'
-import { PreviewNengajo } from '@/components/MintNengajo'
 import { useAllNengajoesInfo } from '@/hooks/useNengajoInfo'
+// Cart機能が実装された際に利用する
+// import { PreviewNengajo } from '@/components/MintNengajo'
+// import { Search2Icon } from '@chakra-ui/icons'
+import styles from './NengajoesList.module.css'
+import useTranslation from 'next-translate/useTranslation'
 
 interface NengajoesListProps {
   items: Nengajo.NengajoInfoStructOutput[]
@@ -19,6 +23,7 @@ interface NengajoesListProps {
 
 const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
   const { allNengajoesInfo } = useAllNengajoesInfo(items)
+  const { t } = useTranslation('common')
 
   if (!allNengajoesInfo || allNengajoesInfo.length <= 0) return <></>
   return (
@@ -37,19 +42,28 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
             justifyContent="space-between"
             flexDirection="column"
           >
-            <PreviewNengajo item={nengajoInfo}>
-              <AspectRatio ratio={1}>
-                <Box>
-                  <Image src={nengajoInfo.tokenURIJSON.image} alt="" />
-                </Box>
-              </AspectRatio>
-            </PreviewNengajo>
-            <Text pt={2} pb={2} mb="auto">
-              {nengajoInfo.tokenURIJSON.name}
-            </Text>
-            <Link href={`/nengajo/${nengajoInfo.id}`}>
-              <Button width="100%">Get Nengajo</Button>
-            </Link>
+            <div className={styles.list}>
+              <div className={styles.image}>
+                <Link href={`/nengajo/${nengajoInfo.id}`}>
+                  <AspectRatio ratio={1}>
+                    <Box>
+                      <Image src={nengajoInfo.tokenURIJSON.image} alt="" />
+                    </Box>
+                  </AspectRatio>
+                </Link>
+              </div>
+              <Text pt={2} pb={2} mb="auto">
+                {nengajoInfo.tokenURIJSON.name}
+              </Text>
+              <Link href={`/nengajo/${nengajoInfo.id}`}>
+                <Button width="100%">{t('GET_NENGAJO')}</Button>
+              </Link>
+              {/* <div className={styles.preview}>
+                <PreviewNengajo item={nengajoInfo}>
+                  <Search2Icon color="blackAlpha.700" />
+                </PreviewNengajo>
+              </div> */}
+            </div>
           </Flex>
         )
       })}
