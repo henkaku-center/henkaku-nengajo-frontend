@@ -156,11 +156,13 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
 export default MintNengajo
 
 interface PreviewNengajoProps {
+  id: number
   item: NengajoInfoProps
   children: ReactElement
 }
 
 export const PreviewNengajo = ({
+  id,
   item,
   children,
   ...props
@@ -176,7 +178,7 @@ export const PreviewNengajo = ({
         <ModalContent>
           <ModalCloseButton />
           <ModalBody>
-            <MintNengajo item={item} imageOnly {...props} />
+            <MintNengajo id={Number(id)} item={item} imageOnly {...props} />
           </ModalBody>
         </ModalContent>
       </Modal>

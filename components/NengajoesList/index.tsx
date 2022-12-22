@@ -59,7 +59,7 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
                 <Button width="100%">{t('GET_NENGAJO')}</Button>
               </Link>
               {/* <div className={styles.preview}>
-                <PreviewNengajo item={nengajoInfo}>
+                <PreviewNengajo id={Number(nengajoInfo.id)} item={nengajoInfo}>
                   <Search2Icon color="blackAlpha.700" />
                 </PreviewNengajo>
               </div> */}
