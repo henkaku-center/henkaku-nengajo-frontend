@@ -5,20 +5,21 @@ import { Box } from '@chakra-ui/react'
 import { useMounted } from '@/hooks'
 import { Connect } from '@/components/Connect'
 import Layout from '@/components/Layout'
-import MintNengajo from '@/components/MintNengajo'
-import { useRetrieveNengajo } from '@/hooks/useNengajoContract'
-import { useNengajoInfo } from '@/hooks/useNengajoInfo'
 import ErrorComponent from 'next/error'
+import MintNengajo from '@/components/MintNengajo'
+import { useRetrieveNengajoByTokenId } from '@/hooks/useNengajoContract'
+import { useNengajoInfo } from '@/hooks/useNengajoInfo'
 
 const NengajoDetail: NextPage = () => {
   const isMounted = useMounted()
   const { isConnected } = useAccount()
   const router = useRouter()
   const { id } = router.query
-  const { data, isError } = useRetrieveNengajo(Number(id))
+  const { data, isError } = useRetrieveNengajoByTokenId(Number(id))
   const { nengajoInfo } = useNengajoInfo(data)
 
   if (isError) return <ErrorComponent statusCode={404} />
+
   return (
     <Layout>
       {isMounted && !isConnected && (

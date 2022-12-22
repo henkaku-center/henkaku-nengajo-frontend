@@ -10,16 +10,22 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalBody,
-  useDisclosure
+  useDisclosure,
+  Stack
 } from '@chakra-ui/react'
-import { useState, ReactElement } from 'react'
+import { useState, ReactElement, useEffect } from 'react'
 import { NFTImage } from '@/components/NFTImage'
 import { useAccount } from 'wagmi'
 import useTranslation from 'next-translate/useTranslation'
 import styles from './MintNengajo.module.css'
 import { NengajoInfoProps } from '@/hooks/useNengajoInfo'
+import { useMintNengajo } from '@/hooks/useNengajoContract'
+import { LinkIcon } from '@chakra-ui/icons'
+import TwitterIcon from '../Icon/Twitter'
+import OpenseaIcon from '../Icon/Opensea'
 
 interface Props {
+  id: number
   item: NengajoInfoProps
   imageOnly?: boolean
 }
@@ -27,9 +33,15 @@ interface mintStateProps {
   status: 'minted' | 'mintable' | 'noMintable'
   freeMintable: boolean
 }
-const MintNengajo: React.FC<Props> = ({ item, imageOnly, ...props }) => {
+const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { t } = useTranslation('nengajo')
   const { isConnected } = useAccount()
+  const {
+    writeAsync,
+    isLoading: isMinting,
+    isSuccess,
+    minted
+  } = useMintNengajo(Number(id))
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable',
@@ -39,10 +51,23 @@ const MintNengajo: React.FC<Props> = ({ item, imageOnly, ...props }) => {
   // TODO: useApproval から取得
   const approved = true
 
-  // TODO: Mint中ローディング状態にさせるためのフラグ
-  const isMinting = false
+  const mint = async () => {
+    if (!writeAsync) return
+    try {
+      await writeAsync({ recklesslySetUnpreparedArgs: [Number(id)] })
+    } catch (error) {
+      // TODO: errorメッセージをToastに入れる
+      console.log(error)
+    }
+  }
 
-  if (!isConnected || !item) return <></>
+  useEffect(() => {
+    if (minted) {
+      setMintState({ status: 'minted', freeMintable: false })
+    }
+  }, [minted])
+
+  if (!isConnected) return <></>
   return (
     <>
       <Box>
@@ -64,7 +89,20 @@ const MintNengajo: React.FC<Props> = ({ item, imageOnly, ...props }) => {
         {!imageOnly && (
           <GridItem>
             <Box mb={{ lg: 10 }}>
-              {mintState.status === 'minted' && t('TITLE.MINTED')}
+              {mintState.status === 'minted' && (
+                <Box>
+                  <Text>{t('TITLE.MINTED')}</Text>
+                  <Box mt={5}>
+                    <Text size="sm">{t('TITLE.SHARE')}</Text>
+                    <Stack direction="row" spacing={4} mt={2}>
+                      {/* リンクをつける */}
+                      <LinkIcon fontSize="25px" />
+                      <TwitterIcon fontSize="30px" />
+                      <OpenseaIcon fontSize="30px" />
+                    </Stack>
+                  </Box>
+                </Box>
+              )}
               {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
               {mintState.status === 'mintable' && (
                 <>
@@ -77,13 +115,11 @@ const MintNengajo: React.FC<Props> = ({ item, imageOnly, ...props }) => {
                         colorScheme="teal"
                         mt={5}
                         loadingText="minting..."
-                        isLoading={isMinting}
+                        isLoading={isMinting || (isSuccess && !minted)}
+                        onClick={mint}
                       >
                         {t('MINT')}
                       </Button>
-                      <Text mt={3}>
-                        {t('TITLE.MAX_SUPPLY')}: {Number(item?.maxSupply)}
-                      </Text>
                     </Box>
                   ) : (
                     <Box mt="2em">{/* TODO: <Approve /> が入ります */}</Box>
@@ -93,14 +129,21 @@ const MintNengajo: React.FC<Props> = ({ item, imageOnly, ...props }) => {
               {mintState.freeMintable && (
                 <>
                   {t('TITLE.FREE_MINTABLE')}
-                  <Button
-                    width="90%"
-                    colorScheme="teal"
-                    mt={2}
-                    loadingText="minting..."
-                  >
-                    {t('MINT')}
-                  </Button>
+                  <Box>
+                    <Button
+                      width="100%"
+                      colorScheme="teal"
+                      mt={5}
+                      loadingText="minting..."
+                      isLoading={isMinting || (isSuccess && !minted)}
+                      onClick={mint}
+                    >
+                      {t('MINT')}
+                    </Button>
+                    <Text mt={3}>
+                      {t('TITLE.MAX_SUPPLY')}: {Number(item?.maxSupply)}
+                    </Text>
+                  </Box>
                 </>
               )}
             </Box>
