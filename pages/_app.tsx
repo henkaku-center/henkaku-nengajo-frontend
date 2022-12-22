@@ -12,7 +12,7 @@ import {
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.hardhat],
+  [chain.mainnet, chain.polygon, chain.hardhat, chain.polygonMumbai],
   [publicProvider()]
 )
 const client = createClient({

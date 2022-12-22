@@ -1,6 +1,6 @@
 import { useRegisterNengajo } from '@/hooks/useNengajoContract'
 import useTranslation from 'next-translate/useTranslation'
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import {
   Box,
@@ -50,12 +50,26 @@ const CreateNengajoForm: FC = () => {
   const { address } = useAccount()
   const router = useRouter()
 
+  const { control, handleSubmit, formState, watch } = useForm<FormData>({
+    defaultValues: {
+      name: '',
+      description:
+        lang === 'en'
+          ? 'This is a Nengajo NFT sent with HENKAKU NENGAJO.'
+          : 'HENKAKU NENGAJO から送られた年賀状NFTです。',
+      image: null,
+      creatorName: '',
+      maxSupply: 10
+    }
+  })
+  const [metadataURI, setMetadataURI] = useState('')
+
   const {
     isLoading: txIsLoading,
     isSuccess,
     writeAsync,
     registeredTokenId
-  } = useRegisterNengajo()
+  } = useRegisterNengajo(watch('maxSupply'), metadataURI)
   const uploadFile = useUploadImageFile()
   const uploadMetadata = useUploadMetadataJson()
 
@@ -86,6 +100,7 @@ const CreateNengajoForm: FC = () => {
       ]
     }
     const metadataIPFSHash = await uploadMetadata(medatadaJson)
+    setMetadataURI(`ipfs://${metadataIPFSHash}`)
     await txWithContract(data.maxSupply, `ipfs://${metadataIPFSHash}`)
     return
   }
@@ -101,19 +116,6 @@ const CreateNengajoForm: FC = () => {
       console.log(error)
     }
   }
-
-  const { control, handleSubmit, formState } = useForm<FormData>({
-    defaultValues: {
-      name: '',
-      description:
-        lang === 'en'
-          ? 'This is a Nengajo NFT sent with HENKAKU NENGAJO.'
-          : 'HENKAKU NENGAJO から送られた年賀状NFTです。',
-      image: null,
-      creatorName: '',
-      maxSupply: 10
-    }
-  })
 
   return (
     <Box color="white.700">
@@ -244,7 +246,9 @@ const CreateNengajoForm: FC = () => {
         <Button
           mt={10}
           colorScheme="teal"
-          isLoading={formState.isSubmitting || txIsLoading}
+          isLoading={
+            formState.isSubmitting || (isSuccess && !registeredTokenId)
+          }
           width="full"
           type="submit"
         >

@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import { useMounted } from '@/hooks'
 import Layout from '@/components/Layout'
 import { useAccount } from 'wagmi'
-import useTranslation from 'next-translate/useTranslation'
 import CreateNengajoForm from '@/components/CreateNengajo/Form'
 import { Connect } from '@/components'
 

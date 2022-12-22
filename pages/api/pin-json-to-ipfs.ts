@@ -17,12 +17,9 @@ const handler = async (
   }
 
   try {
-    const sendData = JSON.stringify({
-      pinataContent: req.body
-    })
     const { data } = await axios.post(
       `${process.env.IPFS_API_ENDPOINT!}/pinning/pinJSONToIPFS`,
-      sendData,
+      req.body,
       {
         headers: {
           pinata_api_key: process.env.IPFS_API_KEY!,

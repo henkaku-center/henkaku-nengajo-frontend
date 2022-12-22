@@ -1,17 +1,12 @@
 import type { NextPage } from 'next'
-import { Box, Button, Image, AspectRatio, Text } from '@chakra-ui/react'
-import Layout from '@/components/Layout'
 import { SimpleGrid } from '@chakra-ui/react'
+import Layout from '@/components/Layout'
 import React from 'react'
-const Lists: NextPage = () => {
-  const nengajoLists = [...Array(20)].map((data, index) => {
-    return {
-      name: '',
-      description:
-        'Nengajo description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    }
-  })
+import NengajoesList from '@/components/NengajoesList'
+import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
 
+const Lists: NextPage = () => {
+  const { data } = useRetrieveAllNengajo()
   return (
     <Layout>
       <SimpleGrid
@@ -22,18 +17,7 @@ const Lists: NextPage = () => {
         textAlign="center"
         rounded="lg"
       >
-        {nengajoLists &&
-          nengajoLists.map((nengajoList, index) => (
-            <div key={index}>
-              <AspectRatio ratio={1}>
-                <Box>
-                  <Image src="https://via.placeholder.com/500" alt="" />
-                </Box>
-              </AspectRatio>
-              <Box bg="" w="100%" p={1.5} color="white"></Box>
-              <Button width="100%">Get Nengajo</Button>
-            </div>
-          ))}
+        {data && <NengajoesList items={data} />}
       </SimpleGrid>
     </Layout>
   )

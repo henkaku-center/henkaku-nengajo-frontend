@@ -29,6 +29,7 @@ export interface MintManagerInterface extends utils.Interface {
     "checkRemainingCloseTime()": FunctionFragment;
     "checkRemainingOpenTime()": FunctionFragment;
     "close_blockTimestamp()": FunctionFragment;
+    "deleteAdmin(address)": FunctionFragment;
     "mintable()": FunctionFragment;
     "open_blockTimestamp()": FunctionFragment;
     "switchMintable()": FunctionFragment;
@@ -41,6 +42,7 @@ export interface MintManagerInterface extends utils.Interface {
       | "checkRemainingCloseTime"
       | "checkRemainingOpenTime"
       | "close_blockTimestamp"
+      | "deleteAdmin"
       | "mintable"
       | "open_blockTimestamp"
       | "switchMintable"
@@ -66,6 +68,10 @@ export interface MintManagerInterface extends utils.Interface {
     functionFragment: "close_blockTimestamp",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "deleteAdmin",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(functionFragment: "mintable", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "open_blockTimestamp",
@@ -88,6 +94,10 @@ export interface MintManagerInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "close_blockTimestamp",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "deleteAdmin",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "mintable", data: BytesLike): Result;
@@ -146,6 +156,11 @@ export interface MintManager extends BaseContract {
 
     close_blockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    deleteAdmin(
+      _deleteAdmin: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     mintable(overrides?: CallOverrides): Promise<[boolean]>;
 
     open_blockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -170,6 +185,11 @@ export interface MintManager extends BaseContract {
   checkRemainingOpenTime(overrides?: CallOverrides): Promise<BigNumber>;
 
   close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+  deleteAdmin(
+    _deleteAdmin: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   mintable(overrides?: CallOverrides): Promise<boolean>;
 
@@ -196,6 +216,11 @@ export interface MintManager extends BaseContract {
 
     close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
+    deleteAdmin(
+      _deleteAdmin: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     mintable(overrides?: CallOverrides): Promise<boolean>;
 
     open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
@@ -221,6 +246,11 @@ export interface MintManager extends BaseContract {
     checkRemainingOpenTime(overrides?: CallOverrides): Promise<BigNumber>;
 
     close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    deleteAdmin(
+      _deleteAdmin: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
 
     mintable(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -252,6 +282,11 @@ export interface MintManager extends BaseContract {
 
     close_blockTimestamp(
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    deleteAdmin(
+      _deleteAdmin: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     mintable(overrides?: CallOverrides): Promise<PopulatedTransaction>;

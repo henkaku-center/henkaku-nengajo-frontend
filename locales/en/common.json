@@ -24,5 +24,23 @@
   "BUTTON_APPROVE": "Approve",
   "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
 
+  "STATUS_BUTTON": "Status Check",
+  "STATUS_TITLE": "Status",
+
+  "REGISTERD_NENGAJO_LIST": "Registerd Nengajo List",
+
+  "CLAIM": {
+    "TOAST": {
+      "SUBMITTED": "Submitted",
+      "ERROR": "Error",
+      "SUCCESS": "You got Nengajo.",
+      "RETRIEVE_NENGAJOES_FAILED": "Retrieve Nengajo list failed.",
+      "TX_FAILED": "Transaction failed.",
+      "DEFAULT_ERROR": "Unknown Server Error"
+    }
+  },
+
+  "GET_NENGAJO": "Get Nengajo",
+
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved."
 }

@@ -24,5 +24,23 @@
   "BUTTON_APPROVE": "承認",
   "IMAGE_PREVIEW_ALT": "年賀状 NFTのプレビュー",
 
+  "STATUS_BUTTON": "ステータス確認",
+  "STATUS_TITLE": "ステータス",
+
+  "REGISTERD_NENGAJO_LIST": "投稿された年賀状一覧",
+
+  "CLAIM": {
+    "TOAST": {
+      "SUBMITTED": "Submitted",
+      "ERROR": "Error",
+      "SUCCESS": "年賀状を受け取りました。",
+      "RETRIEVE_NENGAJOES_FAILED": "年賀状一覧の取得に失敗しました。",
+      "TX_FAILED": "トランザクションが失敗しました。",
+      "DEFAULT_ERROR": "不明なサーバーエラー"
+    }
+  },
+
+  "GET_NENGAJO": "受け取る",
+
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved."
 }

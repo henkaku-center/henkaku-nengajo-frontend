@@ -20,7 +20,7 @@ const handler = async (
         .json({ status: 'error', error: `'${req.method}' method not allowed` })
     }
 
-    const buffer = Buffer.from(req.body.data, 'base64')
+    const buffer = Buffer.from(req.body.data.split('base64,')[1], 'base64')
     const stream = Readable.from(buffer)
     const data = new FormData() as any
     data.append('file', stream, { filename: req.body.filename })
