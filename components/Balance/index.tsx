@@ -1,10 +1,10 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Divider } from '@chakra-ui/react'
 import { useAccount, useBalance } from 'wagmi'
 import { getContractAddress } from '@/utils/contractAddresses'
 import { useChainId } from '@/hooks'
 import useTranslation from 'next-translate/useTranslation'
 
-export function Balance() {
+export const Balance = () => {
   const { chainId, wrongNetwork } = useChainId()
   const { t } = useTranslation('balance')
   const henkakuV2 = getContractAddress({
@@ -31,11 +31,18 @@ export function Balance() {
   })
 
   if (!isConnected) return <></>
-  if (wrongNetwork) return <>{t('NOT_EXPECTED_CHAIN')}</>
-  if (!isSuccess) return <>{t('BALANCE_CHECK_FAILED')}</>
   return (
-    <Box>
-      {t('BALANCE', { balance: data?.formatted, symbol: data?.symbol })}
-    </Box>
+    <>
+      <Box mt={3} mb={3}>
+        {wrongNetwork ? (
+          <Box>{t('NOT_EXPECTED_CHAIN')}</Box>
+        ) : !isSuccess ? (
+          <Box>{t('BALANCE_CHECK_FAILED')}</Box>
+        ) : (
+          t('BALANCE', { balance: data?.formatted, symbol: data?.symbol })
+        )}
+      </Box>
+      <Divider />
+    </>
   )
 }

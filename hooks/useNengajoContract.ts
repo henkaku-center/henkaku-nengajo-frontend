@@ -102,3 +102,14 @@ export const useRetrieveHoldingNengajoesByAddress = (address: string) => {
 
   return { data, isLoading, isError }
 }
+
+export const useRetrieveAllNengajo = () => {
+  const { data, isError, isLoading } = useNengajoContractRead(
+    'retrieveAllNengajoes'
+  ) as {
+    data: Nengajo.NengajoInfoStructOutput[]
+    isLoading: boolean
+    isError: boolean
+  }
+  return { data, isLoading, isError }
+}

@@ -173,16 +173,11 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <Heading as="h1" size="4xl">
-        {t('HENKAKU')} <span className="text_nengajo">{t('NENGAJO')}</span>
+      <Heading as="h1" size="3xl">
+        {t('CREATE_LINK')}
       </Heading>
-      {isMounted && (
-        <Box mt="2em">
-          <Connect />
-        </Box>
-      )}
       {isMounted && isConnected && (
-        <Box mt="2em" color="white.700">
+        <Box mt={10} color="white.700">
           <Heading as="h2" color="white.600">
             {t('CREATE_NEW_NENGAJO')}
           </Heading>

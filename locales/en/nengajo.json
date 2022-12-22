@@ -1,10 +1,12 @@
 {
   "TITLE": {
     "CONNECT_WALLET": "You must connect a wallet first!",
+    "MAX_SUPPLY": "Max supply",
     "MINTABLE": "You can mint this Nengajo with",
     "NOT_MINTABLE": "You cannot mint this Nengajo. To get this Nengajo you need to meet a certain criteria.",
     "FREE_MINTABLE": "You can mint this Nengajo for free.",
-    "MINTED": "🎉🎉🎉 Congratulations! You minted a new Nengajo! 🎉🎉🎉"
+    "MINTED": "🎉🎉 Congratulations! You minted a new Nengajo! 🎉🎉",
+    "SHARE": "Why not share this Nengajo?"
   },
   "APPROVE": "Enable to mint",
   "MINT": "Mint",

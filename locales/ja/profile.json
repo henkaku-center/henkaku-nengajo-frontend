@@ -1,4 +1,5 @@
 {
-  "CONNECTED_TO": "接続されているウォレット"
-
+  "CONNECTED_TO": "接続されているウォレット",
+  "CONNECTION": "接続",
+  "CONNECTED_FAILD_DESCRIPTION": "MetaMaskに接続されていません"
 }

@@ -1,4 +1,5 @@
 {
-  "CONNECTED_TO": "Connected to"
-
+  "CONNECTED_TO": "Connected to",
+  "CONNECTION": "Connection ",
+  "CONNECTED_FAILD_DESCRIPTION": "Not connected to MetaMask"
 }
