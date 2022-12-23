@@ -8,6 +8,8 @@ interface NengajoInfoProps extends Nengajo.NengajoInfoStruct {
     image: string
     external_url: string
     description: string
+    encryptedFile?: string
+    encryptedSymmetricKey?: string
     attributes: Object
   }
 }

@@ -19,11 +19,15 @@ import { useAccount } from 'wagmi'
 import useTranslation from 'next-translate/useTranslation'
 import styles from './MintNengajo.module.css'
 import { NengajoInfoProps } from '@/hooks/useNengajoInfo'
-import { useMintNengajo } from '@/hooks/useNengajoContract'
+import {
+  useIsHoldingByTokenId,
+  useMintNengajo
+} from '@/hooks/useNengajoContract'
 import { LinkIcon } from '@chakra-ui/icons'
 import TwitterIcon from '../Icon/Twitter'
 import OpenseaIcon from '../Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
+import SecretMessage from './SecretMessage'
 
 interface Props {
   id: number
@@ -42,7 +46,8 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     isLoading: isMinting,
     isSuccess,
     minted
-  } = useMintNengajo(Number(id))
+  } = useMintNengajo(id)
+  const { isHolding } = useIsHoldingByTokenId(id)
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable',
@@ -92,7 +97,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
         {!imageOnly && (
           <GridItem>
             <Box mb={{ lg: 10 }}>
-              {mintState.status === 'minted' && (
+              {(mintState.status === 'minted' || isHolding) && (
                 <Box>
                   <Text>{t('TITLE.MINTED')}</Text>
                   <Box mt={5}>
@@ -107,12 +112,11 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                 </Box>
               )}
               {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
-              {mintState.status === 'mintable' && (
+              {mintState.status === 'mintable' && !isHolding && (
                 <>
                   {approved ? (
                     <Box>
                       <Text>{t('TITLE.MINTABLE')}</Text>
-                      <Text fontSize="2xl">500 $HENKAKU</Text>
                       <Button
                         width="100%"
                         colorScheme="teal"
@@ -149,6 +153,17 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                   </Box>
                 </>
               )}
+              {item?.tokenURIJSON.encryptedFile &&
+                item?.tokenURIJSON.encryptedSymmetricKey &&
+                isHolding && (
+                  <SecretMessage
+                    encryptedFile={String(item.tokenURIJSON.encryptedFile)}
+                    encryptedSymmetricKey={
+                      item.tokenURIJSON.encryptedSymmetricKey
+                    }
+                    tokenId={id}
+                  />
+                )}
             </Box>
           </GridItem>
         )}

@@ -9,17 +9,18 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormErrorMessage,
   Text
 } from '@chakra-ui/react'
 import { useUploadImageFile, useUploadMetadataJson } from '@/hooks/usePinata'
 import { useAccount } from 'wagmi'
 import { useRouter } from 'next/router'
+import { useLitEncryption } from '@/hooks/useLitProtocol'
 
 type FormData = {
   name: string
   description: string
   image: File | null
+  secretMessage: File | null
   creatorName: string
   maxSupply: number
 }
@@ -31,6 +32,8 @@ interface NengajoTokenMetadata {
   animation_url?: string | null | undefined
   external_url?: string | null | undefined
   contributors: string
+  encryptedFile?: string
+  encryptedSymmetricKey?: string
   attributes: TokenAttribute[]
 }
 
@@ -50,6 +53,8 @@ const CreateNengajoForm: FC = () => {
   const { t, lang } = useTranslation('common')
   const { address } = useAccount()
   const router = useRouter()
+  const { initEncrypt, updateEncrypt, encryptedSymmetricKey } =
+    useLitEncryption()
 
   const { control, handleSubmit, formState, watch } = useForm<FormData>({
     defaultValues: {
@@ -59,6 +64,7 @@ const CreateNengajoForm: FC = () => {
           ? 'This is a Nengajo NFT sent with HENKAKU NENGAJO.'
           : 'HENKAKU NENGAJO から送られた年賀状NFTです。',
       image: null,
+      secretMessage: null,
       creatorName: '',
       maxSupply: 10
     }
@@ -75,35 +81,53 @@ const CreateNengajoForm: FC = () => {
   const uploadMetadata = useUploadMetadataJson()
 
   useEffect(() => {
-    if (isSuccess && registeredTokenId) {
-      router.push(`/nengajo/${registeredTokenId}`)
+    const callback = async () => {
+      if (isSuccess && registeredTokenId) {
+        if (encryptedSymmetricKey) {
+          await updateEncrypt(registeredTokenId, encryptedSymmetricKey)
+        }
+        router.push(`/nengajo/${registeredTokenId}`)
+      }
     }
+    callback()
   }, [registeredTokenId, isSuccess])
 
-  const submit = async (data: FormData, e: any) => {
-    if (!data.image) return
-    const imageIPFSHash = await uploadFile(data.image)
-    const medatadaJson: NengajoTokenMetadata = {
-      name: data.name,
-      image: `ipfs://${imageIPFSHash}`,
-      description: data.description,
-      external_url: metadata_external_url,
-      contributors: metadata_contributors,
-      attributes: [
-        {
-          trait_type: 'CreatorAddress',
-          value: address!
-        },
-        {
-          trait_type: 'CreatorName',
-          value: data.creatorName
-        }
-      ]
+  const submit = async (data: FormData) => {
+    try {
+      if (!data.image) return
+      const imageIPFSHash = await uploadFile(data.image)
+      const metadataJson: NengajoTokenMetadata = {
+        name: data.name,
+        image: `ipfs://${imageIPFSHash}`,
+        description: data.description,
+        external_url: metadata_external_url,
+        contributors: metadata_contributors,
+        attributes: [
+          {
+            trait_type: 'CreatorAddress',
+            value: address!
+          },
+          {
+            trait_type: 'CreatorName',
+            value: data.creatorName
+          }
+        ]
+      }
+
+      if (data.secretMessage) {
+        const encryptedInfo = await initEncrypt(data.secretMessage)
+        metadataJson.encryptedFile = encryptedInfo?.stringifiedEncryptedFile
+        metadataJson.encryptedSymmetricKey =
+          encryptedInfo?.encryptedSymmetricKey
+      }
+
+      const metadataIPFSHash = await uploadMetadata(metadataJson)
+      setMetadataURI(`ipfs://${metadataIPFSHash}`)
+      await txWithContract(data.maxSupply, `ipfs://${metadataIPFSHash}`)
+      return
+    } catch (error) {
+      console.log(error)
     }
-    const metadataIPFSHash = await uploadMetadata(medatadaJson)
-    setMetadataURI(`ipfs://${metadataIPFSHash}`)
-    await txWithContract(data.maxSupply, `ipfs://${metadataIPFSHash}`)
-    return
   }
 
   const txWithContract = async (maxSupply: number, metaDataURL: string) => {
@@ -153,7 +177,7 @@ const CreateNengajoForm: FC = () => {
           />
         </FormControl>
 
-        <FormControl mt={5}>
+        <FormControl mt={5} isRequired>
           <FormLabel mt="1em" htmlFor="imageFile">
             {t('NEW_NENGAJO_PICTURE_LABEL')}
           </FormLabel>
@@ -177,6 +201,34 @@ const CreateNengajoForm: FC = () => {
                     e.target.files && e.target.files[0].size
                       ? onChange(e.target.files[0])
                       : false
+                  }
+                />
+                <Box color="red.300">{fieldState.error?.message}</Box>
+              </>
+            )}
+          />
+        </FormControl>
+
+        <FormControl mt={5}>
+          <FormLabel mt="1em" htmlFor="secretMessage">
+            {t('NEW_NENGAJO_SECRET_MESSAGE_LABEL')}
+          </FormLabel>
+          <Controller
+            control={control}
+            name="secretMessage"
+            rules={{
+              validate: validateFileSize
+            }}
+            render={({ field: { onChange }, fieldState }) => (
+              <>
+                <Input
+                  variant="unstyled"
+                  p={1}
+                  id="secretMessage"
+                  type="file"
+                  accept={'image/*'}
+                  onChange={(e) =>
+                    e.target.files ? onChange(e.target.files[0]) : false
                   }
                 />
                 <Box color="red.300">{fieldState.error?.message}</Box>
