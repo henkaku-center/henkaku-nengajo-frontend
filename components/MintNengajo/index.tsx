@@ -23,6 +23,7 @@ import { useMintNengajo } from '@/hooks/useNengajoContract'
 import { LinkIcon } from '@chakra-ui/icons'
 import TwitterIcon from '../Icon/Twitter'
 import OpenseaIcon from '../Icon/Opensea'
+import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 
 interface Props {
   id: number
@@ -72,7 +73,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     <>
       <Box>
         <Heading mt={imageOnly ? 5 : 50} size="lg">
-          {item?.tokenURIJSON.name}
+          {item?.tokenURIJSON?.name}
         </Heading>
       </Box>
       <Grid
@@ -83,8 +84,10 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
         gap={{ lg: 6 }}
       >
         <GridItem>
-          {item && <NFTImage imageUrl={item?.tokenURIJSON.image} />}
-          <Text mt={5}>{item?.tokenURIJSON.description}</Text>
+          {item && (
+            <NFTImage imageUrl={parseIpfs2Pinata(item?.tokenURIJSON?.image)} />
+          )}
+          <Text mt={5}>{item?.tokenURIJSON?.description}</Text>
         </GridItem>
         {!imageOnly && (
           <GridItem>

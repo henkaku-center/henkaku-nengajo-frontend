@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Nengajo } from '@/types'
+import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 
 interface NengajoInfoProps extends Nengajo.NengajoInfoStruct {
   tokenURIJSON: {
@@ -17,7 +18,8 @@ const mappingNengajoInfo = async ({
   id,
   maxSupply
 }: Nengajo.NengajoInfoStructOutput) => {
-  const tokenURIJSON = await fetchTokenURIJSON(uri)
+  const pinataGatewayURI = parseIpfs2Pinata(uri)
+  const tokenURIJSON = await fetchTokenURIJSON(pinataGatewayURI)
   return {
     uri: uri,
     creator: creator,

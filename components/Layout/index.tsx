@@ -28,7 +28,7 @@ const Layout: React.FC<Props> = ({
         <Spinner />
       ) : (
         <Box minH="60vh">
-          <Container maxW="container.md" mt="4em">
+          <Container maxW="container.md" mt="3em">
             {children}
           </Container>
         </Box>

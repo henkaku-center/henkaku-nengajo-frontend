@@ -45,9 +45,12 @@ const useNengajoContractEvent = (
   })
 }
 
-export const useRegisterNengajo = () => {
+export const useRegisterNengajo = (maxSupply: number, metadataURI: string) => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
-  const config = usePrepareNengajoContractWrite('registerNengajo', [10, ''])
+  const config = usePrepareNengajoContractWrite('registerNengajo', [
+    maxSupply,
+    metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+  ])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
   useNengajoContractEvent(
     'RegisterNengajo',

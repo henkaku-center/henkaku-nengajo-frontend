@@ -14,7 +14,12 @@
 
   "CREATE_NEW_NENGAJO": "Create a new nengajo",
   "NEW_NENGAJO_TITLE_LABEL": "Nengajo title",
-  "NEW_NENGAJO_PICTURE_LABEL": "Picture",
+  "NEW_NENGAJO_PICTURE_LABEL": "Picture（upto 1MB）",
+  "NEW_NENGAJO_CREATOR_NAME": "Creator Name",
+  "NEW_NENGAJO_DESCRIPTION": "Description of NFT",
+  "NEW_NENGAJO_MAX_SUPPLY": "Max supply",
+  "NEW_NENGAJO_TAKING_TIME": "It may take a while",
+  "REQUIRED_INPUT": "Required",
   "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",
   "BUTTON_APPROVE": "Approve",
