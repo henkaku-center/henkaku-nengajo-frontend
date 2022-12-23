@@ -17,17 +17,20 @@ import { useState, ReactElement, useEffect } from 'react'
 import { NFTImage } from '@/components/NFTImage'
 import { useAccount } from 'wagmi'
 import useTranslation from 'next-translate/useTranslation'
+import Trans from 'next-translate/Trans'
 import styles from './MintNengajo.module.css'
 import { NengajoInfoProps } from '@/hooks/useNengajoInfo'
 import {
   useIsHoldingByTokenId,
   useMintNengajo
 } from '@/hooks/useNengajoContract'
+import { useCountdown } from '@/hooks/useCountdown'
+import CountDown from '@/components/CountDown'
 import { LinkIcon } from '@chakra-ui/icons'
-import TwitterIcon from '../Icon/Twitter'
-import OpenseaIcon from '../Icon/Opensea'
+import TwitterIcon from '@/components/Icon/Twitter'
+import OpenseaIcon from '@/components/Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
-import SecretMessage from './SecretMessage'
+import SecretMessage from '@/components/MintNengajo/SecretMessage'
 
 interface Props {
   id: number
@@ -37,6 +40,7 @@ interface Props {
 interface mintStateProps {
   status: 'minted' | 'mintable' | 'noMintable'
   freeMintable: boolean
+  start: boolean
 }
 const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { t } = useTranslation('nengajo')
@@ -51,7 +55,8 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable',
-    freeMintable: false
+    freeMintable: false,
+    start: false
   })
 
   // TODO: useApproval から取得
@@ -69,9 +74,16 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
 
   useEffect(() => {
     if (minted) {
-      setMintState({ status: 'minted', freeMintable: false })
+      setMintState({ ...mintState, status: 'minted', freeMintable: false })
     }
   }, [minted])
+
+  // CountDown
+  const startDay = '2023/01/01 12:00:00'
+  const { isStart, ...countDown } = useCountdown(startDay)
+  useEffect(() => {
+    if (isStart) setMintState({ ...mintState, start: isStart })
+  }, [isStart])
 
   if (!isConnected) return <></>
   return (
@@ -97,73 +109,91 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
         {!imageOnly && (
           <GridItem>
             <Box mb={{ lg: 10 }}>
-              {(mintState.status === 'minted' || isHolding) && (
-                <Box>
-                  <Text>{t('TITLE.MINTED')}</Text>
-                  <Box mt={5}>
-                    <Text size="sm">{t('TITLE.SHARE')}</Text>
-                    <Stack direction="row" spacing={4} mt={2}>
-                      {/* リンクをつける */}
-                      <LinkIcon fontSize="25px" />
-                      <TwitterIcon fontSize="30px" />
-                      <OpenseaIcon fontSize="30px" />
-                    </Stack>
-                  </Box>
+              {!mintState.start ? (
+                <Box mt={{ base: 5 }}>
+                  <Heading size="md">
+                    <Trans
+                      i18nKey="nengajo:TITLE.IS_POSSIBLE_START"
+                      components={{ br: <br /> }}
+                    />
+                  </Heading>
+                  <Text>{t('IS_POSSIBLE_START_HELPER')}</Text>
+                  <Stack alignItems={{ base: 'center', lg: 'baseline' }}>
+                    <Text mt={4}>{t('UNTIL_START')}</Text>
+                    <CountDown data={countDown} />
+                  </Stack>
                 </Box>
-              )}
-              {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
-              {mintState.status === 'mintable' && !isHolding && (
+              ) : (
                 <>
-                  {approved ? (
+                  {(mintState.status === 'minted' || isHolding) && (
                     <Box>
-                      <Text>{t('TITLE.MINTABLE')}</Text>
-                      <Button
-                        width="100%"
-                        colorScheme="teal"
-                        mt={5}
-                        loadingText="minting..."
-                        isLoading={isMinting || (isSuccess && !minted)}
-                        onClick={mint}
-                      >
-                        {t('MINT')}
-                      </Button>
+                      <Text>{t('TITLE.MINTED')}</Text>
+                      <Box mt={5}>
+                        <Text size="sm">{t('TITLE.SHARE')}</Text>
+                        <Stack direction="row" spacing={4} mt={2}>
+                          {/* リンクをつける */}
+                          <LinkIcon fontSize="25px" />
+                          <TwitterIcon fontSize="30px" />
+                          <OpenseaIcon fontSize="30px" />
+                        </Stack>
+                      </Box>
                     </Box>
-                  ) : (
-                    <Box mt="2em">{/* TODO: <Approve /> が入ります */}</Box>
                   )}
+                  {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
+                  {mintState.status === 'mintable' && !isHolding && (
+                    <>
+                      {approved ? (
+                        <Box>
+                          <Text>{t('TITLE.MINTABLE')}</Text>
+                          <Button
+                            width="100%"
+                            colorScheme="teal"
+                            mt={5}
+                            loadingText="minting..."
+                            isLoading={isMinting || (isSuccess && !minted)}
+                            onClick={mint}
+                          >
+                            {t('MINT')}
+                          </Button>
+                        </Box>
+                      ) : (
+                        <Box mt="2em">{/* TODO: <Approve /> が入ります */}</Box>
+                      )}
+                    </>
+                  )}
+                  {mintState.freeMintable && (
+                    <>
+                      {t('TITLE.FREE_MINTABLE')}
+                      <Box>
+                        <Button
+                          width="100%"
+                          colorScheme="teal"
+                          mt={5}
+                          loadingText="minting..."
+                          isLoading={isMinting || (isSuccess && !minted)}
+                          onClick={mint}
+                        >
+                          {t('MINT')}
+                        </Button>
+                        <Text mt={3}>
+                          {t('TITLE.MAX_SUPPLY')}: {Number(item?.maxSupply)}
+                        </Text>
+                      </Box>
+                    </>
+                  )}
+                  {item?.tokenURIJSON.encryptedFile &&
+                    item?.tokenURIJSON.encryptedSymmetricKey &&
+                    isHolding && (
+                      <SecretMessage
+                        encryptedFile={String(item.tokenURIJSON.encryptedFile)}
+                        encryptedSymmetricKey={
+                          item.tokenURIJSON.encryptedSymmetricKey
+                        }
+                        tokenId={id}
+                      />
+                    )}
                 </>
               )}
-              {mintState.freeMintable && (
-                <>
-                  {t('TITLE.FREE_MINTABLE')}
-                  <Box>
-                    <Button
-                      width="100%"
-                      colorScheme="teal"
-                      mt={5}
-                      loadingText="minting..."
-                      isLoading={isMinting || (isSuccess && !minted)}
-                      onClick={mint}
-                    >
-                      {t('MINT')}
-                    </Button>
-                    <Text mt={3}>
-                      {t('TITLE.MAX_SUPPLY')}: {Number(item?.maxSupply)}
-                    </Text>
-                  </Box>
-                </>
-              )}
-              {item?.tokenURIJSON.encryptedFile &&
-                item?.tokenURIJSON.encryptedSymmetricKey &&
-                isHolding && (
-                  <SecretMessage
-                    encryptedFile={String(item.tokenURIJSON.encryptedFile)}
-                    encryptedSymmetricKey={
-                      item.tokenURIJSON.encryptedSymmetricKey
-                    }
-                    tokenId={id}
-                  />
-                )}
             </Box>
           </GridItem>
         )}

@@ -6,9 +6,12 @@
     "NOT_MINTABLE": "この年賀状はMintして手に入れることができません。手に入れるためには、条件を満たす必要があります",
     "FREE_MINTABLE": "この年賀状は無料でMintできます",
     "MINTED": "🎉🎉 おめでとうございます！この年賀状は入手済です🎉🎉",
+    "IS_POSSIBLE_START": "2023年1月1日午後12時から<br></br>受け取ることが出来ます",
     "SHARE": "この年賀状をシェアしてみませんか？"
   },
   "APPROVE": "Mintするための許可をする",
   "MINT": "Mintする",
-  "CONNECT_WALLET": "メタマスクのウォレットに接続する"
+  "CONNECT_WALLET": "メタマスクのウォレットに接続する",
+  "IS_POSSIBLE_START_HELPER": "（日本時間）",
+  "UNTIL_START": "受け取り可能になるまで"
 }
