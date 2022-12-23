@@ -22,6 +22,7 @@ export const Approve: React.FC<Props> = ({
   return (
     <Button
       colorScheme="teal"
+      width="full"
       mt={2}
       style={style}
       onClick={approve}

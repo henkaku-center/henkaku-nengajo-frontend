@@ -50,21 +50,6 @@ const Home: NextPage = () => {
           </Flex>
         </Box>
       )}
-      {isMounted && isConnected && (
-        <>
-          {!approved && (
-            <Box mt="2em">
-              <Approve
-                erc20={henkakuV2}
-                spender={nengajo}
-                style={{ width: '90%' }}
-              >
-                {t('BUTTON_APPROVE')}
-              </Approve>
-            </Box>
-          )}
-        </>
-      )}
       {isMounted && data && (
         <Box mt={10}>
           <Heading size="xl" mb={5}>
