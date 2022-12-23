@@ -73,7 +73,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     <>
       <Box>
         <Heading mt={imageOnly ? 5 : 50} size="lg">
-          {item?.tokenURIJSON.name}
+          {item?.tokenURIJSON?.name}
         </Heading>
       </Box>
       <Grid
@@ -85,9 +85,9 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
       >
         <GridItem>
           {item && (
-            <NFTImage imageUrl={parseIpfs2Pinata(item?.tokenURIJSON.image)} />
+            <NFTImage imageUrl={parseIpfs2Pinata(item?.tokenURIJSON?.image)} />
           )}
-          <Text mt={5}>{item?.tokenURIJSON.description}</Text>
+          <Text mt={5}>{item?.tokenURIJSON?.description}</Text>
         </GridItem>
         {!imageOnly && (
           <GridItem>

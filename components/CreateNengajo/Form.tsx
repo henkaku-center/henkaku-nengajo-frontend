@@ -9,7 +9,8 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormErrorMessage
+  FormErrorMessage,
+  Text
 } from '@chakra-ui/react'
 import { useUploadImageFile, useUploadMetadataJson } from '@/hooks/usePinata'
 import { useAccount } from 'wagmi'
@@ -117,6 +118,11 @@ const CreateNengajoForm: FC = () => {
     }
   }
 
+  const validateFileSize = (file: File | null) => {
+    if (!file) return true
+    return file.size / (1024 * 1024) > 1 ? 'Upto 1MB' : true
+  }
+
   return (
     <Box color="white.700">
       <Heading as="h2" color="white.600">
@@ -154,7 +160,10 @@ const CreateNengajoForm: FC = () => {
           <Controller
             control={control}
             name="image"
-            rules={{ required: t('REQUIRED_INPUT') }}
+            rules={{
+              required: t('REQUIRED_INPUT'),
+              validate: validateFileSize
+            }}
             render={({ field: { onChange }, fieldState }) => (
               <>
                 <Input
@@ -165,7 +174,9 @@ const CreateNengajoForm: FC = () => {
                   accept={'image/*'}
                   isRequired={true}
                   onChange={(e) =>
-                    e.target.files ? onChange(e.target.files[0]) : false
+                    e.target.files && e.target.files[0].size
+                      ? onChange(e.target.files[0])
+                      : false
                   }
                 />
                 <Box color="red.300">{fieldState.error?.message}</Box>
@@ -254,6 +265,10 @@ const CreateNengajoForm: FC = () => {
         >
           {t('BUTTON_CREATE')}
         </Button>
+
+        <Text color="red.400" textAlign="right" mt={1}>
+          {t('NEW_NENGAJO_TAKING_TIME')}
+        </Text>
       </form>
     </Box>
   )
