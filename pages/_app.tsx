@@ -9,11 +9,21 @@ import {
   chain,
   defaultChains
 } from 'wagmi'
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.mainnet, chain.polygon, chain.hardhat, chain.polygonMumbai],
-  [publicProvider()]
+  [
+    jsonRpcProvider({
+      rpc: () => ({
+        http: process.env.NEXT_PUBLIC_JSONRPC_HTTP!,
+        webSocket: process.env.NEXT_PUBLIC_JSONRPC_WS!
+      }),
+      priority: 0
+    }),
+    publicProvider({ priority: 1 })
+  ]
 )
 const client = createClient({
   autoConnect: true,

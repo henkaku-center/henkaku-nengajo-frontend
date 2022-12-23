@@ -65,7 +65,7 @@ const Home: NextPage = () => {
           )}
         </>
       )}
-      {isMounted && isConnected && data && (
+      {isMounted && data && (
         <Box mt={10}>
           <Heading size="xl" mb={5}>
             {t('REGISTERD_NENGAJO_LIST')}
