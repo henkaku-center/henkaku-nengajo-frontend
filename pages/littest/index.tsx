@@ -4,16 +4,16 @@ import { NextPage } from 'next'
 import { useState } from 'react'
 
 const LitTest: NextPage = () => {
-  const { encrypt } = useLitEncryption()
+  const { initEncrypt } = useLitEncryption()
   const { decrypt } = useLitDecryption()
 
   const [encryptedString, setEncryptedString] = useState('')
   const [key, setkey] = useState('')
 
   const encryption = async () => {
-    const res = await encrypt()
+    const res = await initEncrypt()
     if (!res) return
-    setEncryptedString(res.encryptedString)
+    setEncryptedString(res.stringifiedEncryptedString)
     setkey(res.encryptedSymmetricKey)
   }
 

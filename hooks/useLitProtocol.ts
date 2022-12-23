@@ -1,6 +1,7 @@
 import { contractAddresses } from '@/utils/contractAddresses'
 import { useEffect, useState } from 'react'
 import { useChainId } from './useChainId'
+import { blobToBase64, base64ToBlob } from 'base64-blob'
 const LitJsSdk = require('@lit-protocol/sdk-browser')
 
 export const useLitClient = () => {
@@ -16,38 +17,46 @@ export const useLitClient = () => {
   return litClient
 }
 
-export const useLitEncryption = () => {
-  const litClient = useLitClient()
-  const { chainId } = useChainId()
-  const accessControlConditions = [
+const generateAccessControlConditions = (tokenId: number, chainId: number) => {
+  return [
     {
       contractAddress: contractAddresses['nengajo'][chainId],
       standardContractType: 'ERC1155',
-      chain: 'mumbai',
+      chain: chainId === 80001 ? 'mumbai' : 'polygon',
       method: 'balanceOf',
-      parameters: [':userAddress', '1'],
+      parameters: [':userAddress', `${tokenId}`],
       returnValueTest: {
         comparator: '>=',
         value: '1'
       }
     }
   ]
+}
 
-  const encrypt = async (message: string = 'this is secret message') => {
+export const useLitEncryption = () => {
+  const litClient = useLitClient()
+  const { chainId } = useChainId()
+  const [encryptedSymmetricKey, setEncryptedSymmetricKey] = useState('')
+
+  const initEncrypt = async (file: File) => {
     if (!litClient) return
     const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: 'mumbai' })
-    const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
-      message
-    )
+    const { encryptedFile, symmetricKey } = await LitJsSdk.encryptFile({ file })
+    const stringifiedEncryptedFile = await blobToBase64(encryptedFile)
     const encryptedSymmetricKey = await litClient.saveEncryptionKey({
-      accessControlConditions,
+      accessControlConditions: generateAccessControlConditions(7, chainId),
       symmetricKey,
       authSig,
-      chain: 'mumbai'
+      chain: chainId === 80001 ? 'mumbai' : 'polygon',
+      permanent: false
     })
 
+    setEncryptedSymmetricKey(
+      LitJsSdk.uint8arrayToString(encryptedSymmetricKey, 'base16')
+    )
+
     return {
-      encryptedString,
+      stringifiedEncryptedFile,
       encryptedSymmetricKey: LitJsSdk.uint8arrayToString(
         encryptedSymmetricKey,
         'base16'
@@ -55,28 +64,37 @@ export const useLitEncryption = () => {
     }
   }
 
-  return { encrypt }
+  const updateEncrypt = async (tokenId: number, encryptedSymmetricKey: any) => {
+    if (!litClient) return
+    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: 'mumbai' })
+    await litClient.saveEncryptionKey({
+      accessControlConditions: generateAccessControlConditions(
+        tokenId,
+        chainId
+      ),
+      encryptedSymmetricKey: LitJsSdk.uint8arrayFromString(
+        encryptedSymmetricKey,
+        'base16'
+      ),
+      authSig,
+      chain: chainId === 80001 ? 'mumbai' : 'polygon',
+      permanent: false
+    })
+  }
+
+  return { initEncrypt, updateEncrypt, encryptedSymmetricKey }
 }
 
-export const useLitDecryption = () => {
+export const useLitDecryption = (tokenId: number) => {
   const litClient = useLitClient()
   const { chainId } = useChainId()
-  const accessControlConditions = [
-    {
-      contractAddress: contractAddresses['nengajo'][chainId],
-      standardContractType: 'ERC1155',
-      chain: 'mumbai',
-      method: 'balanceOf',
-      parameters: [':userAddress', '1'],
-      returnValueTest: {
-        comparator: '>=',
-        value: '1'
-      }
-    }
-  ]
+  const accessControlConditions = generateAccessControlConditions(
+    tokenId,
+    chainId
+  )
 
   const decrypt = async (
-    encryptedString: string,
+    encryptedFile: string,
     encryptedSymmetricKey: string
   ) => {
     try {
@@ -89,11 +107,13 @@ export const useLitDecryption = () => {
         chain: 'mumbai',
         authSig
       })
-      const decryptedString = await LitJsSdk.decryptString(
-        encryptedString,
+      const blob = await base64ToBlob(encryptedFile)
+      const decryptedFile = await LitJsSdk.decryptFile({
+        file: blob,
         symmetricKey
-      )
-      return { decryptedString }
+      })
+      console.log(decryptedFile)
+      return { decryptedFile }
     } catch (error) {
       console.log(error)
     }

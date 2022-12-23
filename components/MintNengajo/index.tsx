@@ -24,6 +24,7 @@ import { LinkIcon } from '@chakra-ui/icons'
 import TwitterIcon from '../Icon/Twitter'
 import OpenseaIcon from '../Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
+import SecretMessage from './SecretMessage'
 
 interface Props {
   id: number
@@ -149,6 +150,16 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                   </Box>
                 </>
               )}
+              {item?.tokenURIJSON.encryptedFile &&
+                item?.tokenURIJSON.encryptedSymmetricKey && (
+                  <SecretMessage
+                    encryptedFile={String(item.tokenURIJSON.encryptedFile)}
+                    encryptedSymmetricKey={
+                      item.tokenURIJSON.encryptedSymmetricKey
+                    }
+                    tokenId={id}
+                  />
+                )}
             </Box>
           </GridItem>
         )}
