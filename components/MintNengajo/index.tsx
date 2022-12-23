@@ -19,7 +19,10 @@ import { useAccount } from 'wagmi'
 import useTranslation from 'next-translate/useTranslation'
 import styles from './MintNengajo.module.css'
 import { NengajoInfoProps } from '@/hooks/useNengajoInfo'
-import { useMintNengajo } from '@/hooks/useNengajoContract'
+import {
+  useIsHoldingByTokenId,
+  useMintNengajo
+} from '@/hooks/useNengajoContract'
 import { LinkIcon } from '@chakra-ui/icons'
 import TwitterIcon from '../Icon/Twitter'
 import OpenseaIcon from '../Icon/Opensea'
@@ -43,7 +46,8 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     isLoading: isMinting,
     isSuccess,
     minted
-  } = useMintNengajo(Number(id))
+  } = useMintNengajo(id)
+  const { isHolding } = useIsHoldingByTokenId(id)
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable',
@@ -74,7 +78,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     <>
       <Box>
         <Heading mt={imageOnly ? 5 : 50} size="lg">
-          {item?.tokenURIJSON.name}
+          {item?.tokenURIJSON?.name}
         </Heading>
       </Box>
       <Grid
@@ -86,14 +90,14 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
       >
         <GridItem>
           {item && (
-            <NFTImage imageUrl={parseIpfs2Pinata(item?.tokenURIJSON.image)} />
+            <NFTImage imageUrl={parseIpfs2Pinata(item?.tokenURIJSON?.image)} />
           )}
-          <Text mt={5}>{item?.tokenURIJSON.description}</Text>
+          <Text mt={5}>{item?.tokenURIJSON?.description}</Text>
         </GridItem>
         {!imageOnly && (
           <GridItem>
             <Box mb={{ lg: 10 }}>
-              {mintState.status === 'minted' && (
+              {(mintState.status === 'minted' || isHolding) && (
                 <Box>
                   <Text>{t('TITLE.MINTED')}</Text>
                   <Box mt={5}>
@@ -108,12 +112,11 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                 </Box>
               )}
               {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
-              {mintState.status === 'mintable' && (
+              {mintState.status === 'mintable' && !isHolding && (
                 <>
                   {approved ? (
                     <Box>
                       <Text>{t('TITLE.MINTABLE')}</Text>
-                      <Text fontSize="2xl">500 $HENKAKU</Text>
                       <Button
                         width="100%"
                         colorScheme="teal"
@@ -151,7 +154,8 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                 </>
               )}
               {item?.tokenURIJSON.encryptedFile &&
-                item?.tokenURIJSON.encryptedSymmetricKey && (
+                item?.tokenURIJSON.encryptedSymmetricKey &&
+                isHolding && (
                   <SecretMessage
                     encryptedFile={String(item.tokenURIJSON.encryptedFile)}
                     encryptedSymmetricKey={

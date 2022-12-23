@@ -1,5 +1,17 @@
 import { useLitDecryption } from '@/hooks/useLitProtocol'
-import { Box, Button, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Divider,
+  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  Text,
+  useDisclosure
+} from '@chakra-ui/react'
 import { FC, useCallback, useMemo, useState } from 'react'
 
 type Props = {
@@ -14,25 +26,55 @@ const SecretMessage: FC<Props> = ({
   tokenId
 }) => {
   const { decrypt } = useLitDecryption(tokenId)
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState<string>()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const decryptMessage = useCallback(async () => {
-    const decryptedMessage = await decrypt(encryptedFile, encryptedSymmetricKey)
-    let binary = ''
-    const bytes = new Uint8Array(decryptedMessage?.decryptedFile)
-    const len = bytes.byteLength
-    for (var i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i])
+    if (!message) {
+      const decryptedMessage = await decrypt(
+        encryptedFile,
+        encryptedSymmetricKey
+      )
+      let binary = ''
+      const bytes = new Uint8Array(decryptedMessage?.decryptedFile)
+      const len = bytes.byteLength
+      for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i])
+      }
+      setMessage(window.btoa(binary))
     }
-    setMessage(window.btoa(binary))
+    onOpen()
   }, [decrypt])
 
   return (
     <Box>
-      <Button onClick={() => decryptMessage()}>
-        シークレット・メッセージをみる
+      <Divider my={5} />
+      <Button
+        onClick={() => decryptMessage()}
+        colorScheme="teal"
+        height="auto"
+        py={2}
+      >
+        この年賀状ホルダーだけが読める
+        <br />
+        メッセージ・カードをみる
       </Button>
-      <img src={`data:image;base64, ${message}`} alt="" />
+
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box py={5}>
+              <Image
+                margin="0 auto"
+                src={`data:image;base64, ${message}`}
+                alt=""
+              />
+            </Box>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   )
 }

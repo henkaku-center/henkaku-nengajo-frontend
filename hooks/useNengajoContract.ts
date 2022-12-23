@@ -8,7 +8,7 @@ import {
 import { getContractAddress } from '@/utils/contractAddresses'
 import NengajoABI from '@/abi/Nengajo.json'
 import { Nengajo } from '@/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BigNumber } from 'ethers'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
@@ -115,4 +115,28 @@ export const useRetrieveAllNengajo = () => {
     isError: boolean
   }
   return { data, isLoading, isError }
+}
+
+export const useIsHoldingByTokenId = (tokenId: number) => {
+  const [isHolding, setIsHolding] = useState(false)
+  const { address } = useAccount()
+  const { data, isError, isLoading } = useNengajoContractRead('balanceOf', [
+    address,
+    tokenId
+  ]) as {
+    data: BigNumber
+    isLoading: boolean
+    isError: boolean
+  }
+
+  useEffect(() => {
+    console.log(data)
+    if (data?.toNumber() > 0) {
+      setIsHolding(true)
+    } else {
+      setIsHolding(false)
+    }
+  }, [data, address])
+
+  return { isHolding, isLoading, isError }
 }

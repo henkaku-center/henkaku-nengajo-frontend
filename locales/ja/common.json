@@ -14,10 +14,12 @@
 
   "CREATE_NEW_NENGAJO": "新しい年賀状を作る",
   "NEW_NENGAJO_TITLE_LABEL": "年賀状題名",
-  "NEW_NENGAJO_PICTURE_LABEL": "画像",
+  "NEW_NENGAJO_PICTURE_LABEL": "画像（1MBまで）",
+  "NEW_NENGAJO_SECRET_MESSAGE_LABEL": "年賀状を受け取ってくれた人へのメッセージカード（1MBまで）",
   "NEW_NENGAJO_DESCRIPTION": "NFTの説明",
   "NEW_NENGAJO_CREATOR_NAME": "作成者名",
   "NEW_NENGAJO_MAX_SUPPLY": "最大発行枚数",
+  "NEW_NENGAJO_TAKING_TIME": "時間がかかることがあります",
   "REQUIRED_INPUT": "必須項目です。",
   "UPLOAD_SUCCESS": "アップロードが完了しました",
   "BUTTON_CREATE": "作る",
