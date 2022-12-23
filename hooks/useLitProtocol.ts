@@ -17,12 +17,23 @@ export const useLitClient = () => {
   return litClient
 }
 
+const chainName = (chainId: number) => {
+  switch (chainId) {
+    case 80001:
+      return 'mumbai'
+    case 137:
+      return 'polygon'
+    default:
+      return ''
+  }
+}
+
 const generateAccessControlConditions = (tokenId: number, chainId: number) => {
   return [
     {
       contractAddress: contractAddresses['nengajo'][chainId],
       standardContractType: 'ERC1155',
-      chain: chainId === 80001 ? 'mumbai' : 'polygon',
+      chain: chainName(chainId),
       method: 'balanceOf',
       parameters: [':userAddress', `${tokenId}`],
       returnValueTest: {
@@ -47,7 +58,7 @@ export const useLitEncryption = () => {
       accessControlConditions: generateAccessControlConditions(7, chainId),
       symmetricKey,
       authSig,
-      chain: chainId === 80001 ? 'mumbai' : 'polygon',
+      chain: chainName(chainId),
       permanent: false
     })
 
@@ -77,7 +88,7 @@ export const useLitEncryption = () => {
         'base16'
       ),
       authSig,
-      chain: chainId === 80001 ? 'mumbai' : 'polygon',
+      chain: chainName(chainId),
       permanent: false
     })
   }
@@ -99,12 +110,12 @@ export const useLitDecryption = (tokenId: number) => {
   ) => {
     try {
       const authSig = await LitJsSdk.checkAndSignAuthMessage({
-        chain: 'mumbai'
+        chain: chainName(chainId)
       })
       const symmetricKey = await litClient.getEncryptionKey({
         accessControlConditions,
         toDecrypt: encryptedSymmetricKey,
-        chain: 'mumbai',
+        chain: chainName(chainId),
         authSig
       })
       const blob = await base64ToBlob(encryptedFile)
@@ -112,7 +123,6 @@ export const useLitDecryption = (tokenId: number) => {
         file: blob,
         symmetricKey
       })
-      console.log(decryptedFile)
       return { decryptedFile }
     } catch (error) {
       console.log(error)
