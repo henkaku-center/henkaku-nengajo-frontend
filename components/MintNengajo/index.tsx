@@ -68,7 +68,6 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     }
   }, [minted])
 
-  if (!isConnected) return <></>
   return (
     <>
       <Box>
