@@ -148,10 +148,7 @@ const CreateNengajoForm: FC = () => {
   }
 
   return (
-    <Box color="white.700">
-      <Heading as="h2" color="white.600">
-        {t('CREATE_NEW_NENGAJO')}
-      </Heading>
+    <Box>
       <form onSubmit={handleSubmit(submit)}>
         <FormControl mt={5} isRequired>
           <FormLabel mt="1em" htmlFor="nengajoName">
