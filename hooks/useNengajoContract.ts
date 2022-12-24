@@ -18,7 +18,10 @@ const usePrepareNengajoContractWrite = (functionName: string, args: any[]) => {
     address: getContractAddress({ name: 'nengajo', chainId }),
     abi: NengajoABI.abi,
     functionName,
-    args
+    args,
+    overrides: {
+      gasLimit: BigNumber.from(450000)
+    }
   })
   return config
 }
