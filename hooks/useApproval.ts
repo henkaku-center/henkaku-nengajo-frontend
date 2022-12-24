@@ -20,7 +20,10 @@ const useApprove = (erc20: string, spender: string) => {
     address: erc20,
     abi: erc20ABI,
     functionName: 'approve',
-    args: [spender as `0x${string}`, ethers.constants.MaxUint256]
+    args: [spender as `0x${string}`, ethers.constants.MaxUint256],
+    overrides: {
+      gasLimit: BigNumber.from(450000)
+    }
   })
 
   const { write: contractApprove } = useContractWrite({
