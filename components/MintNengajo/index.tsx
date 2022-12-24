@@ -79,13 +79,15 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   }, [minted])
 
   // CountDown
-  const startDay = '2023/01/01 12:00:00'
+  const startDay =
+    process.env.NODE_ENV === 'production'
+      ? '2022/01/01 12:00:00' // 本番
+      : '2023/01/01 12:00:00' // 開発用（動作確認はこちらを変更）
   const { isStart, ...countDown } = useCountdown(startDay)
   useEffect(() => {
     if (isStart) setMintState({ ...mintState, start: isStart })
-  }, [isStart])
+  }, [isStart, mintState])
 
-  if (!isConnected) return <></>
   return (
     <>
       <Box>
