@@ -10,7 +10,7 @@ interface NengajoInfoProps extends Nengajo.NengajoInfoStruct {
     description: string
     encryptedFile?: string
     encryptedSymmetricKey?: string
-    attributes: Object
+    attributes: { trait_type: string; value: string }[]
   }
 }
 

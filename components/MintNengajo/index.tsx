@@ -88,6 +88,15 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     if (isStart) setMintState({ ...mintState, start: isStart })
   }, [isStart, mintState])
 
+  const creatorName =
+    item?.tokenURIJSON?.attributes.length > 0
+      ? item?.tokenURIJSON?.attributes.reduce((text, attribute) => {
+          const currentText =
+            attribute?.trait_type === 'CreatorName' ? attribute.value : ''
+          return text + currentText
+        }, '')
+      : ''
+
   return (
     <>
       <Box>
@@ -105,6 +114,11 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
         <GridItem>
           {item && (
             <NFTImage imageUrl={parseIpfs2Pinata(item?.tokenURIJSON?.image)} />
+          )}
+          {creatorName && (
+            <Text textAlign="right" fontSize="sm" mt={1}>
+              created by {creatorName}
+            </Text>
           )}
           <Text mt={5}>{item?.tokenURIJSON?.description}</Text>
         </GridItem>
