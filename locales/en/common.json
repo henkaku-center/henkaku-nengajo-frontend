@@ -13,6 +13,10 @@
   "LANG_SWITCHER": "日本語",
 
   "CREATE_NEW_NENGAJO": "Create a new nengajo",
+  "NEW_NENGAJO_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create Nengajo. Prices vary depending on the max supply of NFTs.",
+  "NEW_NENGAJO_HENKAKUTOKEN_0": "10HENKAKU fixed up to 10",
+  "NEW_NENGAJO_HENKAKUTOKEN_10": "5HENKAKU/1 for 10~100",
+  "NEW_NENGAJO_HENKAKUTOKEN_100": "10HENKAKU/1 after 100",
   "NEW_NENGAJO_TITLE_LABEL": "Nengajo title",
   "NEW_NENGAJO_PICTURE_LABEL": "Picture（upto 1MB）",
   "NEW_NENGAJO_SECRET_MESSAGE_LABEL": "Secret message card for holder（upto 1MB）",
@@ -23,7 +27,7 @@
   "REQUIRED_INPUT": "Required",
   "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",
-  "BUTTON_APPROVE": "Approve",
+  "BUTTON_APPROVE": "Approve the Nengajo NFT contract to make payment operations for HENKAKU token",
   "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
 
   "STATUS_BUTTON": "Status Check",

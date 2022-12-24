@@ -13,6 +13,10 @@
   "LANG_SWITCHER": "English",
 
   "CREATE_NEW_NENGAJO": "新しい年賀状を作る",
+  "NEW_NENGAJO_REQUIRE_HENKAKUTOKEN": "年賀状の作成にはHENKAKUトークンが必要です。最大発行枚数によって値段が変わります。",
+  "NEW_NENGAJO_HENKAKUTOKEN_0": "10枚までは10HENKAKU固定",
+  "NEW_NENGAJO_HENKAKUTOKEN_10": "10~100枚までは5HENKAKU/1枚",
+  "NEW_NENGAJO_HENKAKUTOKEN_100": "100枚以降は10HENKAKU/1枚",
   "NEW_NENGAJO_TITLE_LABEL": "年賀状題名",
   "NEW_NENGAJO_PICTURE_LABEL": "画像（1MBまで）",
   "NEW_NENGAJO_SECRET_MESSAGE_LABEL": "年賀状を受け取ってくれた人へのメッセージカード（1MBまで）",
@@ -23,7 +27,7 @@
   "REQUIRED_INPUT": "必須項目です。",
   "UPLOAD_SUCCESS": "アップロードが完了しました",
   "BUTTON_CREATE": "作る",
-  "BUTTON_APPROVE": "承認",
+  "BUTTON_APPROVE": "年賀状NFTコントラクトがHENKAKUトークンの支払い操作をすることを承認",
   "IMAGE_PREVIEW_ALT": "年賀状 NFTのプレビュー",
 
   "STATUS_BUTTON": "ステータス確認",

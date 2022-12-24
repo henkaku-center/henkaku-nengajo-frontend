@@ -51,7 +51,9 @@ export const useLitEncryption = () => {
 
   const initEncrypt = async (file: File) => {
     if (!litClient) return
-    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: 'mumbai' })
+    const authSig = await LitJsSdk.checkAndSignAuthMessage({
+      chain: chainName(chainId)
+    })
     const { encryptedFile, symmetricKey } = await LitJsSdk.encryptFile({ file })
     const stringifiedEncryptedFile = await blobToBase64(encryptedFile)
     const encryptedSymmetricKey = await litClient.saveEncryptionKey({
@@ -77,7 +79,9 @@ export const useLitEncryption = () => {
 
   const updateEncrypt = async (tokenId: number, encryptedSymmetricKey: any) => {
     if (!litClient) return
-    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: 'mumbai' })
+    const authSig = await LitJsSdk.checkAndSignAuthMessage({
+      chain: chainName(chainId)
+    })
     await litClient.saveEncryptionKey({
       accessControlConditions: generateAccessControlConditions(
         tokenId,
