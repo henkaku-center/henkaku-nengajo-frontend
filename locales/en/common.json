@@ -7,47 +7,52 @@
   "HENKAKU": "HENKAKU",
   "NENGAJO": "Nengajo",
   "HOME_LINK": "Home",
-  "COLLECTION_LINK": "Collections",
+  "COLLECTION_LINK": "Collection",
   "CREATE_LINK": "Create Nengajo",
   "NENGAJO_LINK": "Nengajo",
   "LANG_SWITCHER": "日本語",
 
   "CREATE_NEW_NENGAJO": "Create a new nengajo",
-  "NEW_NENGAJO_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create Nengajo. Prices vary depending on the max supply of NFTs.",
-  "NEW_NENGAJO_HENKAKUTOKEN_0": "10HENKAKU fixed up to 10",
-  "NEW_NENGAJO_HENKAKUTOKEN_10": "5HENKAKU/1 for 10~100",
-  "NEW_NENGAJO_HENKAKUTOKEN_100": "10HENKAKU/1 after 100",
+  "NEW_NENGAJO_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create nengajo. The cost varies depending on the max supply of NFTs.",
+  "NEW_NENGAJO_HENKAKUTOKEN_0": "10 HENKAKU (up to 10 copies)",
+  "NEW_NENGAJO_HENKAKUTOKEN_10": "5 HENKAKU/copy (11 to 100 copies)",
+  "NEW_NENGAJO_HENKAKUTOKEN_100": "10 HENKAKU/copy (more than 100 copies)",
   "NEW_NENGAJO_TITLE_LABEL": "Nengajo title",
-  "NEW_NENGAJO_PICTURE_LABEL": "Picture（upto 1MB）",
-  "NEW_NENGAJO_SECRET_MESSAGE_LABEL": "Secret message card for holder（upto 1MB）",
-  "NEW_NENGAJO_CREATOR_NAME": "Creator Name",
-  "NEW_NENGAJO_DESCRIPTION": "Description of NFT",
+  "NEW_NENGAJO_PICTURE_LABEL": "Picture（up to 1 MB）",
+  "NEW_NENGAJO_SECRET_MESSAGE_LABEL": "Secret message card for holder（up to 1 MB）",
+  "NEW_NENGAJO_CREATOR_NAME": "Creator name",
+  "NEW_NENGAJO_DESCRIPTION": "NFT description",
   "NEW_NENGAJO_MAX_SUPPLY": "Max supply",
-  "NEW_NENGAJO_TAKING_TIME": "It may take a while",
+  "NEW_NENGAJO_TAKING_TIME": "This might take a while",
+  "NEW_NENGAJO_SECRET_PROMPT": "Would you like to add a secret message for the people who will receive your nengajo?",
   "REQUIRED_INPUT": "Required",
   "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",
-  "BUTTON_APPROVE": "Approve the Nengajo NFT contract to make payment operations for HENKAKU token",
+  "BUTTON_APPROVE": "Approve the Nengajo NFT contract to make payment operations for the HENKAKU token",
+  "ERC20APPROVED": {
+    "APPROVED": "You have already approved HENKAKU payments to this contract.",
+    "UNAPPROVED": "You have not yet approved HENKAKU payments to this contract."
+  },
   "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
 
-  "STATUS_BUTTON": "Status Check",
+  "STATUS_BUTTON": "Status",
   "STATUS_TITLE": "Status",
 
-  "REGISTERD_NENGAJO_LIST": "Registerd Nengajo list",
-  "EMPTY_NENGAJO_LIST": "Not found applicable Nengajo item",
+  "REGISTERD_NENGAJO_LIST": "Registered nengajo list",
+  "EMPTY_NENGAJO_LIST": "No relevant nengajo found",
 
   "CLAIM": {
     "TOAST": {
       "SUBMITTED": "Submitted",
       "ERROR": "Error",
-      "SUCCESS": "You got Nengajo.",
-      "RETRIEVE_NENGAJOES_FAILED": "Retrieve Nengajo list failed.",
+      "SUCCESS": "Nengajo was successfully received.",
+      "RETRIEVE_NENGAJOES_FAILED": "Failed to retrieve nengajo list.",
       "TX_FAILED": "Transaction failed.",
       "DEFAULT_ERROR": "Unknown Server Error"
     }
   },
 
-  "GET_NENGAJO": "Get Nengajo",
+  "GET_NENGAJO": "Get nengajo",
 
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved."
 }

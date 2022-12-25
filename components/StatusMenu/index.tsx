@@ -53,16 +53,12 @@ const StatusMenu: React.FC<Props> = ({ children }) => {
           <Balance />
           {approved && (
             <Box mt={3} mb={3}>
-              <Text>
-                あなたは、次のアドレスのコントラクトにHENKAKU支払いの許可を与えました（文面要検討）。
-                <br />
-                {nengajo.toString()}
-              </Text>
+              <Text>{t('ERC20APPROVED.APPROVED')}</Text>
             </Box>
           )}
           {!approved && (
             <Box mt={3} mb={3}>
-              承認されていません。HENKAKU支払いの許可を与えてください。
+              <Text>{t('ERC20APPROVED.UNAPPROVED')}</Text>
             </Box>
           )}
         </PopoverBody>
