@@ -135,27 +135,51 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                   </Stack>
                 </Box>
               ) : (
-                <>
-                  {(mintState.status === 'minted' || isHolding) && (
-                    <Box>
-                      <Text>{t('TITLE.MINTED')}</Text>
-                      <Box mt={5}>
-                        <Text size="sm">{t('TITLE.SHARE')}</Text>
-                        <Stack direction="row" spacing={4} mt={2}>
-                          {/* リンクをつける */}
-                          <LinkIcon fontSize="25px" />
-                          <TwitterIcon fontSize="30px" />
-                          <OpenseaIcon fontSize="30px" />
-                        </Stack>
+                process.env.NODE_ENV !== 'production' && (
+                  <>
+                    {(mintState.status === 'minted' || isHolding) && (
+                      <Box>
+                        <Text>{t('TITLE.MINTED')}</Text>
+                        <Box mt={5}>
+                          <Text size="sm">{t('TITLE.SHARE')}</Text>
+                          <Stack direction="row" spacing={4} mt={2}>
+                            {/* リンクをつける */}
+                            <LinkIcon fontSize="25px" />
+                            <TwitterIcon fontSize="30px" />
+                            <OpenseaIcon fontSize="30px" />
+                          </Stack>
+                        </Box>
                       </Box>
-                    </Box>
-                  )}
-                  {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
-                  {mintState.status === 'mintable' && !isHolding && (
-                    <>
-                      {approved ? (
+                    )}
+                    {mintState.status === 'noMintable' &&
+                      t('TITLE.NOT_MINTABLE')}
+                    {mintState.status === 'mintable' && !isHolding && (
+                      <>
+                        {approved ? (
+                          <Box>
+                            <Text>{t('TITLE.MINTABLE')}</Text>
+                            <Button
+                              width="100%"
+                              colorScheme="teal"
+                              mt={5}
+                              loadingText="minting..."
+                              isLoading={isMinting || (isSuccess && !minted)}
+                              onClick={mint}
+                            >
+                              {t('MINT')}
+                            </Button>
+                          </Box>
+                        ) : (
+                          <Box mt="2em">
+                            {/* TODO: <Approve /> が入ります */}
+                          </Box>
+                        )}
+                      </>
+                    )}
+                    {mintState.freeMintable && (
+                      <>
+                        {t('TITLE.FREE_MINTABLE')}
                         <Box>
-                          <Text>{t('TITLE.MINTABLE')}</Text>
                           <Button
                             width="100%"
                             colorScheme="teal"
@@ -166,44 +190,27 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                           >
                             {t('MINT')}
                           </Button>
+                          <Text mt={3}>
+                            {t('TITLE.MAX_SUPPLY')}: {Number(item?.maxSupply)}
+                          </Text>
                         </Box>
-                      ) : (
-                        <Box mt="2em">{/* TODO: <Approve /> が入ります */}</Box>
-                      )}
-                    </>
-                  )}
-                  {mintState.freeMintable && (
-                    <>
-                      {t('TITLE.FREE_MINTABLE')}
-                      <Box>
-                        <Button
-                          width="100%"
-                          colorScheme="teal"
-                          mt={5}
-                          loadingText="minting..."
-                          isLoading={isMinting || (isSuccess && !minted)}
-                          onClick={mint}
-                        >
-                          {t('MINT')}
-                        </Button>
-                        <Text mt={3}>
-                          {t('TITLE.MAX_SUPPLY')}: {Number(item?.maxSupply)}
-                        </Text>
-                      </Box>
-                    </>
-                  )}
-                  {item?.tokenURIJSON.encryptedFile &&
-                    item?.tokenURIJSON.encryptedSymmetricKey &&
-                    isHolding && (
-                      <SecretMessage
-                        encryptedFile={String(item.tokenURIJSON.encryptedFile)}
-                        encryptedSymmetricKey={
-                          item.tokenURIJSON.encryptedSymmetricKey
-                        }
-                        tokenId={id}
-                      />
+                      </>
                     )}
-                </>
+                    {item?.tokenURIJSON.encryptedFile &&
+                      item?.tokenURIJSON.encryptedSymmetricKey &&
+                      isHolding && (
+                        <SecretMessage
+                          encryptedFile={String(
+                            item.tokenURIJSON.encryptedFile
+                          )}
+                          encryptedSymmetricKey={
+                            item.tokenURIJSON.encryptedSymmetricKey
+                          }
+                          tokenId={id}
+                        />
+                      )}
+                  </>
+                )
               )}
             </Box>
           </GridItem>
