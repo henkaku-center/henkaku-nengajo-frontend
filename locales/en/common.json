@@ -33,7 +33,8 @@
   "STATUS_BUTTON": "Status Check",
   "STATUS_TITLE": "Status",
 
-  "REGISTERD_NENGAJO_LIST": "Registerd Nengajo List",
+  "REGISTERD_NENGAJO_LIST": "Registerd Nengajo list",
+  "EMPTY_NENGAJO_LIST": "Not found applicable Nengajo item",
 
   "CLAIM": {
     "TOAST": {

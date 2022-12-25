@@ -7,7 +7,9 @@ import {
   AspectRatio,
   Text,
   Flex,
-  SimpleGrid
+  SimpleGrid,
+  Spinner,
+  Stack
 } from '@chakra-ui/react'
 import { Nengajo } from '@/types'
 import { useAllNengajoesInfo } from '@/hooks/useNengajoInfo'
@@ -26,7 +28,13 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
   const { allNengajoesInfo } = useAllNengajoesInfo(items)
   const { t } = useTranslation('common')
 
-  if (!allNengajoesInfo || allNengajoesInfo.length <= 0) return <></>
+  if (!allNengajoesInfo)
+    return (
+      <Stack direction="row" justifyContent="center" alignItems="center" m={10}>
+        <Spinner />
+      </Stack>
+    )
+  if (allNengajoesInfo.length <= 0) return <Box>{t('EMPTY_NENGAJO_LIST')}</Box>
   return (
     <SimpleGrid
       columns={{ sm: 3, md: 4 }}
