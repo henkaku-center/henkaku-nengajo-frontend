@@ -9,18 +9,20 @@ const useCountdown = (targetDate: string) => {
   dayjs.tz.setDefault('Asia/Tokyo')
   const JTC = dayjs.tz(new Date()).valueOf()
 
-  const target = dayjs.tz(new Date(targetDate))
+  const countDownDate = dayjs.tz(new Date(targetDate)).valueOf()
 
-  const countDownDate = target.valueOf()
-  const [countDown, setCountDown] = useState(countDownDate - JTC)
+  const [countDown, setCountDown] = useState(
+    getReturnValues(countDownDate - JTC)
+  )
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountDown(countDownDate - JTC)
+      const returnValue = getReturnValues(countDownDate - JTC)
+      if (!countDown.isStart) setCountDown(returnValue)
     }, 1000)
     return () => clearInterval(interval)
   }, [JTC, countDownDate])
 
-  return getReturnValues(countDown)
+  return countDown
 }
 
 const getReturnValues = (countDown: number) => {

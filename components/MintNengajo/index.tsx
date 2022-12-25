@@ -40,7 +40,6 @@ interface Props {
 interface mintStateProps {
   status: 'minted' | 'mintable' | 'noMintable'
   freeMintable: boolean
-  start: boolean
 }
 const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { t } = useTranslation('nengajo')
@@ -55,8 +54,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable',
-    freeMintable: false,
-    start: false
+    freeMintable: false
   })
 
   // TODO: useApproval から取得
@@ -84,9 +82,6 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
       ? '2023/01/01 12:00:00' // 本番
       : '2023/01/01 12:00:00' // 開発用（動作確認はこちらを変更）
   const { isStart, ...countDown } = useCountdown(startDay)
-  useEffect(() => {
-    if (isStart) setMintState({ ...mintState, start: isStart })
-  }, [isStart, mintState])
 
   const creatorName =
     item?.tokenURIJSON?.attributes.length > 0
@@ -125,7 +120,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
         {!imageOnly && (
           <GridItem>
             <Box mb={{ lg: 10 }}>
-              {!mintState.start ? (
+              {!isStart ? (
                 <Box mt={{ base: 5 }}>
                   <Heading size="md">
                     <Trans
