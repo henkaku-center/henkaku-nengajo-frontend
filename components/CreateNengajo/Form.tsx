@@ -47,7 +47,8 @@ interface TokenAttribute {
 }
 
 const metadata_external_url = 'https://nengajo.henkaku.org'
-const metadata_contributors = 'futa; imaichiyyy; karawapo ....'
+const metadata_contributors =
+  'daishin;FLOTAN;futa;geeknees;imaichiyyy;mindinc;karawapo;RYU;sushi yam;yawn;Yuki aka Ryoma;Yuudai;'
 
 const CreateNengajoForm: FC = () => {
   const { t, lang } = useTranslation('common')
