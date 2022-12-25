@@ -29,6 +29,10 @@
   "UPLOAD_SUCCESS": "アップロードが完了しました",
   "BUTTON_CREATE": "作る",
   "BUTTON_APPROVE": "年賀状NFTコントラクトがHENKAKUトークンの支払い操作をすることを承認",
+  "ERC20APPROVED": {
+    "APPROVED": "年賀状コントラクトにHENKAKU支払いの許可付与済み。",
+    "UNAPPROVED": "承認されていません。HENKAKU支払いの許可を与えてください。"
+  },
   "IMAGE_PREVIEW_ALT": "年賀状 NFTのプレビュー",
 
   "STATUS_BUTTON": "ステータス確認",

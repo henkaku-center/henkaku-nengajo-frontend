@@ -29,6 +29,10 @@
   "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",
   "BUTTON_APPROVE": "Approve the Nengajo NFT contract to make payment operations for the HENKAKU token",
+  "ERC20APPROVED": {
+    "APPROVED": "You have already approved HENKAKU payments to this contract.",
+    "UNAPPROVED": "You have not yet approved HENKAKU payments to this contract."
+  },
   "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
 
   "STATUS_BUTTON": "Status",
