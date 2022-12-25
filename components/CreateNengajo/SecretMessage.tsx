@@ -1,12 +1,12 @@
 import { Box, Text, Textarea } from '@chakra-ui/react'
 import { FC } from 'react'
+import useTranslation from 'next-translate/useTranslation'
 
 const SecretMessageForm: FC = () => {
+  const { t, lang } = useTranslation('common')
   return (
     <Box>
-      <Text>
-        年賀状をMintしてくれた人だけが見ることのできる秘密のメッセージを送ってみませんか？
-      </Text>
+      <Text>{t('NEW_NENGAJO_SECRET_PROMPT')}</Text>
       <Textarea rows={5} mt={3} />
     </Box>
   )

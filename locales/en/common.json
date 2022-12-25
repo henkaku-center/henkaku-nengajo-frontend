@@ -24,6 +24,7 @@
   "NEW_NENGAJO_DESCRIPTION": "Description of NFT",
   "NEW_NENGAJO_MAX_SUPPLY": "Max supply",
   "NEW_NENGAJO_TAKING_TIME": "It may take a while",
+  "NEW_NENGAJO_SECRET_PROMPT": "Would you like to add a secret message for the people who will receive your nengajo?",
   "REQUIRED_INPUT": "Required",
   "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",

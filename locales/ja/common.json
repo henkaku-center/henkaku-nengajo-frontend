@@ -24,6 +24,7 @@
   "NEW_NENGAJO_CREATOR_NAME": "作成者名",
   "NEW_NENGAJO_MAX_SUPPLY": "最大発行枚数",
   "NEW_NENGAJO_TAKING_TIME": "時間がかかることがあります",
+  "NEW_NENGAJO_SECRET_PROMPT": "年賀状を受け取ってくれた人だけが見ることのできる秘密のメッセージを送ってみませんか？",
   "REQUIRED_INPUT": "必須項目です。",
   "UPLOAD_SUCCESS": "アップロードが完了しました",
   "BUTTON_CREATE": "作る",
