@@ -62,7 +62,7 @@ const useAllNengajoesInfo = (items: Nengajo.NengajoInfoStructOutput[]) => {
           return await mappingNengajoInfo(item)
         })
       )
-      return mappedData
+      return mappedData.reverse()
     }
     fetchAllNengajoesInfo().then((data) => setAllNengajoesInfo(data))
   }, [items])
