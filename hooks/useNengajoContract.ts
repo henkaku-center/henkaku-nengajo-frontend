@@ -143,3 +143,11 @@ export const useIsHoldingByTokenId = (tokenId: number) => {
 
   return { isHolding, isLoading, isError }
 }
+
+export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
+  const { data, isLoading } = useNengajoContractRead('calcPrice', [
+    maxSupply || 0
+  ]) as { data: BigNumber; isLoading: boolean }
+
+  return { data, isLoading }
+}

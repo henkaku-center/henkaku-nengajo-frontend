@@ -9,12 +9,14 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Text
+  Text,
+  Flex
 } from '@chakra-ui/react'
 import { useUploadImageFile, useUploadMetadataJson } from '@/hooks/usePinata'
 import { useAccount } from 'wagmi'
 import { useRouter } from 'next/router'
 import { useLitEncryption } from '@/hooks/useLitProtocol'
+import CheckHenkaku from './CheckHenkaku'
 
 type FormData = {
   name: string
@@ -290,14 +292,17 @@ const CreateNengajoForm: FC = () => {
             rules={{ required: t('REQUIRED_INPUT') }}
             render={({ field: { onChange, value }, fieldState }) => (
               <>
-                <Input
-                  variant="outline"
-                  id="maxSupply"
-                  type="text"
-                  placeholder={t('NEW_NENGAJO_MAX_SUPPLY')}
-                  onChange={onChange}
-                  value={value}
-                />
+                <Flex gap={4} alignItems="center">
+                  <Input
+                    variant="outline"
+                    id="maxSupply"
+                    type="text"
+                    placeholder={t('NEW_NENGAJO_MAX_SUPPLY')}
+                    onChange={onChange}
+                    value={value}
+                  />
+                  <CheckHenkaku maxSupply={watch('maxSupply')} />
+                </Flex>
                 <Box color="red.300">{fieldState.error?.message}</Box>
               </>
             )}
