@@ -40,7 +40,7 @@ const StatusMenu: React.FC<Props> = ({ children }) => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button>{children ?? t('STATUS_BUTTON')}</Button>
+        <Button borderRadius="full">{children ?? t('STATUS_BUTTON')}</Button>
       </PopoverTrigger>
       <PopoverContent maxW="100%" width="370px">
         <PopoverArrow />

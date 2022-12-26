@@ -68,7 +68,9 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
                 {nengajoInfo.tokenURIJSON.name}
               </Text>
               <Link href={`/nengajo/${nengajoInfo.id}`}>
-                <Button width="100%">{t('GET_NENGAJO')}</Button>
+                <Button width="100%" size="sm">
+                  {t('GET_NENGAJO')}
+                </Button>
               </Link>
               {/* <div className={styles.preview}>
                 <PreviewNengajo id={Number(nengajoInfo.id)} item={nengajoInfo}>
