@@ -8,7 +8,7 @@ import {
 import { getContractAddress } from '@/utils/contractAddresses'
 import NengajoABI from '@/abi/Nengajo.json'
 import { Nengajo } from '@/types'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BigNumber } from 'ethers'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
@@ -133,7 +133,6 @@ export const useIsHoldingByTokenId = (tokenId: number) => {
   }
 
   useEffect(() => {
-    console.log(data)
     if (data?.toNumber() > 0) {
       setIsHolding(true)
     } else {
@@ -142,4 +141,16 @@ export const useIsHoldingByTokenId = (tokenId: number) => {
   }, [data, address])
 
   return { isHolding, isLoading, isError }
+}
+
+export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
+  const normalizedMaxSupply = useMemo(() => {
+    return Number(maxSupply) ? Number(maxSupply) : 0
+  }, [maxSupply])
+
+  const { data, isLoading } = useNengajoContractRead('calcPrice', [
+    normalizedMaxSupply
+  ]) as { data: BigNumber; isLoading: boolean }
+
+  return { data, isLoading }
 }
