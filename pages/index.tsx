@@ -53,24 +53,34 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Box textAlign="center">
-        <Text fontSize="24px" fontWeight="bold">
-          {t('TOP_UNTIL_START')}
+        <Text fontSize="24px" fontWeight="bold" lineHeight={2}>
+          {isStart ? (
+            <>
+              {t('TOP_MINT_START_AKEOME')}
+              <br />
+              {t('TOP_MINT_START_READY')}
+            </>
+          ) : (
+            <>{t('TOP_UNTIL_START')}</>
+          )}
         </Text>
-        {isMounted && <CountDown data={countDown} />}
+        {isMounted && !isStart && <CountDown data={countDown} />}
       </Box>
       {isMounted && (
         <Box textAlign="center">
           <Box mt="2em" display="inline-block">
-            <Link href="/create">
-              <Button
-                colorScheme="teal"
-                borderRadius="full"
-                mb={3}
-                width="full"
-              >
-                {t('CREATE_LINK')}
-              </Button>
-            </Link>
+            {!isStart && (
+              <Link href="/create">
+                <Button
+                  colorScheme="teal"
+                  borderRadius="full"
+                  mb={3}
+                  width="full"
+                >
+                  {t('CREATE_LINK')}
+                </Button>
+              </Link>
+            )}
             <Flex gap={6} justifyContent="center" textAlign="left">
               <Connect />
               <StatusMenu />
