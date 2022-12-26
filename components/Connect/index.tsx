@@ -16,7 +16,11 @@ export function Connect() {
   return (
     <Box>
       {isConnected ? (
-        <Button onClick={() => disconnect()}>
+        <Button
+          colorScheme="teal"
+          borderRadius="full"
+          onClick={() => disconnect()}
+        >
           {' '}
           {t('BUTTON_DISCONNECT_WALLET')}
         </Button>
@@ -24,8 +28,13 @@ export function Connect() {
         connectors
           .filter((x) => isMounted && x.ready && x.id !== connector?.id)
           .map((x) => (
-            <Button key={x.id} onClick={() => connect({ connector: x })}>
-              {t('BUTTON_CONNECT_WALLET')} [ {x.name} ]
+            <Button
+              colorScheme="teal"
+              borderRadius="full"
+              key={x.id}
+              onClick={() => connect({ connector: x })}
+            >
+              {t('BUTTON_CONNECT_WALLET')}
               {isLoading &&
                 x.id === pendingConnector?.id &&
                 ' ' &&

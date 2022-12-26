@@ -76,12 +76,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     }
   }, [minted])
 
-  // CountDown
-  const startDay =
-    process.env.NODE_ENV === 'production'
-      ? '2023/01/01 12:00:00' // 本番
-      : '2023/01/01 12:00:00' // 開発用（動作確認はこちらを変更）
-  const { isStart, ...countDown } = useCountdown(startDay)
+  const { isStart, ...countDown } = useCountdown()
 
   const creatorName =
     item?.tokenURIJSON?.attributes.length > 0

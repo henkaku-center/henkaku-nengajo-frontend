@@ -1,4 +1,10 @@
-import { Stat, StatNumber, StatHelpText, StatGroup } from '@chakra-ui/react'
+import {
+  Stat,
+  StatNumber,
+  StatHelpText,
+  StatGroup,
+  Box
+} from '@chakra-ui/react'
 
 interface Props {
   data: {
@@ -11,7 +17,7 @@ interface Props {
 const CountDown: React.FC<Props> = ({ data }) => {
   const { days, hours, minutes, seconds } = data
   return (
-    <>
+    <Box display="inline-block">
       <StatGroup width="230px">
         <Stat width="50px" textAlign="center">
           <StatNumber>{days}</StatNumber>
@@ -39,7 +45,7 @@ const CountDown: React.FC<Props> = ({ data }) => {
           <StatHelpText>SEC</StatHelpText>
         </Stat>
       </StatGroup>
-    </>
+    </Box>
   )
 }
 export default CountDown
