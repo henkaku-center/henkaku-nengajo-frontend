@@ -79,7 +79,7 @@ const CreateNengajoForm: FC = () => {
     isSuccess,
     writeAsync,
     registeredTokenId
-  } = useRegisterNengajo(watch('maxSupply'), metadataURI)
+  } = useRegisterNengajo(Number(watch('maxSupply')), metadataURI)
   const uploadFile = useUploadImageFile()
   const uploadMetadata = useUploadMetadataJson()
 
@@ -289,14 +289,14 @@ const CreateNengajoForm: FC = () => {
           <Controller
             control={control}
             name="maxSupply"
-            rules={{ required: t('REQUIRED_INPUT') }}
+            rules={{ required: t('REQUIRED_INPUT'), min: 1 }}
             render={({ field: { onChange, value }, fieldState }) => (
               <>
                 <Flex gap={4} alignItems="center">
                   <Input
                     variant="outline"
                     id="maxSupply"
-                    type="text"
+                    type="number"
                     placeholder={t('NEW_NENGAJO_MAX_SUPPLY')}
                     onChange={onChange}
                     value={value}
