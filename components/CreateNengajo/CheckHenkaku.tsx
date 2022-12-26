@@ -25,7 +25,7 @@ const CheckHenkaku: FC<Props> = ({ maxSupply }) => {
       ) : (
         <>
           {formatedPrice}
-          <Box as="span" fontSize="9px">
+          <Box as="span" fontSize="10px">
             {' '}
             HENKAKU
           </Box>
