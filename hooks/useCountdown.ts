@@ -3,7 +3,12 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 
-const useCountdown = (targetDate: string) => {
+const useCountdown = () => {
+  // CountDown
+  const targetDate =
+    process.env.NODE_ENV === 'production'
+      ? '2023/01/01 12:00:00' // 本番
+      : '2023/01/01 12:00:00' // 開発用（動作確認はこちらを変更）
   dayjs.extend(utc)
   dayjs.extend(timezone)
   dayjs.tz.setDefault('Asia/Tokyo')
