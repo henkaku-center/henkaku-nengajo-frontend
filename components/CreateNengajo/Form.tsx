@@ -143,9 +143,9 @@ const CreateNengajoForm: FC = () => {
     }
   }
 
-  const validateFileSize = (file: File | null) => {
+  const validateFileSize = (file: File | null, limit: number) => {
     if (!file) return true
-    return file.size / (1024 * 1024) > 1 ? 'Upto 1MB' : true
+    return file.size / (1024 * 1024) > limit ? `Upto ${limit}MB` : true
   }
 
   return (
@@ -184,7 +184,7 @@ const CreateNengajoForm: FC = () => {
             name="image"
             rules={{
               required: t('REQUIRED_INPUT'),
-              validate: validateFileSize
+              validate: (v) => validateFileSize(v, 5)
             }}
             render={({ field: { onChange }, fieldState }) => (
               <>
@@ -215,7 +215,7 @@ const CreateNengajoForm: FC = () => {
             control={control}
             name="secretMessage"
             rules={{
-              validate: validateFileSize
+              validate: (v) => validateFileSize(v, 0.5)
             }}
             render={({ field: { onChange }, fieldState }) => (
               <>

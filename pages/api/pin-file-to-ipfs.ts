@@ -9,6 +9,14 @@ type PinResponseData = {
   error?: string
 }
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '5mb'
+    }
+  }
+}
+
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<PinResponseData>
