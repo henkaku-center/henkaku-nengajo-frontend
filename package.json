@@ -16,6 +16,7 @@
     "@lit-protocol/sdk-browser": "^1.1.241",
     "base64-blob": "^1.4.1",
     "dayjs": "^1.11.7",
+    "eth-sig-util": "^3.0.1",
     "ethers": "^5.7.2",
     "form-data": "^4.0.0",
     "framer-motion": "^6",
