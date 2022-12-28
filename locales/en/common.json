@@ -18,7 +18,7 @@
   "NEW_NENGAJO_HENKAKUTOKEN_10": "5 HENKAKU/copy (11 to 100 copies)",
   "NEW_NENGAJO_HENKAKUTOKEN_100": "10 HENKAKU/copy (more than 100 copies)",
   "NEW_NENGAJO_TITLE_LABEL": "Nengajo title",
-  "NEW_NENGAJO_PICTURE_LABEL": "Picture（up to 5 MB）",
+  "NEW_NENGAJO_PICTURE_LABEL": "Picture（up to 3 MB）",
   "NEW_NENGAJO_SECRET_MESSAGE_LABEL": "Secret message card for holder（up to 500 KB）",
   "NEW_NENGAJO_CREATOR_NAME": "Creator name",
   "NEW_NENGAJO_DESCRIPTION": "NFT description",
