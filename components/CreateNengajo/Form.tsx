@@ -186,7 +186,7 @@ const CreateNengajoForm: FC = () => {
             name="image"
             rules={{
               required: t('REQUIRED_INPUT'),
-              validate: (v) => validateFileSize(v, 5)
+              validate: (v) => validateFileSize(v, 3)
             }}
             render={({ field: { onChange }, fieldState }) => (
               <>

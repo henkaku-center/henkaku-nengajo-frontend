@@ -12,7 +12,7 @@ type PinResponseData = {
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '5mb'
+      sizeLimit: '6mb'
     }
   }
 }
