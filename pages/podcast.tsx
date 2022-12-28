@@ -1,5 +1,6 @@
 import { Connect } from '@/components'
 import CountDown from '@/components/CountDown'
+import GlobalIcon from '@/components/Icon/Global'
 import Layout from '@/components/Layout'
 import { useChainId, useMounted } from '@/hooks'
 import { useCountdown } from '@/hooks/useCountdown'
@@ -18,19 +19,34 @@ import {
   Text,
   useToast
 } from '@chakra-ui/react'
+import setLanguage from 'next-translate/setLanguage'
 import useTranslation from 'next-translate/useTranslation'
 import Image from 'next/image'
 import { FC, useMemo } from 'react'
 import { useAccount, useSwitchNetwork } from 'wagmi'
 
 const CountDownElm: FC = () => {
-  const { t } = useTranslation('common')
+  const { t, lang } = useTranslation('common')
   const { isStart, ...countDown } = useCountdown()
   return (
     <Box textAlign="center">
-      <Heading size="lg" mb={10}>
+      <Heading
+        size="lg"
+        mb={10}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         {t('HENKAKU')} <span className="text_nengajo">{t('NENGAJO')}</span>
+        <Button
+          ml={2}
+          size="md"
+          onClick={async () => await setLanguage(lang == 'en' ? 'ja' : 'en')}
+        >
+          <GlobalIcon />
+        </Button>
       </Heading>
+
       <Text fontSize="24px" fontWeight="bold" lineHeight={2}>
         {isStart ? (
           <>
