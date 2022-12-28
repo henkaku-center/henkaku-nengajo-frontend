@@ -13,6 +13,7 @@ import {
   Button,
   Flex,
   Grid,
+  Heading,
   Spinner,
   Text,
   useToast
@@ -27,6 +28,9 @@ const CountDownElm: FC = () => {
   const { isStart, ...countDown } = useCountdown()
   return (
     <Box textAlign="center">
+      <Heading size="lg" mb={10}>
+        {t('HENKAKU')} <span className="text_nengajo">{t('NENGAJO')}</span>
+      </Heading>
       <Text fontSize="24px" fontWeight="bold" lineHeight={2}>
         {isStart ? (
           <>
@@ -112,7 +116,7 @@ const Entity = () => {
   }
 
   return (
-    <Layout>
+    <Layout disableHeader>
       <CountDownElm />
 
       <Grid gridTemplateColumns={{ md: '1fr 1fr' }} my={8} columnGap={5}>
