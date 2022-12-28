@@ -107,7 +107,9 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
           )}
           {creatorName && (
             <Text textAlign="right" fontSize="sm" mt={1}>
-              created by {creatorName}
+              {creatorName.includes('Created')
+                ? creatorName
+                : `created by ${creatorName}`}
             </Text>
           )}
           <Text mt={5}>{item?.tokenURIJSON?.description}</Text>
