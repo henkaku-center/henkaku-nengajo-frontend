@@ -37,7 +37,10 @@ const CountDownElm: FC = () => {
         alignItems="center"
         justifyContent="center"
       >
-        {t('HENKAKU')} <span className="text_nengajo">{t('NENGAJO')}</span>
+        <Box as="span" mr={2}>
+          {t('HENKAKU')}
+        </Box>
+        <span className="text_nengajo">{t('NENGAJO')}</span>
         <Button
           ml={2}
           size="md"
