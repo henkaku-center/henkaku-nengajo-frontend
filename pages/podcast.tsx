@@ -138,7 +138,7 @@ const Entity = () => {
     <Layout disableHeader>
       <CountDownElm />
 
-      <Grid gridTemplateColumns={{ md: '1fr 1fr' }} my={8} columnGap={5}>
+      {/* <Grid gridTemplateColumns={{ md: '1fr 1fr' }} my={8} columnGap={5}>
         <Box filter={showNFTImage ? 'none' : 'blur(10px)'}>
           <Image width="400px" height="400px" src="/podcast-nengajo.jpg" />
         </Box>
@@ -167,7 +167,7 @@ const Entity = () => {
             )}
           </Box>
         </Flex>
-      </Grid>
+      </Grid> */}
     </Layout>
   )
 }
