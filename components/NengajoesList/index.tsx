@@ -46,39 +46,33 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
       {allNengajoesInfo.map((nengajoInfo, index) => {
         if (!nengajoInfo.tokenURIJSON) return
         return (
-          <Flex
-            key={index}
-            justifyContent="space-between"
-            flexDirection="column"
-          >
-            <div className={styles.list}>
-              <div className={styles.image}>
-                <Link href={`/nengajo/${nengajoInfo.id}`}>
-                  <AspectRatio ratio={1}>
-                    <Box>
-                      <Image
-                        src={parseIpfs2Pinata(nengajoInfo.tokenURIJSON.image)}
-                        alt=""
-                      />
-                    </Box>
-                  </AspectRatio>
-                </Link>
-              </div>
-              <Text pt={2} pb={2} mb="auto">
-                {nengajoInfo.tokenURIJSON.name}
-              </Text>
+          <div key={index} className={styles.list}>
+            <div className={styles.image}>
               <Link href={`/nengajo/${nengajoInfo.id}`}>
-                <Button width="100%" size="sm">
-                  {t('GET_NENGAJO')}
-                </Button>
+                <AspectRatio ratio={1}>
+                  <Box>
+                    <Image
+                      src={parseIpfs2Pinata(nengajoInfo.tokenURIJSON.image)}
+                      alt=""
+                    />
+                  </Box>
+                </AspectRatio>
               </Link>
-              {/* <div className={styles.preview}>
+            </div>
+            <Text pt={2} pb={2} mb="auto">
+              {nengajoInfo.tokenURIJSON.name}
+            </Text>
+            <Link href={`/nengajo/${nengajoInfo.id}`}>
+              <Button width="100%" size="sm">
+                {t('GET_NENGAJO')}
+              </Button>
+            </Link>
+            {/* <div className={styles.preview}>
                 <PreviewNengajo id={Number(nengajoInfo.id)} item={nengajoInfo}>
                   <Search2Icon color="blackAlpha.700" />
                 </PreviewNengajo>
               </div> */}
-            </div>
-          </Flex>
+          </div>
         )
       })}
     </SimpleGrid>
