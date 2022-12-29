@@ -23,7 +23,7 @@ interface Props {
   isExternal?: boolean
 }
 
-const Header: FC = ({ isExternal = false }: Props) => {
+const Header: FC<Props> = ({ isExternal = false }) => {
   const router = useRouter()
   const { colorMode, toggleColorMode } = useColorMode()
   const { t, lang } = useTranslation('common')
