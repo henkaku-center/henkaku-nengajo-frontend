@@ -23,7 +23,7 @@ const contractAddresses: ContractAddresses = {
   nengajo: {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS as `0x${string}`) ?? '',
-    [chainId.polygonMumbai]: '0xaF0b91F9aC1fC03A07203b1Bb3f395dEb555A8AE',
+    [chainId.polygonMumbai]: '0x014122281213bCc1CD6f2eB9b9F9e0d199Db070F',
     [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
     [chainId.polygon]: '0x06032956f2E35b6Fa43C9e75fA3c55A1E1AF8917'
   }

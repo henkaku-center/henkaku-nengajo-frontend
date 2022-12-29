@@ -76,6 +76,7 @@ const Home: NextPage = () => {
                   borderRadius="full"
                   mb={3}
                   width="full"
+                  size="lg"
                 >
                   {t('CREATE_LINK')}
                 </Button>
