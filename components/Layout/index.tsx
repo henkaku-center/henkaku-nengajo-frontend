@@ -10,6 +10,7 @@ interface Props {
   isError?: boolean
   disableHeader?: boolean
   disableFooter?: boolean
+  isExternal?: boolean
 }
 
 const Layout: React.FC<Props> = ({
@@ -17,13 +18,14 @@ const Layout: React.FC<Props> = ({
   isLoading,
   isError,
   disableHeader,
-  disableFooter
+  disableFooter,
+  isExternal
 }) => {
   const { t } = useTranslation('common')
   const toast = useToast()
   return (
     <>
-      {!disableHeader && <Header />}
+      {!disableHeader && <Header isExternal={isExternal} />}
       {isLoading ? (
         <Spinner />
       ) : (

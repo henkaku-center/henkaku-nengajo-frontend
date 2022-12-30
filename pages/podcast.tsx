@@ -1,6 +1,5 @@
 import { Connect } from '@/components'
 import CountDown from '@/components/CountDown'
-import GlobalIcon from '@/components/Icon/Global'
 import Layout from '@/components/Layout'
 import { useChainId, useMounted } from '@/hooks'
 import { useCountdown } from '@/hooks/useCountdown'
@@ -19,14 +18,13 @@ import {
   Text,
   useToast
 } from '@chakra-ui/react'
-import setLanguage from 'next-translate/setLanguage'
 import useTranslation from 'next-translate/useTranslation'
 import Image from 'next/image'
 import { FC, useMemo } from 'react'
 import { useAccount, useSwitchNetwork } from 'wagmi'
 
 const CountDownElm: FC = () => {
-  const { t, lang } = useTranslation('common')
+  const { t } = useTranslation('common')
   const { isStart, ...countDown } = useCountdown()
   return (
     <Box textAlign="center">
@@ -41,13 +39,6 @@ const CountDownElm: FC = () => {
           {t('HENKAKU')}
         </Box>
         <span className="text_nengajo">{t('NENGAJO')}</span>
-        <Button
-          ml={2}
-          size="md"
-          onClick={async () => await setLanguage(lang == 'en' ? 'ja' : 'en')}
-        >
-          <GlobalIcon />
-        </Button>
       </Heading>
 
       <Text fontSize="24px" fontWeight="bold" lineHeight={2}>
@@ -135,12 +126,12 @@ const Entity = () => {
   }
 
   return (
-    <Layout disableHeader>
+    <Layout isExternal>
       <CountDownElm />
 
       {/* <Grid gridTemplateColumns={{ md: '1fr 1fr' }} my={8} columnGap={5}>
         <Box filter={showNFTImage ? 'none' : 'blur(10px)'}>
-          <Image width="400px" height="400px" src="/podcast-nengajo.jpg" />
+          <Image width="400px" height="400px" src="/podcast-nengajo.jpg" alt="" />
         </Box>
 
         <Flex justifyContent="center" alignItems="center" textAlign="center">
