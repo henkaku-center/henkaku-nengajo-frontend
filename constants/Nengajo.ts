@@ -1,1 +1,1 @@
-export const HIDE_NENGAJO_LIST = [29]
+export const HIDE_NENGAJO_LIST = [29, 32]
