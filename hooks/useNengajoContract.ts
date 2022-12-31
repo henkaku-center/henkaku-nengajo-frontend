@@ -119,13 +119,7 @@ export const useRetrieveAllNengajo = () => {
     isError: boolean
   }
 
-  const filteredNengajo = useMemo(() => {
-    return (
-      data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber())) || []
-    )
-  }, [data])
-
-  return { filteredNengajo, isLoading, isError }
+  return { data, isLoading, isError }
 }
 
 export const useIsHoldingByTokenId = (tokenId: number) => {
