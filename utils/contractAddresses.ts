@@ -29,11 +29,11 @@ const contractAddresses: ContractAddresses = {
   },
   podcastNengajo: {
     [chainId.polygonMumbai]: '0x3F359Ec705F25a9D287EdDc5370b57e20C237c1E',
-    [chainId.polygon]: ''
+    [chainId.polygon]: '0xd6Bf2bb451458A308B53A8c02F1beC638BbcCA10'
   },
   podcastForwarder: {
-    [chainId.polygonMumbai]: '0x3F359Ec705F25a9D287EdDc5370b57e20C237c1E',
-    [chainId.polygon]: '0xd68752aE770Bc2852480eb41669018727680C3C3'
+    [chainId.polygonMumbai]: '0xd68752aE770Bc2852480eb41669018727680C3C3',
+    [chainId.polygon]: '0xFe6989B0db606E52e22c7a0Eaf63cf179aEAAAaC'
   }
 }
 

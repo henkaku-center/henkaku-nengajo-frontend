@@ -59,6 +59,7 @@ const CountDownElm: FC = () => {
 
 const Entity = () => {
   const { isConnected, address } = useAccount()
+  const { t } = useTranslation('common')
   const {
     sendMetaTx,
     isLoading: isLoadingTx,
@@ -116,7 +117,8 @@ const Entity = () => {
           colorScheme="teal"
           borderRadius="full"
           onClick={submit}
-          isLoading={isLoadingTx}
+          isLoading={isLoadingTx || isLoadingHold}
+          disabled={isLoadingTx || isLoadingHold}
         >
           Mint Nengajo NFT
         </Button>
@@ -155,9 +157,9 @@ const Entity = () => {
 
             {showNFTImage ? (
               <Text>
-                受け取っていただいてありがとうございます。
+                {t('THANK_YOU_FOR_MINT')}
                 <br />
-                来年もどうぞよろしくおねがいします。
+                {t('GREET_THIS_YEAR')}
               </Text>
             ) : (
               <ButtonElm />
