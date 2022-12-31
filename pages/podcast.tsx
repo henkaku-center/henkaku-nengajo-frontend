@@ -59,7 +59,8 @@ const CountDownElm: FC = () => {
 
 const Entity = () => {
   const { isConnected, address } = useAccount()
-  const { t } = useTranslation('common')
+  const { isStart } = useCountdown()
+  const { t, lang } = useTranslation('common')
   const {
     sendMetaTx,
     isLoading: isLoadingTx,
@@ -97,7 +98,7 @@ const Entity = () => {
     }
   }, [isHolding, currentSupply, isSuccess])
 
-  const ButtonElm: FC = () => {
+  const ButtonElm = useMemo(() => {
     if (isConnected && wrongNetwork && switchNetworkAsync) {
       return (
         <Button
@@ -110,23 +111,28 @@ const Entity = () => {
           Change Network
         </Button>
       )
-    } else if (isConnected) {
+    } else if (isConnected && isStart) {
       return (
-        <Button
-          size="lg"
-          colorScheme="teal"
-          borderRadius="full"
-          onClick={submit}
-          isLoading={isLoadingTx || isLoadingHold}
-          disabled={isLoadingTx || isLoadingHold}
-        >
-          Mint Nengajo NFT
-        </Button>
+        <>
+          <Button
+            size="lg"
+            colorScheme="teal"
+            borderRadius="full"
+            onClick={submit}
+            isLoading={isLoadingTx || isLoadingHold}
+            disabled={isLoadingTx || isLoadingHold}
+          >
+            {t('GET_NENGAJO')}
+          </Button>
+          <Text fontSize="12px" fontWeight="bold" mt={2}>
+            {t('WITHOUT_GAS_FEE')}
+          </Text>
+        </>
       )
     } else {
       return <Connect />
     }
-  }
+  }, [isStart, isConnected, wrongNetwork, switchNetworkAsync, lang])
 
   return (
     <Layout isExternal>
@@ -162,7 +168,7 @@ const Entity = () => {
                 {t('GREET_THIS_YEAR')}
               </Text>
             ) : (
-              <ButtonElm />
+              ButtonElm
             )}
           </Box>
         </Flex>
