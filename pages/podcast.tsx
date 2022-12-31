@@ -59,6 +59,8 @@ const CountDownElm: FC = () => {
 
 const Entity = () => {
   const { isConnected, address } = useAccount()
+  const { isStart } = useCountdown()
+  const { t, lang } = useTranslation('common')
   const {
     sendMetaTx,
     isLoading: isLoadingTx,
@@ -67,15 +69,16 @@ const Entity = () => {
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply()
   const { isHolding, isLoading: isLoadingHold } = useIsHoldingByTokenId(1)
-  const { wrongNetwork } = useChainId()
+  const { wrongNetwork, chainId } = useChainId()
   const { switchNetworkAsync, status: switchNetworkStatus } = useSwitchNetwork({
-    chainId: 80001
+    chainId
   })
   const toast = useToast()
 
   const submit = async () => {
     try {
       await sendMetaTx()
+      return
     } catch (error: any) {
       toast({
         id: 'MINT_NENGAJO_MTX_FAILED',
@@ -95,43 +98,54 @@ const Entity = () => {
     }
   }, [isHolding, currentSupply, isSuccess])
 
-  const ButtonElm: FC = () => {
+  const ButtonElm = useMemo(() => {
     if (isConnected && wrongNetwork && switchNetworkAsync) {
       return (
         <Button
           size="lg"
           colorScheme="teal"
           borderRadius="full"
-          onClick={() => switchNetworkAsync(80001)}
+          onClick={() => switchNetworkAsync(chainId)}
           isLoading={switchNetworkStatus === 'loading'}
         >
           Change Network
         </Button>
       )
-    } else if (isConnected) {
+    } else if (isConnected && isStart) {
       return (
-        <Button
-          size="lg"
-          colorScheme="teal"
-          borderRadius="full"
-          onClick={submit}
-          isLoading={isLoadingTx}
-        >
-          Mint Nengajo NFT
-        </Button>
+        <>
+          <Button
+            size="lg"
+            colorScheme="teal"
+            borderRadius="full"
+            onClick={submit}
+            isLoading={isLoadingTx || isLoadingHold}
+            disabled={isLoadingTx || isLoadingHold}
+          >
+            {t('GET_NENGAJO')}
+          </Button>
+          <Text fontSize="12px" fontWeight="bold" mt={2}>
+            {t('WITHOUT_GAS_FEE')}
+          </Text>
+        </>
       )
     } else {
       return <Connect />
     }
-  }
+  }, [isStart, isConnected, wrongNetwork, switchNetworkAsync, lang])
 
   return (
     <Layout isExternal>
       <CountDownElm />
 
-      {/* <Grid gridTemplateColumns={{ md: '1fr 1fr' }} my={8} columnGap={5}>
+      <Grid gridTemplateColumns={{ md: '1fr 1fr' }} my={8} columnGap={5}>
         <Box filter={showNFTImage ? 'none' : 'blur(10px)'}>
-          <Image width="400px" height="400px" src="/podcast-nengajo.jpg" alt="" />
+          <Image
+            width="400px"
+            height="400px"
+            src="/podcast-nengajo.gif"
+            alt=""
+          />
         </Box>
 
         <Flex justifyContent="center" alignItems="center" textAlign="center">
@@ -149,16 +163,16 @@ const Entity = () => {
 
             {showNFTImage ? (
               <Text>
-                受け取っていただいてありがとうございます。
+                {t('THANK_YOU_FOR_MINT')}
                 <br />
-                来年もどうぞよろしくおねがいします。
+                {t('GREET_THIS_YEAR')}
               </Text>
             ) : (
-              <ButtonElm />
+              ButtonElm
             )}
           </Box>
         </Flex>
-      </Grid> */}
+      </Grid>
     </Layout>
   )
 }
