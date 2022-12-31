@@ -29,9 +29,7 @@ const Home: NextPage = () => {
   const { data, isError } = useRetrieveAllNengajo()
 
   const filteredNengajo = useMemo(() => {
-    return (
-      data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber())) || []
-    )
+    return data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber()))
   }, [data])
 
   const toast = useToast()

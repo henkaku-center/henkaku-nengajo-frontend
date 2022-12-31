@@ -9,9 +9,7 @@ import { HIDE_NENGAJO_LIST } from '@/constants/Nengajo'
 const Lists: NextPage = () => {
   const { data } = useRetrieveAllNengajo()
   const filteredNengajo = useMemo(() => {
-    return (
-      data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber())) || []
-    )
+    return data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber()))
   }, [data])
 
   return (
