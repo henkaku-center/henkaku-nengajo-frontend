@@ -9,34 +9,28 @@ import {
   useToast
 } from '@chakra-ui/react'
 import { useAccount } from 'wagmi'
-import { useMounted, useApproval, useChainId } from '@/hooks'
+import { useMounted } from '@/hooks'
 import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
-import { getContractAddress } from '@/utils/contractAddresses'
 import Layout from '@/components/Layout'
 import { Connect } from '@/components/Connect'
-import { Approve } from '@/components/Approve'
 import NengajoesList from '@/components/NengajoesList'
 import StatusMenu from '@/components/StatusMenu'
 import useTranslation from 'next-translate/useTranslation'
 import CountDown from '@/components/CountDown'
 import { useCountdown } from '@/hooks/useCountdown'
 import Link from 'next/link'
+import { useMemo } from 'react'
+import { HIDE_NENGAJO_LIST } from '@/constants/Nengajo'
 
 const Home: NextPage = () => {
-  const { chainId, wrongNetwork } = useChainId()
-  const henkakuV2 = getContractAddress({
-    name: 'henkakuErc20',
-    chainId: chainId
-  }) as `0x${string}`
-  const nengajo = getContractAddress({
-    name: 'nengajo',
-    chainId: chainId
-  }) as `0x${string}`
   const isMounted = useMounted()
   const { t } = useTranslation('common')
-  const { address, isConnected } = useAccount()
-  const { approved } = useApproval(henkakuV2, nengajo, address)
+  const { isConnected } = useAccount()
   const { data, isError } = useRetrieveAllNengajo()
+
+  const filteredNengajo = useMemo(() => {
+    return data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber()))
+  }, [data])
 
   const toast = useToast()
   if (isError && isConnected && !toast.isActive('RETRIEVE_NENGAJOES_FAILED'))
@@ -90,12 +84,12 @@ const Home: NextPage = () => {
         </Box>
       )}
       <Divider my={10} borderWidth="2px" />
-      {isMounted && data && (
+      {isMounted && filteredNengajo && (
         <Box>
           <Heading size="lg" mb={5}>
             {t('REGISTERD_NENGAJO_LIST')}
           </Heading>
-          {<NengajoesList items={data} />}
+          {<NengajoesList items={filteredNengajo} />}
         </Box>
       )}
     </Layout>
