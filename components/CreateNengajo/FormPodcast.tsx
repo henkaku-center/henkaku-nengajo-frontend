@@ -209,7 +209,6 @@ const CreateNengajoFormPodcast: FC = () => {
                     onChange={onChange}
                     value={value}
                   />
-                  <CheckHenkaku maxSupply={watch('maxSupply')} />
                 </Flex>
                 <Box color="red.300">{fieldState.error?.message}</Box>
               </>
