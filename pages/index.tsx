@@ -36,7 +36,7 @@ const Home: NextPage = () => {
   const { t } = useTranslation('common')
   const { address, isConnected } = useAccount()
   const { approved } = useApproval(henkakuV2, nengajo, address)
-  const { data, isError } = useRetrieveAllNengajo()
+  const { filteredNengajo: data, isError } = useRetrieveAllNengajo()
 
   const toast = useToast()
   if (isError && isConnected && !toast.isActive('RETRIEVE_NENGAJOES_FAILED'))

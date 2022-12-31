@@ -6,7 +6,7 @@ import NengajoesList from '@/components/NengajoesList'
 import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
 
 const Lists: NextPage = () => {
-  const { data } = useRetrieveAllNengajo()
+  const { filteredNengajo: data } = useRetrieveAllNengajo()
   return (
     <Layout>
       <SimpleGrid
