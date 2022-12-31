@@ -17,48 +17,6 @@ import axios from 'axios'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
-const usePrepareNengajoContractWrite = (functionName: string, args: any[]) => {
-  const { config } = usePrepareContractWrite({
-    address: getContractAddress({ name: 'podcastNengajo', chainId }),
-    abi: PublicNengajoABI.abi,
-    functionName,
-    args,
-    overrides: {
-      gasLimit: BigNumber.from(700000)
-    }
-  })
-  return config
-}
-
-const useNengajoContractEvent = (
-  eventName: string,
-  listener: (...args: any) => void
-) => {
-  useContractEvent({
-    address: getContractAddress({ name: 'nengajo', chainId }),
-    abi: PublicNengajoABI.abi,
-    eventName,
-    listener
-  })
-}
-
-export const useRegisterNengajo = (maxSupply: number, metadataURI: string) => {
-  const [registeredTokenId, setRegisteredTokenId] = useState<number>()
-  const config = usePrepareNengajoContractWrite('registerNengajo', [
-    maxSupply,
-    metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-  ])
-  const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useNengajoContractEvent(
-    'RegisterNengajo',
-    (creator, _tokenId, metaDataURL, maxSupply) => {
-      setRegisteredTokenId(_tokenId)
-    }
-  )
-
-  return { data, isLoading, isSuccess, writeAsync, registeredTokenId }
-}
-
 export const useMintNengajoWithMx = () => {
   const { data: signer } = useSigner()
   const nengajoContract = useContract({
