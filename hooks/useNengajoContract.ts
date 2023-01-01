@@ -154,3 +154,11 @@ export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
 
   return { data, isLoading }
 }
+
+export const useCurrentSupply = (id: number) => {
+  const { data, isError, isLoading } = useNengajoContractRead('totalSupply', [
+    id
+  ]) as { data: BigNumber; isLoading: boolean; isError: boolean }
+
+  return { data, isError, isLoading }
+}

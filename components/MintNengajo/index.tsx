@@ -21,6 +21,7 @@ import Trans from 'next-translate/Trans'
 import styles from './MintNengajo.module.css'
 import { NengajoInfoProps } from '@/hooks/useNengajoInfo'
 import {
+  useCurrentSupply,
   useIsHoldingByTokenId,
   useMintNengajo
 } from '@/hooks/useNengajoContract'
@@ -38,12 +39,11 @@ interface Props {
   imageOnly?: boolean
 }
 interface mintStateProps {
-  status: 'minted' | 'mintable' | 'noMintable'
+  status: 'minted' | 'mintable' | 'noMintable' | 'soldout'
   freeMintable: boolean
 }
 const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { t } = useTranslation('nengajo')
-  const { isConnected } = useAccount()
   const {
     writeAsync,
     isLoading: isMinting,
@@ -51,6 +51,8 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     minted
   } = useMintNengajo(id)
   const { isHolding } = useIsHoldingByTokenId(id)
+  const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
+    useCurrentSupply(id)
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable',
@@ -69,6 +71,12 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    if (item.maxSupply <= currentSupply.toNumber()) {
+      setMintState({ ...mintState, status: 'soldout' })
+    }
+  }, [currentSupply])
 
   useEffect(() => {
     if (minted) {
@@ -148,6 +156,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                     </Box>
                   )}
                   {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
+                  {mintState.status === 'soldout' && 'SOLD OUT'}
                   {mintState.status === 'mintable' && !isHolding && (
                     <>
                       {approved ? (
