@@ -11,7 +11,8 @@ import {
   ModalContent,
   ModalBody,
   useDisclosure,
-  Stack
+  Stack,
+  useToast
 } from '@chakra-ui/react'
 import { useState, ReactElement, useEffect } from 'react'
 import { NFTImage } from '@/components/NFTImage'
@@ -32,6 +33,7 @@ import TwitterIcon from '@/components/Icon/Twitter'
 import OpenseaIcon from '@/components/Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 import SecretMessage from '@/components/MintNengajo/SecretMessage'
+import UpdateSecretMessageCrypt from './UpdateSecretMessageCrypt'
 
 interface Props {
   id: number
@@ -44,6 +46,7 @@ interface mintStateProps {
 }
 const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { t } = useTranslation('nengajo')
+  const toast = useToast()
   const {
     writeAsync,
     isLoading: isMinting,
@@ -66,9 +69,14 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     if (!writeAsync) return
     try {
       await writeAsync({ recklesslySetUnpreparedArgs: [Number(id)] })
-    } catch (error) {
-      // TODO: errorメッセージをToastに入れる
-      console.log(error)
+    } catch (error: any) {
+      toast({
+        id: 'MINT_FAILED',
+        title: error?.message,
+        status: 'error',
+        duration: 5000,
+        position: 'top'
+      })
     }
   }
 
@@ -94,6 +102,8 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
           return text + currentText
         }, '')
       : ''
+
+  const { address } = useAccount()
 
   return (
     <>
@@ -211,6 +221,17 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                     )}
                 </>
               )}
+              {item?.creator === address &&
+                item?.tokenURIJSON?.encryptedSymmetricKey && (
+                  <Box mt="1">
+                    <UpdateSecretMessageCrypt
+                      tokenId={id}
+                      encryptedSymmetricKey={
+                        item?.tokenURIJSON?.encryptedSymmetricKey
+                      }
+                    />
+                  </Box>
+                )}
             </Box>
           </GridItem>
         )}
