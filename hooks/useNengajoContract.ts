@@ -21,7 +21,7 @@ const usePrepareNengajoContractWrite = (functionName: string, args: any[]) => {
     functionName,
     args,
     overrides: {
-      gasLimit: BigNumber.from(1000000)
+      gasLimit: BigNumber.from(1100000)
     }
   })
   return config
@@ -155,4 +155,12 @@ export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
   ]) as { data: BigNumber; isLoading: boolean }
 
   return { data, isLoading }
+}
+
+export const useCurrentSupply = (id: number) => {
+  const { data, isError, isLoading } = useNengajoContractRead('totalSupply', [
+    id
+  ]) as { data: BigNumber; isLoading: boolean; isError: boolean }
+
+  return { data, isError, isLoading }
 }
