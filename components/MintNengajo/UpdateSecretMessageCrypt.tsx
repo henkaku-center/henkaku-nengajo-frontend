@@ -33,7 +33,7 @@ const UpdateSecretMessageCrypt: FC<Props> = ({
         position: 'top'
       })
     }
-  }, [tokenId, encryptedSymmetricKey])
+  }, [tokenId, encryptedSymmetricKey, updateEncrypt])
 
   return (
     <Button width="100%" onClick={update}>
