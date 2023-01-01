@@ -20,7 +20,7 @@ const usePrepareNengajoContractWrite = (functionName: string, args: any[]) => {
     functionName,
     args,
     overrides: {
-      gasLimit: BigNumber.from(700000)
+      gasLimit: BigNumber.from(1100000)
     }
   })
   return config
