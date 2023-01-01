@@ -73,7 +73,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   }
 
   useEffect(() => {
-    if (item.maxSupply <= currentSupply.toNumber()) {
+    if (item.maxSupply <= currentSupply?.toNumber()) {
       setMintState({ ...mintState, status: 'soldout' })
     }
   }, [currentSupply])
