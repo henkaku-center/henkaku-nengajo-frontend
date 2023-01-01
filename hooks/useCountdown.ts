@@ -12,9 +12,9 @@ const useCountdown = () => {
   dayjs.extend(utc)
   dayjs.extend(timezone)
   dayjs.tz.setDefault('Asia/Tokyo')
-  const JTC = dayjs.tz(new Date()).valueOf()
+  const JTC = dayjs.tz(new Date(), 'Asia/Tokyo').valueOf()
 
-  const countDownDate = dayjs.tz(new Date(targetDate)).valueOf()
+  const countDownDate = dayjs.tz(targetDate, 'Asia/Tokyo').valueOf()
 
   const [countDown, setCountDown] = useState(
     getReturnValues(countDownDate - JTC)

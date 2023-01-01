@@ -58,5 +58,10 @@
 
   "TOP_MINT_START_AKEOME": "🎍あけましておめでとうございます🎍",
   "TOP_MINT_START_READY": "🎊年賀状NFTを受け取れるようになりました🎊",
-  "TOP_UNTIL_START": "🎍年賀状NFTを受け取れるまで🎍"
+  "TOP_UNTIL_START": "🎍年賀状NFTを受け取れるまで🎍",
+
+  "THANK_YOU_FOR_MINT": "受け取っていただいてありがとうございます",
+  "GREET_THIS_YEAR": "本年もどうぞよろしくお願いいたします。",
+
+  "WITHOUT_GAS_FEE": "ガス代は不要です"
 }
