@@ -10,7 +10,6 @@ import NengajoABI from '@/abi/Nengajo.json'
 import { Nengajo } from '@/types'
 import { useEffect, useMemo, useState } from 'react'
 import { BigNumber } from 'ethers'
-import { HIDE_NENGAJO_LIST } from '@/constants/Nengajo'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
