@@ -7,7 +7,7 @@ This is the frontend for [HENKAKU Nengajo](https://nengajo.henkaku.org/). It is 
 First, install the dependencies:
 
 ```bash
-yarn install
+yarn
 ```
 
 Second, run the development server:
