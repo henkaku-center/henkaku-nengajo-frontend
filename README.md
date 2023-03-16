@@ -35,7 +35,7 @@ Create a copy of `.env.sample`, name it `.env.local`, and replace the informatio
 
 - `NEXT_PUBLIC_CHAIN_ID`: use 137 for MATIC (Polygon), 80001 for the Mumbai testnet, or 1337 or 31337 if you are testing locally with Hardhat
 - `NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS` and `NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS`: these are only used when the chain is set to Hardhat (deploy)
-- `NEXT_PUBLIC_IPFS_API_KEY` and `NEXT_PUBLIC_IPFS_API_SECRET`: get your own keys at [Pinata](https://app.pinata.cloud/) to be able to create Nengajos from a locally served frontend
+- `IPFS_API_KEY` and `IPFS_API_SECRET`: get your own keys at [Pinata](https://app.pinata.cloud/) to be able to create Nengajos from a locally served frontend
 - `NEXT_PUBLIC_IPFS_API_ENDPOINT`: please use "https://api.pinata.cloud"
 - `NEXT_PUBLIC_IPFS_GATEWAY_BASEURL`: feel free to use a custom one if you have one
 - `NEXT_PUBLIC_JSONRPC_HTTP` and `NEXT_PUBLIC_JSONRPC_WS`: get your own at [alchemy](https://www.alchemy.com/)
