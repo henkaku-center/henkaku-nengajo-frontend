@@ -6,7 +6,7 @@ const SecretMessageForm: FC = () => {
   const { t, lang } = useTranslation('common')
   return (
     <Box>
-      <Text>{t('NEW_NENGAJO_SECRET_PROMPT')}</Text>
+      <Text>{t('NEW_TICKET_SECRET_PROMPT')}</Text>
       <Textarea rows={5} mt={3} />
     </Box>
   )

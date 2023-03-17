@@ -19,40 +19,40 @@ import { NFTImage } from '@/components/NFTImage'
 import { useAccount } from 'wagmi'
 import useTranslation from 'next-translate/useTranslation'
 import Trans from 'next-translate/Trans'
-import styles from './MintNengajo.module.css'
-import { NengajoInfoProps } from '@/hooks/useNengajoInfo'
+import styles from './MintTicket.module.css'
+import { TicketInfoProps } from '@/hooks/useTicketInfo'
 import {
   useCurrentSupply,
   useIsHoldingByTokenId,
-  useMintNengajo
-} from '@/hooks/useNengajoContract'
+  useMintTicket
+} from '@/hooks/useTicketContract'
 import { useCountdown } from '@/hooks/useCountdown'
 import CountDown from '@/components/CountDown'
 import { LinkIcon } from '@chakra-ui/icons'
 import TwitterIcon from '@/components/Icon/Twitter'
 import OpenseaIcon from '@/components/Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
-import SecretMessage from '@/components/MintNengajo/SecretMessage'
+import SecretMessage from '@/components/MintTicket/SecretMessage'
 import UpdateSecretMessageCrypt from './UpdateSecretMessageCrypt'
 
 interface Props {
   id: number
-  item: NengajoInfoProps
+  item: TicketInfoProps
   imageOnly?: boolean
 }
 interface mintStateProps {
   status: 'minted' | 'mintable' | 'noMintable' | 'soldout'
   freeMintable: boolean
 }
-const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
-  const { t } = useTranslation('nengajo')
+const MintTicket: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
+  const { t } = useTranslation('ticket')
   const toast = useToast()
   const {
     writeAsync,
     isLoading: isMinting,
     isSuccess,
     minted
-  } = useMintNengajo(id)
+  } = useMintTicket(id)
   const { isHolding } = useIsHoldingByTokenId(id)
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply(id)
@@ -139,7 +139,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                 <Box mt={{ base: 5 }}>
                   <Heading size="md">
                     <Trans
-                      i18nKey="nengajo:TITLE.IS_POSSIBLE_START"
+                      i18nKey="ticket:TITLE.IS_POSSIBLE_START"
                       components={{ br: <br /> }}
                     />
                   </Heading>
@@ -239,20 +239,20 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     </>
   )
 }
-export default MintNengajo
+export default MintTicket
 
-interface PreviewNengajoProps {
+interface PreviewTicketProps {
   id: number
-  item: NengajoInfoProps
+  item: TicketInfoProps
   children: ReactElement
 }
 
-export const PreviewNengajo = ({
+export const PreviewTicket = ({
   id,
   item,
   children,
   ...props
-}: PreviewNengajoProps) => {
+}: PreviewTicketProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
@@ -264,7 +264,7 @@ export const PreviewNengajo = ({
         <ModalContent>
           <ModalCloseButton />
           <ModalBody>
-            <MintNengajo id={Number(id)} item={item} imageOnly {...props} />
+            <MintTicket id={Number(id)} item={item} imageOnly {...props} />
           </ModalBody>
         </ModalContent>
       </Modal>

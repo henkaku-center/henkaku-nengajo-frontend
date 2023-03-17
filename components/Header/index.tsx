@@ -55,14 +55,14 @@ const Header: FC<Props> = ({ isExternal = false }) => {
               <Link href="/">
                 <Heading size={{ base: 'xs', sm: 'md' }}>
                   {t('HENKAKU')}{' '}
-                  <span className="text_nengajo">{t('NENGAJO')}</span>
+                  <span className="text_ticket">{t('TICKET')}</span>
                 </Heading>
               </Link>
             </NextLink>
           ) : (
             <Heading size="md">
               {t('HENKAKU')}{' '}
-              <span className="text_nengajo">{t('NENGAJO')}</span>
+              <span className="text_ticket">{t('TICKET')}</span>
             </Heading>
           )}
         </Box>
@@ -85,11 +85,6 @@ const Header: FC<Props> = ({ isExternal = false }) => {
                 </Box>
               </Link>
             </NextLink>
-            {/* <NextLink passHref href="/nengajo" locale={router.locale}>
-            <Link _focus={{ boxShadow: 'none' }} p={4}>
-              {t('NENGAJO_LINK')}
-            </Link>
-          </NextLink> */}
             <NextLink passHref href="/collection" locale={router.locale}>
               <Link _focus={{ boxShadow: 'none' }} p={4}>
                 <CollectionIcon fontSize={20} display={{ md: 'none' }} />

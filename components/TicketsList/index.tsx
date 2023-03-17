@@ -12,29 +12,29 @@ import {
   Stack
 } from '@chakra-ui/react'
 import { Nengajo } from '@/types'
-import { useAllNengajoesInfo } from '@/hooks/useNengajoInfo'
+import { useAllTicketsInfo } from '@/hooks/useTicketInfo'
 // Cart機能が実装された際に利用する
-// import { PreviewNengajo } from '@/components/MintNengajo'
+// import { PreviewTicket } from '@/components/MintTicket'
 // import { Search2Icon } from '@chakra-ui/icons'
-import styles from './NengajoesList.module.css'
+import styles from './TicketsList.module.css'
 import useTranslation from 'next-translate/useTranslation'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 
-interface NengajoesListProps {
+interface TicketsListProps {
   items: Nengajo.NengajoInfoStructOutput[]
 }
 
-const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
-  const { allNengajoesInfo } = useAllNengajoesInfo(items)
+const TicketsList: React.FC<TicketsListProps> = ({ items }) => {
+  const { allTicketsInfo } = useAllTicketsInfo(items)
   const { t } = useTranslation('common')
 
-  if (!allNengajoesInfo)
+  if (!allTicketsInfo)
     return (
       <Stack direction="row" justifyContent="center" alignItems="center" m={10}>
         <Spinner />
       </Stack>
     )
-  if (allNengajoesInfo.length <= 0) return <Box>{t('EMPTY_NENGAJO_LIST')}</Box>
+  if (allTicketsInfo.length <= 0) return <Box>{t('EMPTY_TICKET_LIST')}</Box>
   return (
     <SimpleGrid
       columns={{ sm: 3, md: 4 }}
@@ -43,16 +43,16 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
       textAlign="center"
       rounded="lg"
     >
-      {allNengajoesInfo.map((nengajoInfo, index) => {
-        if (!nengajoInfo.tokenURIJSON) return
+      {allTicketsInfo.map((ticketInfo, index) => {
+        if (!ticketInfo.tokenURIJSON) return
         return (
           <div key={index} className={styles.list}>
             <div className={styles.image}>
-              <Link href={`/nengajo/${nengajoInfo.id}`}>
+              <Link href={`/ticket/${ticketInfo.id}`}>
                 <AspectRatio ratio={1}>
                   <Box>
                     <Image
-                      src={parseIpfs2Pinata(nengajoInfo.tokenURIJSON.image)}
+                      src={parseIpfs2Pinata(ticketInfo.tokenURIJSON.image)}
                       alt=""
                     />
                   </Box>
@@ -60,17 +60,17 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
               </Link>
             </div>
             <Text pt={2} pb={2} mb="auto">
-              {nengajoInfo.tokenURIJSON.name}
+              {ticketInfo.tokenURIJSON.name}
             </Text>
-            <Link href={`/nengajo/${nengajoInfo.id}`}>
+            <Link href={`/ticket/${ticketInfo.id}`}>
               <Button width="100%" size="sm">
-                {t('GET_NENGAJO')}
+                {t('GET_TICKET')}
               </Button>
             </Link>
             {/* <div className={styles.preview}>
-                <PreviewNengajo id={Number(nengajoInfo.id)} item={nengajoInfo}>
+                <PreviewTicket id={Number(ticketInfo.id)} item={ticketInfo}>
                   <Search2Icon color="blackAlpha.700" />
-                </PreviewNengajo>
+                </PreviewTicket>
               </div> */}
           </div>
         )
@@ -79,4 +79,4 @@ const NengajoesList: React.FC<NengajoesListProps> = ({ items }) => {
   )
 }
 
-export default NengajoesList
+export default TicketsList

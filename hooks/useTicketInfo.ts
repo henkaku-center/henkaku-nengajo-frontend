@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Nengajo } from '@/types'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 
-interface NengajoInfoProps extends Nengajo.NengajoInfoStruct {
+interface TicketInfoProps extends Nengajo.NengajoInfoStruct {
   tokenURIJSON: {
     name: string
     image: string
@@ -14,7 +14,7 @@ interface NengajoInfoProps extends Nengajo.NengajoInfoStruct {
   }
 }
 
-const mappingNengajoInfo = async ({
+const mappingTicketInfo = async ({
   uri,
   creator,
   id,
@@ -28,7 +28,7 @@ const mappingNengajoInfo = async ({
     id: Number(id),
     maxSupply: maxSupply,
     tokenURIJSON
-  } as NengajoInfoProps
+  } as TicketInfoProps
 }
 
 const fetchTokenURIJSON = async (uri: string) => {
@@ -39,35 +39,35 @@ const fetchTokenURIJSON = async (uri: string) => {
   } catch (error) {}
 }
 
-const useNengajoInfo = (item: Nengajo.NengajoInfoStructOutput) => {
-  const [nengajoInfo, setNengajoInfo] = useState<NengajoInfoProps>()
+const useTicketInfo = (item: Nengajo.NengajoInfoStructOutput) => {
+  const [ticketInfo, setTicketInfo] = useState<TicketInfoProps>()
   useEffect(() => {
-    const fetchNengajoInfo = async () => {
+    const fetchTicketInfo = async () => {
       if (!item) return
-      const mappedData = await mappingNengajoInfo(item)
+      const mappedData = await mappingTicketInfo(item)
       return mappedData
     }
-    fetchNengajoInfo().then((data) => setNengajoInfo(data))
+    fetchTicketInfo().then((data) => setTicketInfo(data))
   }, [item])
-  return { nengajoInfo }
+  return { ticketInfo }
 }
 
-const useAllNengajoesInfo = (items: Nengajo.NengajoInfoStructOutput[]) => {
-  const [allNengajoesInfo, setAllNengajoesInfo] = useState<NengajoInfoProps[]>()
+const useAllTicketsInfo = (items: Nengajo.NengajoInfoStructOutput[]) => {
+  const [allTicketsInfo, setAllTicketsInfo] = useState<TicketInfoProps[]>()
   useEffect(() => {
-    const fetchAllNengajoesInfo = async () => {
+    const fetchAllTicketsInfo = async () => {
       if (!items) return
       const mappedData = await Promise.all(
         items.map(async (item) => {
-          return await mappingNengajoInfo(item)
+          return await mappingTicketInfo(item)
         })
       )
       return mappedData.reverse()
     }
-    fetchAllNengajoesInfo().then((data) => setAllNengajoesInfo(data))
+    fetchAllTicketsInfo().then((data) => setAllTicketsInfo(data))
   }, [items])
-  return { allNengajoesInfo }
+  return { allTicketsInfo }
 }
 
-export { useNengajoInfo, useAllNengajoesInfo }
-export type { NengajoInfoProps }
+export { useTicketInfo, useAllTicketsInfo }
+export type { TicketInfoProps }

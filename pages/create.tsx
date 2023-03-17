@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { useApproval, useChainId, useMounted } from '@/hooks'
 import Layout from '@/components/Layout'
 import { useAccount } from 'wagmi'
-import CreateNengajoForm from '@/components/CreateNengajo/Form'
+import CreateTicketForm from '@/components/CreateTicket/Form'
 import { Connect } from '@/components'
 import { Box, Heading, List, ListItem, Text } from '@chakra-ui/react'
 import useTranslation from 'next-translate/useTranslation'
@@ -19,30 +19,30 @@ const Home: NextPage = () => {
     name: 'henkakuErc20',
     chainId: chainId
   }) as `0x${string}`
-  const nengajo = getContractAddress({
+  const ticket = getContractAddress({
     name: 'nengajo',
     chainId: chainId
   }) as `0x${string}`
-  const { approved } = useApproval(henkakuV2, nengajo, address)
+  const { approved } = useApproval(henkakuV2, ticket, address)
 
   return (
     <Layout>
-      <Heading as="h2">{t('CREATE_NEW_NENGAJO')}</Heading>
+      <Heading as="h2">{t('CREATE_NEW_TICKET')}</Heading>
       {isMounted && !isConnected && <Connect />}
       {isMounted && isConnected && !approved && (
         <Box mt={5}>
-          <Text>{t('NEW_NENGAJO_REQUIRE_HENKAKUTOKEN')}</Text>
+          <Text>{t('NEW_TICKET_REQUIRE_HENKAKUTOKEN')}</Text>
           <List listStyleType="disc" pl={5} my={2}>
-            <ListItem>{t('NEW_NENGAJO_HENKAKUTOKEN_0')}</ListItem>
-            <ListItem>{t('NEW_NENGAJO_HENKAKUTOKEN_10')}</ListItem>
-            <ListItem>{t('NEW_NENGAJO_HENKAKUTOKEN_100')}</ListItem>
+            <ListItem>{t('NEW_TICKET_HENKAKUTOKEN_0')}</ListItem>
+            <ListItem>{t('NEW_TICKET_HENKAKUTOKEN_10')}</ListItem>
+            <ListItem>{t('NEW_TICKET_HENKAKUTOKEN_100')}</ListItem>
           </List>
-          <Approve erc20={henkakuV2} spender={nengajo}>
+          <Approve erc20={henkakuV2} spender={ticket}>
             {t('BUTTON_APPROVE')}
           </Approve>
         </Box>
       )}
-      {isMounted && isConnected && approved && <CreateNengajoForm />}
+      {isMounted && isConnected && approved && <CreateTicketForm />}
     </Layout>
   )
 }

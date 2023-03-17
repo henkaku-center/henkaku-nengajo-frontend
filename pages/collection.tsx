@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout'
-import NengajoesList from '@/components/NengajoesList'
+import TicketsList from '@/components/TicketsList'
 import { useMounted } from '@/hooks'
-import { useRetrieveHoldingNengajoesByAddress } from '@/hooks/useNengajoContract'
+import { useRetrieveHoldingTicketsByAddress } from '@/hooks/useTicketContract'
 import { Box, Heading } from '@chakra-ui/react'
 import { NextPage } from 'next'
 import { FC } from 'react'
@@ -12,7 +12,7 @@ const Entity: FC = () => {
   const { address } = useAccount()
   const { t } = useTranslation('common')
   const collectionTranslation = useTranslation('collection')
-  const { data, isLoading, isError } = useRetrieveHoldingNengajoesByAddress(
+  const { data, isLoading, isError } = useRetrieveHoldingTicketsByAddress(
     address!
   )
   return (
@@ -23,7 +23,7 @@ const Entity: FC = () => {
       <Heading as="h2" size="xl" mt={10}>
         {collectionTranslation.t('SUB_TITLE')}
       </Heading>
-      <Box mt={5}>{<NengajoesList items={data} />}</Box>
+      <Box mt={5}>{<TicketsList items={data} />}</Box>
     </Layout>
   )
 }

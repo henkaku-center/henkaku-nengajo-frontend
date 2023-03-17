@@ -5,26 +5,26 @@
   "BUTTON_CANCEL": "キャンセル",
 
   "HENKAKU": "HENKAKU",
-  "NENGAJO": "年賀状",
+  "TICKET": "年賀状",
   "HOME_LINK": "ホーム",
   "COLLECTION_LINK": "コレクション",
   "CREATE_LINK": "年賀状を作る",
-  "NENGAJO_LINK": "年賀状一覧",
+  "TICKET_LINK": "年賀状一覧",
   "LANG_SWITCHER": "English",
 
-  "CREATE_NEW_NENGAJO": "新しい年賀状を作る",
-  "NEW_NENGAJO_REQUIRE_HENKAKUTOKEN": "年賀状の作成にはHENKAKUトークンが必要です。最大発行枚数によって値段が変わります。",
-  "NEW_NENGAJO_HENKAKUTOKEN_0": "10枚までは10HENKAKU固定",
-  "NEW_NENGAJO_HENKAKUTOKEN_10": "10~100枚までは5HENKAKU/1枚",
-  "NEW_NENGAJO_HENKAKUTOKEN_100": "100枚以降は10HENKAKU/1枚",
-  "NEW_NENGAJO_TITLE_LABEL": "年賀状題名",
-  "NEW_NENGAJO_PICTURE_LABEL": "画像（3MBまで）",
-  "NEW_NENGAJO_SECRET_MESSAGE_LABEL": "年賀状を受け取ってくれた人へのメッセージカード（500KBまで）",
-  "NEW_NENGAJO_DESCRIPTION": "NFTの説明",
-  "NEW_NENGAJO_CREATOR_NAME": "作成者名",
-  "NEW_NENGAJO_MAX_SUPPLY": "最大発行枚数",
-  "NEW_NENGAJO_TAKING_TIME": "時間がかかることがあります",
-  "NEW_NENGAJO_SECRET_PROMPT": "年賀状を受け取ってくれた人だけが見ることのできる秘密のメッセージを送ってみませんか？",
+  "CREATE_NEW_TICKET": "新しい年賀状を作る",
+  "NEW_TICKET_REQUIRE_HENKAKUTOKEN": "年賀状の作成にはHENKAKUトークンが必要です。最大発行枚数によって値段が変わります。",
+  "NEW_TICKET_HENKAKUTOKEN_0": "10枚までは10HENKAKU固定",
+  "NEW_TICKET_HENKAKUTOKEN_10": "10~100枚までは5HENKAKU/1枚",
+  "NEW_TICKET_HENKAKUTOKEN_100": "100枚以降は10HENKAKU/1枚",
+  "NEW_TICKET_TITLE_LABEL": "年賀状題名",
+  "NEW_TICKET_PICTURE_LABEL": "画像（3MBまで）",
+  "NEW_TICKET_SECRET_MESSAGE_LABEL": "年賀状を受け取ってくれた人へのメッセージカード（500KBまで）",
+  "NEW_TICKET_DESCRIPTION": "NFTの説明",
+  "NEW_TICKET_CREATOR_NAME": "作成者名",
+  "NEW_TICKET_MAX_SUPPLY": "最大発行枚数",
+  "NEW_TICKET_TAKING_TIME": "時間がかかることがあります",
+  "NEW_TICKET_SECRET_PROMPT": "年賀状を受け取ってくれた人だけが見ることのできる秘密のメッセージを送ってみませんか？",
   "REQUIRED_INPUT": "必須項目です。",
   "UPLOAD_SUCCESS": "アップロードが完了しました",
   "BUTTON_CREATE": "作る",
@@ -38,21 +38,21 @@
   "STATUS_BUTTON": "ステータス確認",
   "STATUS_TITLE": "ステータス",
 
-  "REGISTERD_NENGAJO_LIST": "投稿された年賀状一覧",
-  "EMPTY_NENGAJO_LIST": "該当する年賀状が見つかりませんでした",
+  "REGISTERD_TICKET_LIST": "投稿された年賀状一覧",
+  "EMPTY_TICKET_LIST": "該当する年賀状が見つかりませんでした",
 
   "CLAIM": {
     "TOAST": {
       "SUBMITTED": "Submitted",
       "ERROR": "Error",
       "SUCCESS": "年賀状を受け取りました。",
-      "RETRIEVE_NENGAJOES_FAILED": "年賀状一覧の取得に失敗しました。",
+      "RETRIEVE_TICKETS_FAILED": "年賀状一覧の取得に失敗しました。",
       "TX_FAILED": "トランザクションが失敗しました。",
       "DEFAULT_ERROR": "不明なサーバーエラー"
     }
   },
 
-  "GET_NENGAJO": "受け取る",
+  "GET_TICKET": "受け取る",
 
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved.",
 

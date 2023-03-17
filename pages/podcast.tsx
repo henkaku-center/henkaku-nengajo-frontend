@@ -6,8 +6,8 @@ import { useCountdown } from '@/hooks/useCountdown'
 import {
   useCurrentSupply,
   useIsHoldingByTokenId,
-  useMintNengajoWithMx
-} from '@/hooks/useNengajoContractPodcast'
+  useMintTicketWithMx
+} from '@/hooks/useTicketContractPodcast'
 import {
   Box,
   Button,
@@ -38,7 +38,7 @@ const CountDownElm: FC = () => {
         <Box as="span" mr={2}>
           {t('HENKAKU')}
         </Box>
-        <span className="text_nengajo">{t('NENGAJO')}</span>
+        <span className="text_ticket">{t('TICKET')}</span>
       </Heading>
 
       <Text fontSize="24px" fontWeight="bold" lineHeight={2}>
@@ -65,7 +65,7 @@ const Entity = () => {
     sendMetaTx,
     isLoading: isLoadingTx,
     isSuccess
-  } = useMintNengajoWithMx()
+  } = useMintTicketWithMx()
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply()
   const { isHolding, isLoading: isLoadingHold } = useIsHoldingByTokenId(1)
@@ -81,7 +81,7 @@ const Entity = () => {
       return
     } catch (error: any) {
       toast({
-        id: 'MINT_NENGAJO_MTX_FAILED',
+        id: 'MINT_TICKET_MTX_FAILED',
         title: error?.message,
         status: 'error',
         duration: 5000,
@@ -122,7 +122,7 @@ const Entity = () => {
             isLoading={isLoadingTx || isLoadingHold}
             disabled={isLoadingTx || isLoadingHold}
           >
-            {t('GET_NENGAJO')}
+            {t('GET_TICKET')}
           </Button>
           <Text fontSize="12px" fontWeight="bold" mt={2}>
             {t('WITHOUT_GAS_FEE')}

@@ -1,4 +1,4 @@
-import { useCalcRequiredHenkakuAmount } from '@/hooks/useNengajoContract'
+import { useCalcRequiredHenkakuAmount } from '@/hooks/useTicketContract'
 import { Box, Button, Spinner } from '@chakra-ui/react'
 import { BigNumber, utils } from 'ethers'
 import { FC, useMemo } from 'react'

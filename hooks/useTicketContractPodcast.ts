@@ -17,9 +17,9 @@ import axios from 'axios'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
-export const useMintNengajoWithMx = () => {
+export const useMintTicketWithMx = () => {
   const { data: signer } = useSigner()
-  const nengajoContract = useContract({
+  const ticketContract = useContract({
     address: getContractAddress({ name: 'podcastNengajo', chainId }),
     abi: PublicNengajoABI.abi
   })
@@ -41,7 +41,7 @@ export const useMintNengajoWithMx = () => {
 
   const sendMetaTx = useCallback(async () => {
     try {
-      if (!signer || !nengajoContract) return
+      if (!signer || !ticketContract) return
       setIsLoading(true)
 
       const forwarder = new ethers.Contract(
@@ -51,8 +51,8 @@ export const useMintNengajoWithMx = () => {
       )
 
       const from = await signer.getAddress()
-      const data = nengajoContract.interface.encodeFunctionData('mint', [1])
-      const to = nengajoContract.address
+      const data = ticketContract.interface.encodeFunctionData('mint', [1])
+      const to = ticketContract.address
 
       if (!signer.provider) throw new Error('Provider is not set')
 
@@ -81,7 +81,7 @@ export const useMintNengajoWithMx = () => {
   return { sendMetaTx, isLoading, isSuccess }
 }
 
-const useNengajoContractRead = (functionName: string, args: unknown[] = []) => {
+const useTicketContractRead = (functionName: string, args: unknown[] = []) => {
   const result = useContractRead({
     address: getContractAddress({ name: 'podcastNengajo', chainId }),
     abi: PublicNengajoABI.abi,
@@ -92,7 +92,7 @@ const useNengajoContractRead = (functionName: string, args: unknown[] = []) => {
 }
 
 export const useCurrentSupply = () => {
-  const { data, isError, isLoading } = useNengajoContractRead('totalSupply', [
+  const { data, isError, isLoading } = useTicketContractRead('totalSupply', [
     1
   ]) as { data: BigNumber; isLoading: boolean; isError: boolean }
 
@@ -102,7 +102,7 @@ export const useCurrentSupply = () => {
 export const useIsHoldingByTokenId = (tokenId: number) => {
   const [isHolding, setIsHolding] = useState(false)
   const { address } = useAccount()
-  const { data, isError, isLoading } = useNengajoContractRead('balanceOf', [
+  const { data, isError, isLoading } = useTicketContractRead('balanceOf', [
     address,
     tokenId
   ]) as {

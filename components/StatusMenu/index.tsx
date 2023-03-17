@@ -30,12 +30,12 @@ const StatusMenu: React.FC<Props> = ({ children }) => {
     name: 'henkakuErc20',
     chainId: chainId
   }) as `0x${string}`
-  const nengajo = getContractAddress({
+  const ticket = getContractAddress({
     name: 'nengajo',
     chainId: chainId
   }) as `0x${string}`
   const { address } = useAccount()
-  const { approved } = useApproval(henkakuV2, nengajo, address)
+  const { approved } = useApproval(henkakuV2, ticket, address)
 
   return (
     <Popover>

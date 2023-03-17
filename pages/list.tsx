@@ -2,14 +2,14 @@ import type { NextPage } from 'next'
 import { SimpleGrid } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import React, { useMemo } from 'react'
-import NengajoesList from '@/components/NengajoesList'
-import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
-import { HIDE_NENGAJO_LIST } from '@/constants/Nengajo'
+import TicketsList from '@/components/TicketsList'
+import { useRetrieveAllTicket } from '@/hooks/useTicketContract'
+import { HIDE_TICKET_LIST } from '@/constants/Ticket'
 
 const Lists: NextPage = () => {
-  const { data } = useRetrieveAllNengajo()
-  const filteredNengajo = useMemo(() => {
-    return data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber()))
+  const { data } = useRetrieveAllTicket()
+  const filteredTicket = useMemo(() => {
+    return data?.filter((n) => !HIDE_TICKET_LIST.includes(n.id.toNumber()))
   }, [data])
 
   return (
@@ -22,7 +22,7 @@ const Lists: NextPage = () => {
         textAlign="center"
         rounded="lg"
       >
-        {filteredNengajo && <NengajoesList items={data} />}
+        {filteredTicket && <TicketsList items={data} />}
       </SimpleGrid>
     </Layout>
   )

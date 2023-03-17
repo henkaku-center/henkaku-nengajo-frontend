@@ -5,26 +5,26 @@
   "BUTTON_CANCEL": "Cancel",
 
   "HENKAKU": "HENKAKU",
-  "NENGAJO": "Nengajo",
+  "TICKET": "Nengajo",
   "HOME_LINK": "Home",
   "COLLECTION_LINK": "Collection",
   "CREATE_LINK": "Create Nengajo",
-  "NENGAJO_LINK": "Nengajo",
+  "TICKET_LINK": "Nengajo",
   "LANG_SWITCHER": "日本語",
 
-  "CREATE_NEW_NENGAJO": "Create a new nengajo",
-  "NEW_NENGAJO_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create nengajo. The cost varies depending on the max supply of NFTs.",
-  "NEW_NENGAJO_HENKAKUTOKEN_0": "10 HENKAKU (up to 10 copies)",
-  "NEW_NENGAJO_HENKAKUTOKEN_10": "5 HENKAKU/copy (11 to 100 copies)",
-  "NEW_NENGAJO_HENKAKUTOKEN_100": "10 HENKAKU/copy (more than 100 copies)",
-  "NEW_NENGAJO_TITLE_LABEL": "Nengajo title",
-  "NEW_NENGAJO_PICTURE_LABEL": "Picture（up to 3 MB）",
-  "NEW_NENGAJO_SECRET_MESSAGE_LABEL": "Secret message card for holder（up to 500 KB）",
-  "NEW_NENGAJO_CREATOR_NAME": "Creator name",
-  "NEW_NENGAJO_DESCRIPTION": "NFT description",
-  "NEW_NENGAJO_MAX_SUPPLY": "Max supply",
-  "NEW_NENGAJO_TAKING_TIME": "This might take a while",
-  "NEW_NENGAJO_SECRET_PROMPT": "Would you like to add a secret message for the people who will receive your nengajo?",
+  "CREATE_NEW_TICKET": "Create a new nengajo",
+  "NEW_TICKET_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create nengajo. The cost varies depending on the max supply of NFTs.",
+  "NEW_TICKET_HENKAKUTOKEN_0": "10 HENKAKU (up to 10 copies)",
+  "NEW_TICKET_HENKAKUTOKEN_10": "5 HENKAKU/copy (11 to 100 copies)",
+  "NEW_TICKET_HENKAKUTOKEN_100": "10 HENKAKU/copy (more than 100 copies)",
+  "NEW_TICKET_TITLE_LABEL": "Nengajo title",
+  "NEW_TICKET_PICTURE_LABEL": "Picture（up to 3 MB）",
+  "NEW_TICKET_SECRET_MESSAGE_LABEL": "Secret message card for holder（up to 500 KB）",
+  "NEW_TICKET_CREATOR_NAME": "Creator name",
+  "NEW_TICKET_DESCRIPTION": "NFT description",
+  "NEW_TICKET_MAX_SUPPLY": "Max supply",
+  "NEW_TICKET_TAKING_TIME": "This might take a while",
+  "NEW_TICKET_SECRET_PROMPT": "Would you like to add a secret message for the people who will receive your nengajo?",
   "REQUIRED_INPUT": "Required",
   "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",
@@ -38,21 +38,21 @@
   "STATUS_BUTTON": "Status",
   "STATUS_TITLE": "Status",
 
-  "REGISTERD_NENGAJO_LIST": "Registered nengajo list",
-  "EMPTY_NENGAJO_LIST": "No relevant nengajo found",
+  "REGISTERD_TICKET_LIST": "Registered nengajo list",
+  "EMPTY_TICKET_LIST": "No relevant nengajo found",
 
   "CLAIM": {
     "TOAST": {
       "SUBMITTED": "Submitted",
       "ERROR": "Error",
       "SUCCESS": "Nengajo was successfully received.",
-      "RETRIEVE_NENGAJOES_FAILED": "Failed to retrieve nengajo list.",
+      "RETRIEVE_TICKETS_FAILED": "Failed to retrieve nengajo list.",
       "TX_FAILED": "Transaction failed.",
       "DEFAULT_ERROR": "Unknown Server Error"
     }
   },
 
-  "GET_NENGAJO": "Get nengajo",
+  "GET_TICKET": "Get nengajo",
 
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved.",
 

@@ -1,4 +1,4 @@
-import { useRegisterNengajo } from '@/hooks/useNengajoContract'
+import { useRegisterTicket } from '@/hooks/useTicketContract'
 import useTranslation from 'next-translate/useTranslation'
 import { FC, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -27,7 +27,7 @@ type FormData = {
   maxSupply: number
 }
 
-interface NengajoTokenMetadata {
+interface TicketTokenMetadata {
   name: string
   image: string
   description?: string | null | undefined
@@ -48,11 +48,11 @@ interface TokenAttribute {
   order?: number | null | undefined
 }
 
-const metadata_external_url = 'https://nengajo.henkaku.org'
+const metadata_external_url = 'https://ticket.henkaku.org'
 const metadata_contributors =
   'daishin;FLOTAN;futa;geeknees;imaichiyyy;mindinc;karawapo;RYU;sushi yam;yawn;Yuki aka Ryoma;Yuudai;'
 
-const CreateNengajoForm: FC = () => {
+const CreateTicketForm: FC = () => {
   const { t, lang } = useTranslation('common')
   const { address } = useAccount()
   const router = useRouter()
@@ -64,8 +64,8 @@ const CreateNengajoForm: FC = () => {
       name: '',
       description:
         lang === 'en'
-          ? 'This is a Nengajo NFT sent with HENKAKU NENGAJO.'
-          : 'HENKAKU NENGAJO から送られた年賀状NFTです。',
+          ? 'This is a Ticket NFT sent with HENKAKU TICKET.'
+          : 'HENKAKU TICKET から送られた年賀状NFTです。',
       image: null,
       secretMessage: null,
       creatorName: '',
@@ -79,7 +79,7 @@ const CreateNengajoForm: FC = () => {
     isSuccess,
     writeAsync,
     registeredTokenId
-  } = useRegisterNengajo(Number(watch('maxSupply')), metadataURI)
+  } = useRegisterTicket(Number(watch('maxSupply')), metadataURI)
   const uploadFile = useUploadImageFile()
   const uploadMetadata = useUploadMetadataJson()
 
@@ -89,7 +89,7 @@ const CreateNengajoForm: FC = () => {
         if (encryptedSymmetricKey) {
           await updateEncrypt(registeredTokenId, encryptedSymmetricKey)
         }
-        router.push(`/nengajo/${registeredTokenId}`)
+        router.push(`/ticket/${registeredTokenId}`)
       }
     }
     callback()
@@ -99,7 +99,7 @@ const CreateNengajoForm: FC = () => {
     try {
       if (!data.image) return
       const imageIPFSHash = await uploadFile(data.image)
-      const metadataJson: NengajoTokenMetadata = {
+      const metadataJson: TicketTokenMetadata = {
         name: data.name,
         image: `ipfs://${imageIPFSHash}`,
         description: data.description,
@@ -154,8 +154,8 @@ const CreateNengajoForm: FC = () => {
     <Box>
       <form onSubmit={handleSubmit(submit)}>
         <FormControl mt={5} isRequired>
-          <FormLabel mt="1em" htmlFor="nengajoName">
-            {t('NEW_NENGAJO_TITLE_LABEL')}
+          <FormLabel mt="1em" htmlFor="ticketName">
+            {t('NEW_TICKET_TITLE_LABEL')}
           </FormLabel>
           <Controller
             control={control}
@@ -165,10 +165,10 @@ const CreateNengajoForm: FC = () => {
               <>
                 <Input
                   variant="outline"
-                  id="nengajoName"
+                  id="ticketName"
                   type="text"
                   isRequired={true}
-                  placeholder={t('NEW_NENGAJO_TITLE_LABEL')}
+                  placeholder={t('NEW_TICKET_TITLE_LABEL')}
                   onChange={onChange}
                 />
                 <Box color="red.300">{fieldState.error?.message}</Box>
@@ -179,7 +179,7 @@ const CreateNengajoForm: FC = () => {
 
         <FormControl mt={5} isRequired>
           <FormLabel mt="1em" htmlFor="imageFile">
-            {t('NEW_NENGAJO_PICTURE_LABEL')}
+            {t('NEW_TICKET_PICTURE_LABEL')}
           </FormLabel>
           <Controller
             control={control}
@@ -211,7 +211,7 @@ const CreateNengajoForm: FC = () => {
 
         <FormControl mt={5}>
           <FormLabel mt="1em" htmlFor="secretMessage">
-            {t('NEW_NENGAJO_SECRET_MESSAGE_LABEL')}
+            {t('NEW_TICKET_SECRET_MESSAGE_LABEL')}
           </FormLabel>
           <Controller
             control={control}
@@ -238,8 +238,8 @@ const CreateNengajoForm: FC = () => {
         </FormControl>
 
         <FormControl mt={5} isRequired>
-          <FormLabel mt="1em" htmlFor="nengajoName">
-            {t('NEW_NENGAJO_DESCRIPTION')}
+          <FormLabel mt="1em" htmlFor="ticketName">
+            {t('NEW_TICKET_DESCRIPTION')}
           </FormLabel>
           <Controller
             control={control}
@@ -249,10 +249,10 @@ const CreateNengajoForm: FC = () => {
               <>
                 <Input
                   variant="outline"
-                  id="nengajoName"
+                  id="ticketName"
                   type="text"
                   isRequired={true}
-                  placeholder={t('NEW_NENGAJO_DESCRIPTION')}
+                  placeholder={t('NEW_TICKET_DESCRIPTION')}
                   onChange={onChange}
                   value={value}
                 />
@@ -264,7 +264,7 @@ const CreateNengajoForm: FC = () => {
 
         <FormControl>
           <FormLabel mt="1em" htmlFor="creatorName">
-            {t('NEW_NENGAJO_CREATOR_NAME')}
+            {t('NEW_TICKET_CREATOR_NAME')}
           </FormLabel>
           <Controller
             control={control}
@@ -274,7 +274,7 @@ const CreateNengajoForm: FC = () => {
                 variant="outline"
                 id="creatorName"
                 type="text"
-                placeholder={t('NEW_NENGAJO_CREATOR_NAME')}
+                placeholder={t('NEW_TICKET_CREATOR_NAME')}
                 onChange={onChange}
                 value={value}
               />
@@ -284,7 +284,7 @@ const CreateNengajoForm: FC = () => {
 
         <FormControl isRequired>
           <FormLabel mt="1em" htmlFor="maxSupply">
-            {t('NEW_NENGAJO_MAX_SUPPLY')}
+            {t('NEW_TICKET_MAX_SUPPLY')}
           </FormLabel>
           <Controller
             control={control}
@@ -297,7 +297,7 @@ const CreateNengajoForm: FC = () => {
                     variant="outline"
                     id="maxSupply"
                     type="number"
-                    placeholder={t('NEW_NENGAJO_MAX_SUPPLY')}
+                    placeholder={t('NEW_TICKET_MAX_SUPPLY')}
                     onChange={onChange}
                     value={value}
                   />
@@ -322,11 +322,11 @@ const CreateNengajoForm: FC = () => {
         </Button>
 
         <Text color="red.400" textAlign="right" mt={1}>
-          {t('NEW_NENGAJO_TAKING_TIME')}
+          {t('NEW_TICKET_TAKING_TIME')}
         </Text>
       </form>
     </Box>
   )
 }
 
-export default CreateNengajoForm
+export default CreateTicketForm

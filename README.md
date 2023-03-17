@@ -1,6 +1,6 @@
-# henkaku-nengajo-frontend
+# henkaku-ticket-frontend
 
-This is the frontend for [HENKAKU Nengajo](https://nengajo.henkaku.org/). It is a [Next.js](https://nextjs.org/) project.
+This is the frontend for [HENKAKU Ticket](https://ticket.henkaku.org/). It is a [Next.js](https://nextjs.org/) project.
 
 ## How to run the project locally
 

@@ -13,7 +13,7 @@ import { BigNumber } from 'ethers'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
-const usePrepareNengajoContractWrite = (functionName: string, args: any[]) => {
+const usePrepareTicketContractWrite = (functionName: string, args: any[]) => {
   const { config } = usePrepareContractWrite({
     address: getContractAddress({ name: 'nengajo', chainId }),
     abi: NengajoABI.abi,
@@ -26,7 +26,7 @@ const usePrepareNengajoContractWrite = (functionName: string, args: any[]) => {
   return config
 }
 
-const useNengajoContractRead = (functionName: string, args: unknown[] = []) => {
+const useTicketContractRead = (functionName: string, args: unknown[] = []) => {
   const result = useContractRead({
     address: getContractAddress({ name: 'nengajo', chainId }),
     abi: NengajoABI.abi,
@@ -36,7 +36,7 @@ const useNengajoContractRead = (functionName: string, args: unknown[] = []) => {
   return result
 }
 
-const useNengajoContractEvent = (
+const useTicketContractEvent = (
   eventName: string,
   listener: (...args: any) => void
 ) => {
@@ -48,14 +48,14 @@ const useNengajoContractEvent = (
   })
 }
 
-export const useRegisterNengajo = (maxSupply: number, metadataURI: string) => {
+export const useRegisterTicket = (maxSupply: number, metadataURI: string) => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
-  const config = usePrepareNengajoContractWrite('registerNengajo', [
+  const config = usePrepareTicketContractWrite('registerNengajo', [
     maxSupply,
     metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   ])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useNengajoContractEvent(
+  useTicketContractEvent(
     'RegisterNengajo',
     (creator, _tokenId, metaDataURL, maxSupply) => {
       setRegisteredTokenId(_tokenId)
@@ -65,12 +65,12 @@ export const useRegisterNengajo = (maxSupply: number, metadataURI: string) => {
   return { data, isLoading, isSuccess, writeAsync, registeredTokenId }
 }
 
-export const useMintNengajo = (id: number) => {
+export const useMintTicket = (id: number) => {
   const [minted, setMinted] = useState(false)
   const { address } = useAccount()
-  const config = usePrepareNengajoContractWrite('mint', [id])
+  const config = usePrepareTicketContractWrite('mint', [id])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useNengajoContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
+  useTicketContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
     if (tokenId.toNumber() === id && minter === address) {
       setMinted(true)
     }
@@ -78,13 +78,13 @@ export const useMintNengajo = (id: number) => {
   return { data, isLoading, isSuccess, writeAsync, minted }
 }
 
-export const useBatchMintNengajoes = (id: number[]) => {
+export const useBatchMintTickets = (id: number[]) => {
   // TODO: BatchMint
   return
 }
 
-export const useRetrieveNengajoByTokenId = (tokenId: number) => {
-  const { data, isLoading, isError } = useNengajoContractRead(
+export const useRetrieveTicketByTokenId = (tokenId: number) => {
+  const { data, isLoading, isError } = useTicketContractRead(
     'retrieveRegisteredNengajo',
     [tokenId]
   ) as {
@@ -96,8 +96,8 @@ export const useRetrieveNengajoByTokenId = (tokenId: number) => {
   return { data, isLoading, isError }
 }
 
-export const useRetrieveHoldingNengajoesByAddress = (address: string) => {
-  const { data, isLoading, isError } = useNengajoContractRead(
+export const useRetrieveHoldingTicketsByAddress = (address: string) => {
+  const { data, isLoading, isError } = useTicketContractRead(
     'retrieveMintedNengajoes',
     [address]
   ) as {
@@ -109,8 +109,8 @@ export const useRetrieveHoldingNengajoesByAddress = (address: string) => {
   return { data, isLoading, isError }
 }
 
-export const useRetrieveAllNengajo = () => {
-  const { data, isError, isLoading } = useNengajoContractRead(
+export const useRetrieveAllTicket = () => {
+  const { data, isError, isLoading } = useTicketContractRead(
     'retrieveAllNengajoes'
   ) as {
     data: Nengajo.NengajoInfoStructOutput[]
@@ -124,7 +124,7 @@ export const useRetrieveAllNengajo = () => {
 export const useIsHoldingByTokenId = (tokenId: number) => {
   const [isHolding, setIsHolding] = useState(false)
   const { address } = useAccount()
-  const { data, isError, isLoading } = useNengajoContractRead('balanceOf', [
+  const { data, isError, isLoading } = useTicketContractRead('balanceOf', [
     address,
     tokenId
   ]) as {
@@ -149,7 +149,7 @@ export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
     return Number(maxSupply) ? Number(maxSupply) : 0
   }, [maxSupply])
 
-  const { data, isLoading } = useNengajoContractRead('calcPrice', [
+  const { data, isLoading } = useTicketContractRead('calcPrice', [
     normalizedMaxSupply
   ]) as { data: BigNumber; isLoading: boolean }
 
@@ -157,7 +157,7 @@ export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
 }
 
 export const useCurrentSupply = (id: number) => {
-  const { data, isError, isLoading } = useNengajoContractRead('totalSupply', [
+  const { data, isError, isLoading } = useTicketContractRead('totalSupply', [
     id
   ]) as { data: BigNumber; isLoading: boolean; isError: boolean }
 

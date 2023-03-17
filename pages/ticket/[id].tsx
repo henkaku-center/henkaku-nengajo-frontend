@@ -6,17 +6,17 @@ import { useMounted } from '@/hooks'
 import { Connect } from '@/components/Connect'
 import Layout from '@/components/Layout'
 import ErrorComponent from 'next/error'
-import MintNengajo from '@/components/MintNengajo'
-import { useRetrieveNengajoByTokenId } from '@/hooks/useNengajoContract'
-import { useNengajoInfo } from '@/hooks/useNengajoInfo'
+import MintTicket from '@/components/MintTicket'
+import { useRetrieveTicketByTokenId } from '@/hooks/useTicketContract'
+import { useTicketInfo } from '@/hooks/useTicketInfo'
 
-const NengajoDetail: NextPage = () => {
+const TicketDetail: NextPage = () => {
   const isMounted = useMounted()
   const { isConnected } = useAccount()
   const router = useRouter()
   const { id } = router.query
-  const { data, isError } = useRetrieveNengajoByTokenId(Number(id))
-  const { nengajoInfo } = useNengajoInfo(data)
+  const { data, isError } = useRetrieveTicketByTokenId(Number(id))
+  const { ticketInfo } = useTicketInfo(data)
 
   if (isError) return <ErrorComponent statusCode={404} />
 
@@ -29,8 +29,8 @@ const NengajoDetail: NextPage = () => {
       )}
       {isMounted && (
         <>
-          {router.query?.id && nengajoInfo && (
-            <MintNengajo id={Number(id)} item={nengajoInfo} />
+          {router.query?.id && ticketInfo && (
+            <MintTicket id={Number(id)} item={ticketInfo} />
           )}
         </>
       )}
@@ -38,4 +38,4 @@ const NengajoDetail: NextPage = () => {
   )
 }
 
-export default NengajoDetail
+export default TicketDetail
