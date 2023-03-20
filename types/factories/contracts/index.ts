@@ -2,4 +2,3 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as community from "./community";
-export * as public from "./public";

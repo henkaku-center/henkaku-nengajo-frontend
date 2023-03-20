@@ -43,6 +43,3 @@ export { MintManager__factory } from "./factories/contracts/community/MintManage
 export type { Ticket } from "./contracts/community/Ticket";
 export { Ticket__factory } from "./factories/contracts/community/Ticket__factory";
 export type { Forwarder } from "./contracts/public/Forwarder";
-export { Forwarder__factory } from "./factories/contracts/public/Forwarder__factory";
-export type { PublicTicket } from "./contracts/public/Ticket.sol/PublicTicket";
-export { PublicTicket__factory } from "./factories/contracts/public/Ticket.sol/PublicTicket__factory";
