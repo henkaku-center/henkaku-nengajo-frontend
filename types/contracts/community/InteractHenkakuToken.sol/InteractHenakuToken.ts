@@ -20,31 +20,25 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../common";
+} from "../../../common";
 
-export interface MintManagerInterface extends utils.Interface {
+export interface InteractHenakuTokenInterface extends utils.Interface {
   functions: {
     "addAdmins(address[])": FunctionFragment;
-    "admins(address)": FunctionFragment;
-    "checkRemainingCloseTime()": FunctionFragment;
-    "checkRemainingOpenTime()": FunctionFragment;
-    "close_blockTimestamp()": FunctionFragment;
     "deleteAdmin(address)": FunctionFragment;
+    "henkakuV2()": FunctionFragment;
+    "isAdmin(address)": FunctionFragment;
     "mintable()": FunctionFragment;
-    "open_blockTimestamp()": FunctionFragment;
     "switchMintable()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
       | "addAdmins"
-      | "admins"
-      | "checkRemainingCloseTime"
-      | "checkRemainingOpenTime"
-      | "close_blockTimestamp"
       | "deleteAdmin"
+      | "henkakuV2"
+      | "isAdmin"
       | "mintable"
-      | "open_blockTimestamp"
       | "switchMintable"
   ): FunctionFragment;
 
@@ -53,58 +47,28 @@ export interface MintManagerInterface extends utils.Interface {
     values: [PromiseOrValue<string>[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "admins",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "checkRemainingCloseTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "checkRemainingOpenTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "close_blockTimestamp",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "deleteAdmin",
     values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "mintable", values?: undefined): string;
+  encodeFunctionData(functionFragment: "henkakuV2", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "open_blockTimestamp",
-    values?: undefined
+    functionFragment: "isAdmin",
+    values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(functionFragment: "mintable", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "switchMintable",
     values?: undefined
   ): string;
 
   decodeFunctionResult(functionFragment: "addAdmins", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "admins", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "checkRemainingCloseTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "checkRemainingOpenTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "close_blockTimestamp",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "deleteAdmin",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "henkakuV2", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "isAdmin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mintable", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "open_blockTimestamp",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "switchMintable",
     data: BytesLike
@@ -113,12 +77,12 @@ export interface MintManagerInterface extends utils.Interface {
   events: {};
 }
 
-export interface MintManager extends BaseContract {
+export interface InteractHenakuToken extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: MintManagerInterface;
+  interface: InteractHenakuTokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -145,25 +109,19 @@ export interface MintManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    admins(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
-    checkRemainingCloseTime(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    checkRemainingOpenTime(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    close_blockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     deleteAdmin(
       _deleteAdmin: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    mintable(overrides?: CallOverrides): Promise<[boolean]>;
+    henkakuV2(overrides?: CallOverrides): Promise<[string]>;
 
-    open_blockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+    isAdmin(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    mintable(overrides?: CallOverrides): Promise<[boolean]>;
 
     switchMintable(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -175,25 +133,19 @@ export interface MintManager extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  admins(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
-  checkRemainingCloseTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-  checkRemainingOpenTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-  close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
-
   deleteAdmin(
     _deleteAdmin: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  mintable(overrides?: CallOverrides): Promise<boolean>;
+  henkakuV2(overrides?: CallOverrides): Promise<string>;
 
-  open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+  isAdmin(
+    _address: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  mintable(overrides?: CallOverrides): Promise<boolean>;
 
   switchMintable(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -205,25 +157,19 @@ export interface MintManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    admins(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    checkRemainingCloseTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    checkRemainingOpenTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
-
     deleteAdmin(
       _deleteAdmin: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    mintable(overrides?: CallOverrides): Promise<boolean>;
+    henkakuV2(overrides?: CallOverrides): Promise<string>;
 
-    open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    isAdmin(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    mintable(overrides?: CallOverrides): Promise<boolean>;
 
     switchMintable(overrides?: CallOverrides): Promise<void>;
   };
@@ -236,25 +182,19 @@ export interface MintManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    admins(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    checkRemainingCloseTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    checkRemainingOpenTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    close_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
-
     deleteAdmin(
       _deleteAdmin: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    mintable(overrides?: CallOverrides): Promise<BigNumber>;
+    henkakuV2(overrides?: CallOverrides): Promise<BigNumber>;
 
-    open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    isAdmin(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    mintable(overrides?: CallOverrides): Promise<BigNumber>;
 
     switchMintable(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -267,33 +207,19 @@ export interface MintManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    admins(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    checkRemainingCloseTime(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    checkRemainingOpenTime(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    close_blockTimestamp(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     deleteAdmin(
       _deleteAdmin: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    mintable(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    henkakuV2(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    open_blockTimestamp(
+    isAdmin(
+      _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    mintable(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     switchMintable(
       overrides?: Overrides & { from?: PromiseOrValue<string> }

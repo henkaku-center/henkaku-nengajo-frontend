@@ -25,17 +25,17 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../common";
+} from "../../../common";
 
-export declare namespace Nengajo {
-  export type NengajoInfoStruct = {
+export declare namespace PublicTicket {
+  export type TicketInfoStruct = {
     id: PromiseOrValue<BigNumberish>;
     uri: PromiseOrValue<string>;
     creator: PromiseOrValue<string>;
     maxSupply: PromiseOrValue<BigNumberish>;
   };
 
-  export type NengajoInfoStructOutput = [
+  export type TicketInfoStructOutput = [
     BigNumber,
     string,
     string,
@@ -43,10 +43,9 @@ export declare namespace Nengajo {
   ] & { id: BigNumber; uri: string; creator: string; maxSupply: BigNumber };
 }
 
-export interface NengajoInterface extends utils.Interface {
+export interface PublicTicketInterface extends utils.Interface {
   functions: {
     "addAdmins(address[])": FunctionFragment;
-    "admins(address)": FunctionFragment;
     "balanceOf(address,uint256)": FunctionFragment;
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
     "checkRemainingCloseTime()": FunctionFragment;
@@ -54,23 +53,26 @@ export interface NengajoInterface extends utils.Interface {
     "close_blockTimestamp()": FunctionFragment;
     "deleteAdmin(address)": FunctionFragment;
     "exists(uint256)": FunctionFragment;
+    "isAdmin(address)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
+    "isTrustedForwarder(address)": FunctionFragment;
     "mint(uint256)": FunctionFragment;
     "mintBatch(uint256[])": FunctionFragment;
     "mintable()": FunctionFragment;
     "name()": FunctionFragment;
     "open_blockTimestamp()": FunctionFragment;
-    "registerNengajo(uint256,string)": FunctionFragment;
-    "retrieveAllNengajoes()": FunctionFragment;
-    "retrieveMintedNengajoes(address)": FunctionFragment;
-    "retrieveRegisteredNengajo(uint256)": FunctionFragment;
-    "retrieveRegisteredNengajoes(address)": FunctionFragment;
+    "registerTicket(uint256,string)": FunctionFragment;
+    "retrieveAllTickets()": FunctionFragment;
+    "retrieveMintedTickets(address)": FunctionFragment;
+    "retrieveRegisteredTicket(uint256)": FunctionFragment;
+    "retrieveRegisteredTickets(address)": FunctionFragment;
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "switchMintable()": FunctionFragment;
     "symbol()": FunctionFragment;
+    "tokenURI(uint256)": FunctionFragment;
     "totalSupply(uint256)": FunctionFragment;
     "uri(uint256)": FunctionFragment;
   };
@@ -78,7 +80,6 @@ export interface NengajoInterface extends utils.Interface {
   getFunction(
     nameOrSignatureOrTopic:
       | "addAdmins"
-      | "admins"
       | "balanceOf"
       | "balanceOfBatch"
       | "checkRemainingCloseTime"
@@ -86,23 +87,26 @@ export interface NengajoInterface extends utils.Interface {
       | "close_blockTimestamp"
       | "deleteAdmin"
       | "exists"
+      | "isAdmin"
       | "isApprovedForAll"
+      | "isTrustedForwarder"
       | "mint"
       | "mintBatch"
       | "mintable"
       | "name"
       | "open_blockTimestamp"
-      | "registerNengajo"
-      | "retrieveAllNengajoes"
-      | "retrieveMintedNengajoes"
-      | "retrieveRegisteredNengajo"
-      | "retrieveRegisteredNengajoes"
+      | "registerTicket"
+      | "retrieveAllTickets"
+      | "retrieveMintedTickets"
+      | "retrieveRegisteredTicket"
+      | "retrieveRegisteredTickets"
       | "safeBatchTransferFrom"
       | "safeTransferFrom"
       | "setApprovalForAll"
       | "supportsInterface"
       | "switchMintable"
       | "symbol"
+      | "tokenURI"
       | "totalSupply"
       | "uri"
   ): FunctionFragment;
@@ -110,10 +114,6 @@ export interface NengajoInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "addAdmins",
     values: [PromiseOrValue<string>[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "admins",
-    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "balanceOf",
@@ -144,8 +144,16 @@ export interface NengajoInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "isAdmin",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isTrustedForwarder",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "mint",
@@ -162,23 +170,23 @@ export interface NengajoInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "registerNengajo",
+    functionFragment: "registerTicket",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "retrieveAllNengajoes",
+    functionFragment: "retrieveAllTickets",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "retrieveMintedNengajoes",
+    functionFragment: "retrieveMintedTickets",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "retrieveRegisteredNengajo",
+    functionFragment: "retrieveRegisteredTicket",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "retrieveRegisteredNengajoes",
+    functionFragment: "retrieveRegisteredTickets",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -215,6 +223,10 @@ export interface NengajoInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "tokenURI",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "totalSupply",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -224,7 +236,6 @@ export interface NengajoInterface extends utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "addAdmins", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "admins", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "balanceOfBatch",
@@ -247,8 +258,13 @@ export interface NengajoInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "exists", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "isAdmin", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "isTrustedForwarder",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
@@ -260,23 +276,23 @@ export interface NengajoInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "registerNengajo",
+    functionFragment: "registerTicket",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "retrieveAllNengajoes",
+    functionFragment: "retrieveAllTickets",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "retrieveMintedNengajoes",
+    functionFragment: "retrieveMintedTickets",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "retrieveRegisteredNengajo",
+    functionFragment: "retrieveRegisteredTicket",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "retrieveRegisteredNengajoes",
+    functionFragment: "retrieveRegisteredTickets",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -300,6 +316,7 @@ export interface NengajoInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -310,7 +327,7 @@ export interface NengajoInterface extends utils.Interface {
     "ApprovalForAll(address,address,bool)": EventFragment;
     "Mint(address,uint256)": EventFragment;
     "MintBatch(address,uint256[])": EventFragment;
-    "RegisterNengajo(address,uint256,string,uint256)": EventFragment;
+    "RegisterTicket(address,uint256,string,uint256)": EventFragment;
     "TransferBatch(address,address,address,uint256[],uint256[])": EventFragment;
     "TransferSingle(address,address,address,uint256,uint256)": EventFragment;
     "URI(string,uint256)": EventFragment;
@@ -319,7 +336,7 @@ export interface NengajoInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Mint"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MintBatch"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RegisterNengajo"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RegisterTicket"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferBatch"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferSingle"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "URI"): EventFragment;
@@ -356,18 +373,18 @@ export type MintBatchEvent = TypedEvent<
 
 export type MintBatchEventFilter = TypedEventFilter<MintBatchEvent>;
 
-export interface RegisterNengajoEventObject {
+export interface RegisterTicketEventObject {
   creator: string;
   tokenId: BigNumber;
   metaDataURL: string;
   maxSupply: BigNumber;
 }
-export type RegisterNengajoEvent = TypedEvent<
+export type RegisterTicketEvent = TypedEvent<
   [string, BigNumber, string, BigNumber],
-  RegisterNengajoEventObject
+  RegisterTicketEventObject
 >;
 
-export type RegisterNengajoEventFilter = TypedEventFilter<RegisterNengajoEvent>;
+export type RegisterTicketEventFilter = TypedEventFilter<RegisterTicketEvent>;
 
 export interface TransferBatchEventObject {
   operator: string;
@@ -405,12 +422,12 @@ export type URIEvent = TypedEvent<[string, BigNumber], URIEventObject>;
 
 export type URIEventFilter = TypedEventFilter<URIEvent>;
 
-export interface Nengajo extends BaseContract {
+export interface PublicTicket extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: NengajoInterface;
+  interface: PublicTicketInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -436,11 +453,6 @@ export interface Nengajo extends BaseContract {
       _newAdmins: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
-
-    admins(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
 
     balanceOf(
       account: PromiseOrValue<string>,
@@ -470,9 +482,19 @@ export interface Nengajo extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    isAdmin(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    isTrustedForwarder(
+      forwarder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
@@ -492,30 +514,30 @@ export interface Nengajo extends BaseContract {
 
     open_blockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    registerNengajo(
+    registerTicket(
       _maxSupply: PromiseOrValue<BigNumberish>,
       _metaDataURL: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    retrieveAllNengajoes(
+    retrieveAllTickets(
       overrides?: CallOverrides
-    ): Promise<[Nengajo.NengajoInfoStructOutput[]]>;
+    ): Promise<[PublicTicket.TicketInfoStructOutput[]]>;
 
-    retrieveMintedNengajoes(
+    retrieveMintedTickets(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[Nengajo.NengajoInfoStructOutput[]]>;
+    ): Promise<[PublicTicket.TicketInfoStructOutput[]]>;
 
-    retrieveRegisteredNengajo(
+    retrieveRegisteredTicket(
       _tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[Nengajo.NengajoInfoStructOutput]>;
+    ): Promise<[PublicTicket.TicketInfoStructOutput]>;
 
-    retrieveRegisteredNengajoes(
+    retrieveRegisteredTickets(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[Nengajo.NengajoInfoStructOutput[]]>;
+    ): Promise<[PublicTicket.TicketInfoStructOutput[]]>;
 
     safeBatchTransferFrom(
       from: PromiseOrValue<string>,
@@ -552,6 +574,11 @@ export interface Nengajo extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
 
+    tokenURI(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     totalSupply(
       id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -567,11 +594,6 @@ export interface Nengajo extends BaseContract {
     _newAdmins: PromiseOrValue<string>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
-
-  admins(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
 
   balanceOf(
     account: PromiseOrValue<string>,
@@ -601,9 +623,19 @@ export interface Nengajo extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  isAdmin(
+    _address: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   isApprovedForAll(
     account: PromiseOrValue<string>,
     operator: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  isTrustedForwarder(
+    forwarder: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -623,30 +655,30 @@ export interface Nengajo extends BaseContract {
 
   open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
-  registerNengajo(
+  registerTicket(
     _maxSupply: PromiseOrValue<BigNumberish>,
     _metaDataURL: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  retrieveAllNengajoes(
+  retrieveAllTickets(
     overrides?: CallOverrides
-  ): Promise<Nengajo.NengajoInfoStructOutput[]>;
+  ): Promise<PublicTicket.TicketInfoStructOutput[]>;
 
-  retrieveMintedNengajoes(
+  retrieveMintedTickets(
     _address: PromiseOrValue<string>,
     overrides?: CallOverrides
-  ): Promise<Nengajo.NengajoInfoStructOutput[]>;
+  ): Promise<PublicTicket.TicketInfoStructOutput[]>;
 
-  retrieveRegisteredNengajo(
+  retrieveRegisteredTicket(
     _tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<Nengajo.NengajoInfoStructOutput>;
+  ): Promise<PublicTicket.TicketInfoStructOutput>;
 
-  retrieveRegisteredNengajoes(
+  retrieveRegisteredTickets(
     _address: PromiseOrValue<string>,
     overrides?: CallOverrides
-  ): Promise<Nengajo.NengajoInfoStructOutput[]>;
+  ): Promise<PublicTicket.TicketInfoStructOutput[]>;
 
   safeBatchTransferFrom(
     from: PromiseOrValue<string>,
@@ -683,6 +715,11 @@ export interface Nengajo extends BaseContract {
 
   symbol(overrides?: CallOverrides): Promise<string>;
 
+  tokenURI(
+    _tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   totalSupply(
     id: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -698,11 +735,6 @@ export interface Nengajo extends BaseContract {
       _newAdmins: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
-
-    admins(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
 
     balanceOf(
       account: PromiseOrValue<string>,
@@ -732,9 +764,19 @@ export interface Nengajo extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    isAdmin(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    isTrustedForwarder(
+      forwarder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -754,30 +796,30 @@ export interface Nengajo extends BaseContract {
 
     open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
-    registerNengajo(
+    registerTicket(
       _maxSupply: PromiseOrValue<BigNumberish>,
       _metaDataURL: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    retrieveAllNengajoes(
+    retrieveAllTickets(
       overrides?: CallOverrides
-    ): Promise<Nengajo.NengajoInfoStructOutput[]>;
+    ): Promise<PublicTicket.TicketInfoStructOutput[]>;
 
-    retrieveMintedNengajoes(
+    retrieveMintedTickets(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<Nengajo.NengajoInfoStructOutput[]>;
+    ): Promise<PublicTicket.TicketInfoStructOutput[]>;
 
-    retrieveRegisteredNengajo(
+    retrieveRegisteredTicket(
       _tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<Nengajo.NengajoInfoStructOutput>;
+    ): Promise<PublicTicket.TicketInfoStructOutput>;
 
-    retrieveRegisteredNengajoes(
+    retrieveRegisteredTickets(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<Nengajo.NengajoInfoStructOutput[]>;
+    ): Promise<PublicTicket.TicketInfoStructOutput[]>;
 
     safeBatchTransferFrom(
       from: PromiseOrValue<string>,
@@ -811,6 +853,11 @@ export interface Nengajo extends BaseContract {
     switchMintable(overrides?: CallOverrides): Promise<void>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    tokenURI(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     totalSupply(
       id: PromiseOrValue<BigNumberish>,
@@ -853,18 +900,18 @@ export interface Nengajo extends BaseContract {
       tokenIds?: null
     ): MintBatchEventFilter;
 
-    "RegisterNengajo(address,uint256,string,uint256)"(
+    "RegisterTicket(address,uint256,string,uint256)"(
       creator?: PromiseOrValue<string> | null,
       tokenId?: null,
       metaDataURL?: null,
       maxSupply?: null
-    ): RegisterNengajoEventFilter;
-    RegisterNengajo(
+    ): RegisterTicketEventFilter;
+    RegisterTicket(
       creator?: PromiseOrValue<string> | null,
       tokenId?: null,
       metaDataURL?: null,
       maxSupply?: null
-    ): RegisterNengajoEventFilter;
+    ): RegisterTicketEventFilter;
 
     "TransferBatch(address,address,address,uint256[],uint256[])"(
       operator?: PromiseOrValue<string> | null,
@@ -909,11 +956,6 @@ export interface Nengajo extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    admins(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     balanceOf(
       account: PromiseOrValue<string>,
       id: PromiseOrValue<BigNumberish>,
@@ -942,9 +984,19 @@ export interface Nengajo extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    isAdmin(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    isTrustedForwarder(
+      forwarder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -964,25 +1016,25 @@ export interface Nengajo extends BaseContract {
 
     open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
-    registerNengajo(
+    registerTicket(
       _maxSupply: PromiseOrValue<BigNumberish>,
       _metaDataURL: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    retrieveAllNengajoes(overrides?: CallOverrides): Promise<BigNumber>;
+    retrieveAllTickets(overrides?: CallOverrides): Promise<BigNumber>;
 
-    retrieveMintedNengajoes(
+    retrieveMintedTickets(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    retrieveRegisteredNengajo(
+    retrieveRegisteredTicket(
       _tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    retrieveRegisteredNengajoes(
+    retrieveRegisteredTickets(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -1022,6 +1074,11 @@ export interface Nengajo extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
 
+    tokenURI(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     totalSupply(
       id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1037,11 +1094,6 @@ export interface Nengajo extends BaseContract {
     addAdmins(
       _newAdmins: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    admins(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     balanceOf(
@@ -1078,9 +1130,19 @@ export interface Nengajo extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    isAdmin(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    isTrustedForwarder(
+      forwarder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1102,27 +1164,27 @@ export interface Nengajo extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    registerNengajo(
+    registerTicket(
       _maxSupply: PromiseOrValue<BigNumberish>,
       _metaDataURL: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    retrieveAllNengajoes(
+    retrieveAllTickets(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    retrieveMintedNengajoes(
+    retrieveMintedTickets(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    retrieveRegisteredNengajo(
+    retrieveRegisteredTicket(
       _tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    retrieveRegisteredNengajoes(
+    retrieveRegisteredTickets(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -1161,6 +1223,11 @@ export interface Nengajo extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tokenURI(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     totalSupply(
       id: PromiseOrValue<BigNumberish>,

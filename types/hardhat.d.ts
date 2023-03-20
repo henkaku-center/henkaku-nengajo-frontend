@@ -13,41 +13,13 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "BasePaymaster",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BasePaymaster__factory>;
-    getContractFactory(
-      name: "BaseRelayRecipient",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BaseRelayRecipient__factory>;
-    getContractFactory(
-      name: "IForwarder",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IForwarder__factory>;
-    getContractFactory(
-      name: "IPaymaster",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IPaymaster__factory>;
-    getContractFactory(
-      name: "IRelayHub",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IRelayHub__factory>;
-    getContractFactory(
-      name: "IRelayRecipient",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IRelayRecipient__factory>;
-    getContractFactory(
-      name: "IStakeManager",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IStakeManager__factory>;
-    getContractFactory(
-      name: "GsnEip712Library",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.GsnEip712Library__factory>;
-    getContractFactory(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
+    getContractFactory(
+      name: "ERC2771Context",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC2771Context__factory>;
     getContractFactory(
       name: "ERC1155",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -89,9 +61,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC165__factory>;
     getContractFactory(
+      name: "Administration",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Administration__factory>;
+    getContractFactory(
       name: "HenkakuToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.HenkakuToken__factory>;
+    getContractFactory(
+      name: "InteractHenakuToken",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.InteractHenakuToken__factory>;
     getContractFactory(
       name: "IHenkakuToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -101,55 +81,36 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MintManager__factory>;
     getContractFactory(
-      name: "Nengajo",
+      name: "Ticket",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Nengajo__factory>;
+    ): Promise<Contracts.Ticket__factory>;
+    getContractFactory(
+      name: "Administration",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Administration__factory>;
+    getContractFactory(
+      name: "Forwarder",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Forwarder__factory>;
+    getContractFactory(
+      name: "MintManager",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MintManager__factory>;
+    getContractFactory(
+      name: "PublicTicket",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PublicTicket__factory>;
 
-    getContractAt(
-      name: "BasePaymaster",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.BasePaymaster>;
-    getContractAt(
-      name: "BaseRelayRecipient",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.BaseRelayRecipient>;
-    getContractAt(
-      name: "IForwarder",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IForwarder>;
-    getContractAt(
-      name: "IPaymaster",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IPaymaster>;
-    getContractAt(
-      name: "IRelayHub",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IRelayHub>;
-    getContractAt(
-      name: "IRelayRecipient",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IRelayRecipient>;
-    getContractAt(
-      name: "IStakeManager",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IStakeManager>;
-    getContractAt(
-      name: "GsnEip712Library",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.GsnEip712Library>;
     getContractAt(
       name: "Ownable",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Ownable>;
+    getContractAt(
+      name: "ERC2771Context",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC2771Context>;
     getContractAt(
       name: "ERC1155",
       address: string,
@@ -201,10 +162,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC165>;
     getContractAt(
+      name: "Administration",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Administration>;
+    getContractAt(
       name: "HenkakuToken",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.HenkakuToken>;
+    getContractAt(
+      name: "InteractHenakuToken",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.InteractHenakuToken>;
     getContractAt(
       name: "IHenkakuToken",
       address: string,
@@ -216,10 +187,30 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.MintManager>;
     getContractAt(
-      name: "Nengajo",
+      name: "Ticket",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.Nengajo>;
+    ): Promise<Contracts.Ticket>;
+    getContractAt(
+      name: "Administration",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Administration>;
+    getContractAt(
+      name: "Forwarder",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Forwarder>;
+    getContractAt(
+      name: "MintManager",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MintManager>;
+    getContractAt(
+      name: "PublicTicket",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.PublicTicket>;
 
     // default types
     getContractFactory(
