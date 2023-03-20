@@ -31,7 +31,7 @@ const StatusMenu: React.FC<Props> = ({ children }) => {
     chainId: chainId
   }) as `0x${string}`
   const ticket = getContractAddress({
-    name: 'nengajo',
+    name: 'ticket',
     chainId: chainId
   }) as `0x${string}`
   const { address } = useAccount()

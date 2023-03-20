@@ -20,7 +20,7 @@ const Home: NextPage = () => {
     chainId: chainId
   }) as `0x${string}`
   const ticket = getContractAddress({
-    name: 'nengajo',
+    name: 'ticket',
     chainId: chainId
   }) as `0x${string}`
   const { approved } = useApproval(henkakuV2, ticket, address)

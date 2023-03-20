@@ -20,21 +20,13 @@ const contractAddresses: ContractAddresses = {
     [chainId.goerli]: '0x02Dd992774aBCacAD7D46155Da2301854903118D',
     [chainId.polygon]: '0x0cc91a5FFC2E9370eC565Ab42ECE33bbC08C11a2'
   },
-  nengajo: {
+  ticket: {
     [chainId.hardhat]:
-      (process.env.NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS as `0x${string}`) ?? '',
+      (process.env.NEXT_PUBLIC_CONTRACT_TICKET_ADDRESS as `0x${string}`) ?? '',
     [chainId.polygonMumbai]: '0x014122281213bCc1CD6f2eB9b9F9e0d199Db070F',
     [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
     [chainId.polygon]: '0x06032956f2E35b6Fa43C9e75fA3c55A1E1AF8917'
   },
-  podcastNengajo: {
-    [chainId.polygonMumbai]: '0x3F359Ec705F25a9D287EdDc5370b57e20C237c1E',
-    [chainId.polygon]: '0xd6Bf2bb451458A308B53A8c02F1beC638BbcCA10'
-  },
-  podcastForwarder: {
-    [chainId.polygonMumbai]: '0xd68752aE770Bc2852480eb41669018727680C3C3',
-    [chainId.polygon]: '0xFe6989B0db606E52e22c7a0Eaf63cf179aEAAAaC'
-  }
 }
 
 const defaultChainID = process.env.production ? chainId.polygon : chainId.goerli

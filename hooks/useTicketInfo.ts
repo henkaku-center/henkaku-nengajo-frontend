@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Nengajo } from '@/types'
+import { Ticket } from '@/types'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 
-interface TicketInfoProps extends Nengajo.NengajoInfoStruct {
+interface TicketInfoProps extends Ticket.TicketInfoStruct {
   tokenURIJSON: {
     name: string
     image: string
@@ -19,7 +19,7 @@ const mappingTicketInfo = async ({
   creator,
   id,
   maxSupply
-}: Nengajo.NengajoInfoStructOutput) => {
+}: Ticket.TicketInfoStructOutput) => {
   const pinataGatewayURI = parseIpfs2Pinata(uri)
   const tokenURIJSON = await fetchTokenURIJSON(pinataGatewayURI)
   return {
@@ -39,7 +39,7 @@ const fetchTokenURIJSON = async (uri: string) => {
   } catch (error) {}
 }
 
-const useTicketInfo = (item: Nengajo.NengajoInfoStructOutput) => {
+const useTicketInfo = (item: Ticket.TicketInfoStructOutput) => {
   const [ticketInfo, setTicketInfo] = useState<TicketInfoProps>()
   useEffect(() => {
     const fetchTicketInfo = async () => {
@@ -52,7 +52,7 @@ const useTicketInfo = (item: Nengajo.NengajoInfoStructOutput) => {
   return { ticketInfo }
 }
 
-const useAllTicketsInfo = (items: Nengajo.NengajoInfoStructOutput[]) => {
+const useAllTicketsInfo = (items: Ticket.TicketInfoStructOutput[]) => {
   const [allTicketsInfo, setAllTicketsInfo] = useState<TicketInfoProps[]>()
   useEffect(() => {
     const fetchAllTicketsInfo = async () => {

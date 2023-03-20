@@ -5,62 +5,62 @@
   "BUTTON_CANCEL": "Cancel",
 
   "HENKAKU": "HENKAKU",
-  "TICKET": "Nengajo",
+  "TICKET": "Ticket",
   "HOME_LINK": "Home",
   "COLLECTION_LINK": "Collection",
-  "CREATE_LINK": "Create Nengajo",
-  "TICKET_LINK": "Nengajo",
+  "CREATE_LINK": "Create Ticket",
+  "TICKET_LINK": "Ticket",
   "LANG_SWITCHER": "日本語",
 
-  "CREATE_NEW_TICKET": "Create a new nengajo",
-  "NEW_TICKET_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create nengajo. The cost varies depending on the max supply of NFTs.",
+  "CREATE_NEW_TICKET": "Create a new ticket",
+  "NEW_TICKET_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create ticket. The cost varies depending on the max supply of NFTs.",
   "NEW_TICKET_HENKAKUTOKEN_0": "10 HENKAKU (up to 10 copies)",
   "NEW_TICKET_HENKAKUTOKEN_10": "5 HENKAKU/copy (11 to 100 copies)",
   "NEW_TICKET_HENKAKUTOKEN_100": "10 HENKAKU/copy (more than 100 copies)",
-  "NEW_TICKET_TITLE_LABEL": "Nengajo title",
+  "NEW_TICKET_TITLE_LABEL": "Ticket title",
   "NEW_TICKET_PICTURE_LABEL": "Picture（up to 3 MB）",
   "NEW_TICKET_SECRET_MESSAGE_LABEL": "Secret message card for holder（up to 500 KB）",
   "NEW_TICKET_CREATOR_NAME": "Creator name",
   "NEW_TICKET_DESCRIPTION": "NFT description",
   "NEW_TICKET_MAX_SUPPLY": "Max supply",
   "NEW_TICKET_TAKING_TIME": "This might take a while",
-  "NEW_TICKET_SECRET_PROMPT": "Would you like to add a secret message for the people who will receive your nengajo?",
+  "NEW_TICKET_SECRET_PROMPT": "Would you like to add a secret message for the people who will receive your ticket?",
   "REQUIRED_INPUT": "Required",
   "UPLOAD_SUCCESS": "Successfully uploaded",
   "BUTTON_CREATE": "Create",
-  "BUTTON_APPROVE": "Approve the Nengajo NFT contract to make payment operations for the HENKAKU token",
+  "BUTTON_APPROVE": "Approve the Ticket NFT contract to make payment operations for the HENKAKU token",
   "ERC20APPROVED": {
     "APPROVED": "You have already approved HENKAKU payments to this contract.",
     "UNAPPROVED": "You have not yet approved HENKAKU payments to this contract."
   },
-  "IMAGE_PREVIEW_ALT": "Nengajo NFT preview",
+  "IMAGE_PREVIEW_ALT": "Ticket NFT preview",
 
   "STATUS_BUTTON": "Status",
   "STATUS_TITLE": "Status",
 
-  "REGISTERD_TICKET_LIST": "Registered nengajo list",
-  "EMPTY_TICKET_LIST": "No relevant nengajo found",
+  "REGISTERD_TICKET_LIST": "Registered ticket list",
+  "EMPTY_TICKET_LIST": "No relevant ticket found",
 
   "CLAIM": {
     "TOAST": {
       "SUBMITTED": "Submitted",
       "ERROR": "Error",
-      "SUCCESS": "Nengajo was successfully received.",
-      "RETRIEVE_TICKETS_FAILED": "Failed to retrieve nengajo list.",
+      "SUCCESS": "Ticket was successfully received.",
+      "RETRIEVE_TICKETS_FAILED": "Failed to retrieve ticket list.",
       "TX_FAILED": "Transaction failed.",
       "DEFAULT_ERROR": "Unknown Server Error"
     }
   },
 
-  "GET_TICKET": "Get nengajo",
+  "GET_TICKET": "Get ticket",
 
   "COPYRIGHT_LINE": "© 2023 henkaku.org. All rights reserved.",
 
   "TOP_MINT_START_AKEOME": "🎍HAPPY NEW YEAR🎍",
-  "TOP_MINT_START_READY": "🎊You can now get Nengajo NFT🎊",
-  "TOP_UNTIL_START": "🎍Until Nengajo NFT is available🎍",
+  "TOP_MINT_START_READY": "🎊You can now get Ticket NFT🎊",
+  "TOP_UNTIL_START": "🎍Until Ticket NFT is available🎍",
 
-  "THANK_YOU_FOR_MINT": "Thank you for receiving Nengajo.",
+  "THANK_YOU_FOR_MINT": "Thank you for receiving Ticket.",
   "GREET_THIS_YEAR": "We're looking forward to working with you!",
 
   "WITHOUT_GAS_FEE": "Without Gas Fee"

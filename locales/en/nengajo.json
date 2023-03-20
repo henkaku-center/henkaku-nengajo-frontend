@@ -2,12 +2,12 @@
   "TITLE": {
     "CONNECT_WALLET": "You must connect a wallet first!",
     "MAX_SUPPLY": "Max supply",
-    "MINTABLE": "You can mint this Nengajo.",
-    "NOT_MINTABLE": "You cannot mint this Nengajo. To get this Nengajo you need to meet a certain criteria.",
-    "FREE_MINTABLE": "You can mint this Nengajo for free.",
-    "MINTED": "🎉🎉 Congratulations! You minted a new Nengajo! 🎉🎉",
+    "MINTABLE": "You can mint this Ticket.",
+    "NOT_MINTABLE": "You cannot mint this Ticket. To get this Ticket you need to meet a certain criteria.",
+    "FREE_MINTABLE": "You can mint this Ticket for free.",
+    "MINTED": "🎉🎉 Congratulations! You minted a new Ticket! 🎉🎉",
     "IS_POSSIBLE_START": "You can get it on January 1, 2023 at 12:00 pm.",
-    "SHARE": "Why not share this Nengajo?"
+    "SHARE": "Why not share this Ticket?"
   },
   "APPROVE": "Enable to mint",
   "MINT": "Mint",

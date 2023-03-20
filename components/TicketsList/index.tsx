@@ -11,7 +11,7 @@ import {
   Spinner,
   Stack
 } from '@chakra-ui/react'
-import { Nengajo } from '@/types'
+import { Ticket } from '@/types'
 import { useAllTicketsInfo } from '@/hooks/useTicketInfo'
 // Cart機能が実装された際に利用する
 // import { PreviewTicket } from '@/components/MintTicket'
@@ -21,7 +21,7 @@ import useTranslation from 'next-translate/useTranslation'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 
 interface TicketsListProps {
-  items: Nengajo.NengajoInfoStructOutput[]
+  items: Ticket.TicketInfoStructOutput[]
 }
 
 const TicketsList: React.FC<TicketsListProps> = ({ items }) => {

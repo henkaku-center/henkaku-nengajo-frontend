@@ -65,7 +65,7 @@ const CreateTicketForm: FC = () => {
       description:
         lang === 'en'
           ? 'This is a Ticket NFT sent with HENKAKU TICKET.'
-          : 'HENKAKU TICKET から送られた年賀状NFTです。',
+          : 'HENKAKU TICKET から送られたチケットNFTです。',
       image: null,
       secretMessage: null,
       creatorName: '',

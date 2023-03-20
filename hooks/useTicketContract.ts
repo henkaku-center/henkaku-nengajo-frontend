@@ -6,8 +6,8 @@ import {
   usePrepareContractWrite
 } from 'wagmi'
 import { getContractAddress } from '@/utils/contractAddresses'
-import NengajoABI from '@/abi/Nengajo.json'
-import { Nengajo } from '@/types'
+import TicketABI from '@/abi/Ticket.json'
+import { Ticket } from '@/types'
 import { useEffect, useMemo, useState } from 'react'
 import { BigNumber } from 'ethers'
 
@@ -15,8 +15,8 @@ const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
 const usePrepareTicketContractWrite = (functionName: string, args: any[]) => {
   const { config } = usePrepareContractWrite({
-    address: getContractAddress({ name: 'nengajo', chainId }),
-    abi: NengajoABI.abi,
+    address: getContractAddress({ name: 'ticket', chainId }),
+    abi: TicketABI.abi,
     functionName,
     args,
     overrides: {
@@ -28,8 +28,8 @@ const usePrepareTicketContractWrite = (functionName: string, args: any[]) => {
 
 const useTicketContractRead = (functionName: string, args: unknown[] = []) => {
   const result = useContractRead({
-    address: getContractAddress({ name: 'nengajo', chainId }),
-    abi: NengajoABI.abi,
+    address: getContractAddress({ name: 'ticket', chainId }),
+    abi: TicketABI.abi,
     functionName,
     args
   })
@@ -41,8 +41,8 @@ const useTicketContractEvent = (
   listener: (...args: any) => void
 ) => {
   useContractEvent({
-    address: getContractAddress({ name: 'nengajo', chainId }),
-    abi: NengajoABI.abi,
+    address: getContractAddress({ name: 'ticket', chainId }),
+    abi: TicketABI.abi,
     eventName,
     listener
   })
@@ -50,13 +50,13 @@ const useTicketContractEvent = (
 
 export const useRegisterTicket = (maxSupply: number, metadataURI: string) => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
-  const config = usePrepareTicketContractWrite('registerNengajo', [
+  const config = usePrepareTicketContractWrite('registerTicket', [
     maxSupply,
     metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   ])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
   useTicketContractEvent(
-    'RegisterNengajo',
+    'RegisterTicket',
     (creator, _tokenId, metaDataURL, maxSupply) => {
       setRegisteredTokenId(_tokenId)
     }
@@ -85,10 +85,10 @@ export const useBatchMintTickets = (id: number[]) => {
 
 export const useRetrieveTicketByTokenId = (tokenId: number) => {
   const { data, isLoading, isError } = useTicketContractRead(
-    'retrieveRegisteredNengajo',
+    'retrieveRegisteredTicket',
     [tokenId]
   ) as {
-    data: Nengajo.NengajoInfoStructOutput
+    data: Ticket.TicketInfoStructOutput
     isLoading: boolean
     isError: boolean
   }
@@ -98,10 +98,10 @@ export const useRetrieveTicketByTokenId = (tokenId: number) => {
 
 export const useRetrieveHoldingTicketsByAddress = (address: string) => {
   const { data, isLoading, isError } = useTicketContractRead(
-    'retrieveMintedNengajoes',
+    'retrieveMintedTickets',
     [address]
   ) as {
-    data: Nengajo.NengajoInfoStructOutput[]
+    data: Ticket.TicketInfoStructOutput[]
     isLoading: boolean
     isError: boolean
   }
@@ -111,9 +111,9 @@ export const useRetrieveHoldingTicketsByAddress = (address: string) => {
 
 export const useRetrieveAllTicket = () => {
   const { data, isError, isLoading } = useTicketContractRead(
-    'retrieveAllNengajoes'
+    'retrieveAllTickets'
   ) as {
-    data: Nengajo.NengajoInfoStructOutput[]
+    data: Ticket.TicketInfoStructOutput[]
     isLoading: boolean
     isError: boolean
   }

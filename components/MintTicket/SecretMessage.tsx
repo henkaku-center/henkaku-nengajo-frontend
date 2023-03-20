@@ -55,7 +55,7 @@ const SecretMessage: FC<Props> = ({
         height="auto"
         py={2}
       >
-        この年賀状ホルダーだけが読める
+        このチケットホルダーだけが読める
         <br />
         メッセージ・カードをみる
       </Button>
