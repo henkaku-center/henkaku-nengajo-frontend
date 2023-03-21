@@ -1,0 +1,20 @@
+{
+  "TITLE": {
+    "CONNECT_WALLET": "まずメタマスクのウォレットを接続してください",
+    "MAX_SUPPLY": "最大発行数",
+    "MINTABLE": "このチケットは販売中です",
+    "NOT_MINTABLE": "このチケットは購入することができません。手に入れるためには、条件を満たす必要があります",
+    "FREE_MINTABLE": "このチケットは無料でMintできます",
+    "MINTED": "🎉🎉 おめでとうございます！このチケットは入手済です🎉🎉",
+    "BEFORE_SALE": "このチケットは販売前です",
+    "END_OF_SALE": "販売終了しました",
+    "SOLD_OUT": "チケットは売り切れました。",
+    "SHARE": "このチケットをシェアしてみませんか？"
+  },
+  "APPROVE": "購入するための許可をする",
+  "MINT": "購入する",
+  "SALES_PERIOD": "販売期間",
+  "CONNECT_WALLET": "メタマスクのウォレットに接続する",
+  "SALES_PERIOD_HELPER": "（JST）",
+  "UNTIL_START": "受け取り可能になるまで"
+}
