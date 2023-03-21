@@ -48,11 +48,17 @@ const useTicketContractEvent = (
   })
 }
 
-export const useRegisterTicket = (maxSupply: number, metadataURI: string) => {
+export const useRegisterTicket = (maxSupply: number, metadataURI: string, price: number, blockTimeStamp: Date[]) => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
+  const open_blockTimeStamp = Math.floor((blockTimeStamp[0]?.getTime() || Date.now()) / 1000)
+  const close_clockTimeStamp = Math.floor((blockTimeStamp[1]?.getTime() || Date.now()) / 1000)
   const config = usePrepareTicketContractWrite('registerTicket', [
     maxSupply,
-    metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    price,
+    open_blockTimeStamp,
+    close_clockTimeStamp,
+    process.env.NEXT_PUBLIC_CONTRACT_POOLWALLET_ADDRESS,
   ])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
   useTicketContractEvent(

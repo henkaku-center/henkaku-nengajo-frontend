@@ -8,6 +8,9 @@ interface TicketInfoProps extends Ticket.TicketInfoStruct {
     image: string
     external_url: string
     description: string
+    price: number
+    open_blockTimestamp: string
+    close_blockTimestamp: string
     encryptedFile?: string
     encryptedSymmetricKey?: string
     attributes: { trait_type: string; value: string }[]
@@ -18,7 +21,10 @@ const mappingTicketInfo = async ({
   uri,
   creator,
   id,
-  maxSupply
+  maxSupply,
+  price,
+  open_blockTimestamp,
+  close_blockTimestamp,
 }: Ticket.TicketInfoStructOutput) => {
   const pinataGatewayURI = parseIpfs2Pinata(uri)
   const tokenURIJSON = await fetchTokenURIJSON(pinataGatewayURI)
@@ -27,7 +33,10 @@ const mappingTicketInfo = async ({
     creator: creator,
     id: Number(id),
     maxSupply: maxSupply,
-    tokenURIJSON
+    tokenURIJSON,
+    price: Number(price),
+    open_blockTimestamp: Number(open_blockTimestamp),
+    close_blockTimestamp: Number(close_blockTimestamp),
   } as TicketInfoProps
 }
 
