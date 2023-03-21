@@ -12,7 +12,9 @@ import {
   ModalBody,
   useDisclosure,
   Stack,
-  useToast
+  useToast,
+  Flex,
+  Badge
 } from '@chakra-ui/react'
 import { useState, ReactElement, useEffect } from 'react'
 import { NFTImage } from '@/components/NFTImage'
@@ -34,6 +36,7 @@ import OpenseaIcon from '@/components/Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 import SecretMessage from '@/components/MintTicket/SecretMessage'
 import UpdateSecretMessageCrypt from './UpdateSecretMessageCrypt'
+import dayjs from 'dayjs'
 
 interface Props {
   id: number
@@ -102,6 +105,18 @@ const MintTicket: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
           return text + currentText
         }, '')
       : ''
+  const isSale = ()=> {
+    const now = Date.now()
+    if(now < (item.open_blockTimestamp as number) * 1000) return 0
+    if(now > (item.close_blockTimestamp as number) * 1000) return 2
+    return 1
+  }
+  
+  const blockTimeStamp = {
+    salesStatus: isSale(),
+    openText: dayjs(item.open_blockTimestamp as number * 1000).format('YYYY/MM/DD'),
+    closeText: dayjs(item.close_blockTimestamp as number * 1000).format('YYYY/MM/DD'),
+  }
 
   const { address } = useAccount()
 
@@ -120,58 +135,55 @@ const MintTicket: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
         gap={{ lg: 6 }}
       >
         <GridItem>
+          <Flex justifyContent="space-between" alignItems="center">
+          <Text fontSize="xl" fontWeight="bold">
+            <Badge ml={1} variant="outline" colorScheme="yellow">
+              preview
+            </Badge>
+          </Text>
+          <Text fontSize="sm" textAlign="right" mt={1}><>{t('SALES_PERIOD')}：{blockTimeStamp.openText}〜{blockTimeStamp.closeText}{t('SALES_PERIOD_HELPER')}</></Text>
+          </Flex>
           {item && (
             <NFTImage imageUrl={parseIpfs2Pinata(item?.tokenURIJSON?.image)} />
           )}
           {creatorName && (
-            <Text textAlign="right" fontSize="sm" mt={1}>
-              {creatorName.includes('Created')
-                ? creatorName
-                : `created by ${creatorName}`}
-            </Text>
+            <Text textAlign="right" fontSize="sm" mt={1}>{creatorName}</Text>
           )}
           <Text mt={5}>{item?.tokenURIJSON?.description}</Text>
         </GridItem>
         {!imageOnly && (
           <GridItem>
             <Box mb={{ lg: 10 }}>
-              {!isStart ? (
+              {blockTimeStamp.salesStatus !== 1 ? (
                 <Box mt={{ base: 5 }}>
                   <Heading size="md">
-                    <Trans
-                      i18nKey="ticket:TITLE.IS_POSSIBLE_START"
-                      components={{ br: <br /> }}
-                    />
+                    {blockTimeStamp.salesStatus === 0 && <Text>{t('TITLE.BEFORE_SALE')}</Text>}
+                    {blockTimeStamp.salesStatus === 2 && <Text>{t('TITLE.END_OF_SALE')}</Text>}
                   </Heading>
-                  <Text>{t('IS_POSSIBLE_START_HELPER')}</Text>
-                  <Stack alignItems={{ base: 'center', lg: 'baseline' }}>
-                    <Text mt={4}>{t('UNTIL_START')}</Text>
-                    <CountDown data={countDown} />
-                  </Stack>
                 </Box>
               ) : (
                 <>
                   {(mintState.status === 'minted' || isHolding) && (
                     <Box>
                       <Text>{t('TITLE.MINTED')}</Text>
-                      <Box mt={5}>
+                      {/* <Box mt={5}>
                         <Text size="sm">{t('TITLE.SHARE')}</Text>
                         <Stack direction="row" spacing={4} mt={2}>
-                          {/* リンクをつける */}
                           <LinkIcon fontSize="25px" />
                           <TwitterIcon fontSize="30px" />
                           <OpenseaIcon fontSize="30px" />
                         </Stack>
-                      </Box>
+                      </Box> */}
                     </Box>
                   )}
-                  {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
-                  {mintState.status === 'soldout' && 'SOLD OUT'}
+                  {mintState.status === 'noMintable' && <Text>{t('TITLE.NOT_MINTABLE')}</Text>}
+                  {mintState.status === 'soldout' && <Text>{t('TITLE.SOLD_OUT')}</Text>}
                   {mintState.status === 'mintable' && !isHolding && (
                     <>
                       {approved ? (
                         <Box>
-                          <Text>{t('TITLE.MINTABLE')}</Text>
+                          <Text textAlign="right" fontSize="lg" mt={1}>{t('TITLE.MINTABLE')}</Text>
+                          <Text textAlign="right" fontSize="2xl" fontWeight="bold"><>{item.price} HENKAKU</></Text>
                           <Button
                             width="100%"
                             colorScheme="teal"
@@ -188,7 +200,7 @@ const MintTicket: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                       )}
                     </>
                   )}
-                  {mintState.freeMintable && (
+                  {/* {mintState.freeMintable && (
                     <>
                       {t('TITLE.FREE_MINTABLE')}
                       <Box>
@@ -207,7 +219,7 @@ const MintTicket: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                         </Text>
                       </Box>
                     </>
-                  )}
+                  )} */}
                   {item?.tokenURIJSON.encryptedFile &&
                     item?.tokenURIJSON.encryptedSymmetricKey &&
                     isHolding && (
