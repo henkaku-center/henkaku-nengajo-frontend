@@ -46,23 +46,9 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <Box textAlign="center">
-        <Text fontSize="24px" fontWeight="bold" lineHeight={2}>
-          {isStart ? (
-            <>
-              {t('TOP_MINT_START_AKEOME')}
-              <br />
-              {t('TOP_MINT_START_READY')}
-            </>
-          ) : (
-            <>{t('TOP_UNTIL_START')}</>
-          )}
-        </Text>
-        {isMounted && !isStart && <CountDown data={countDown} />}
-      </Box>
       {isMounted && (
         <Box textAlign="center">
-          <Box mt="2em" display="inline-block">
+          <Box display="inline-block">
             {!isStart && (
               <Link href="/create">
                 <Button
