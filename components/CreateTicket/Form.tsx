@@ -4,27 +4,30 @@ import { FC, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import {
   Box,
-  Heading,
   Button,
   FormControl,
   FormLabel,
   Input,
   Text,
-  Flex
+  useToast
 } from '@chakra-ui/react'
+import { RangeDatepicker } from 'chakra-dayzed-datepicker'
 import { useUploadImageFile, useUploadMetadataJson } from '@/hooks/usePinata'
 import { useAccount } from 'wagmi'
 import { useRouter } from 'next/router'
 import { useLitEncryption } from '@/hooks/useLitProtocol'
-import CheckHenkaku from './CheckHenkaku'
+import { BigNumber, ethers } from 'ethers'
 
 type FormData = {
   name: string
   description: string
   image: File | null
   secretMessage: File | null
+  poolWalletAddress: string
   creatorName: string
   maxSupply: number
+  price: number
+  blockTimeStamp: Date[]
 }
 
 interface TicketTokenMetadata {
@@ -33,7 +36,6 @@ interface TicketTokenMetadata {
   description?: string | null | undefined
   animation_url?: string | null | undefined
   external_url?: string | null | undefined
-  contributors: string
   encryptedFile?: string
   encryptedSymmetricKey?: string
   attributes: TokenAttribute[]
@@ -49,27 +51,26 @@ interface TokenAttribute {
 }
 
 const metadata_external_url = 'https://ticket.henkaku.org'
-const metadata_contributors =
-  'daishin;FLOTAN;futa;geeknees;imaichiyyy;mindinc;karawapo;RYU;sushi yam;yawn;Yuki aka Ryoma;Yuudai;'
 
 const CreateTicketForm: FC = () => {
-  const { t, lang } = useTranslation('common')
+  const { t } = useTranslation('common')
   const { address } = useAccount()
   const router = useRouter()
+  const toast = useToast()
   const { initEncrypt, updateEncrypt, encryptedSymmetricKey } =
     useLitEncryption()
 
   const { control, handleSubmit, formState, watch } = useForm<FormData>({
     defaultValues: {
       name: '',
-      description:
-        lang === 'en'
-          ? 'This is a Ticket NFT sent with HENKAKU TICKET.'
-          : 'HENKAKU TICKET から送られたチケットNFTです。',
+      description: '',
       image: null,
       secretMessage: null,
+      poolWalletAddress: '',
       creatorName: '',
-      maxSupply: 10
+      maxSupply: 10,
+      price: 10,
+      blockTimeStamp: [new Date(), new Date()]
     }
   })
   const [metadataURI, setMetadataURI] = useState('')
@@ -79,7 +80,12 @@ const CreateTicketForm: FC = () => {
     isSuccess,
     writeAsync,
     registeredTokenId
-  } = useRegisterTicket(Number(watch('maxSupply')), metadataURI)
+  } = useRegisterTicket(
+    Number(watch('maxSupply')),
+    metadataURI,
+    Number(watch('price')),
+    watch('blockTimeStamp')
+  )
   const uploadFile = useUploadImageFile()
   const uploadMetadata = useUploadMetadataJson()
 
@@ -104,7 +110,6 @@ const CreateTicketForm: FC = () => {
         image: `ipfs://${imageIPFSHash}`,
         description: data.description,
         external_url: metadata_external_url,
-        contributors: metadata_contributors,
         attributes: [
           {
             trait_type: 'CreatorAddress',
@@ -126,22 +131,54 @@ const CreateTicketForm: FC = () => {
 
       const metadataIPFSHash = await uploadMetadata(metadataJson)
       setMetadataURI(`ipfs://${metadataIPFSHash}`)
-      await txWithContract(data.maxSupply, `ipfs://${metadataIPFSHash}`)
+      await txWithContract(
+        data.maxSupply,
+        `ipfs://${metadataIPFSHash}`,
+        ethers.utils.parseEther(String(data.price)),
+        data.blockTimeStamp,
+        data.poolWalletAddress
+      )
       return
     } catch (error) {
       console.log(error)
     }
   }
 
-  const txWithContract = async (maxSupply: number, metaDataURL: string) => {
+  const txWithContract = async (
+    maxSupply: number,
+    metaDataURL: string,
+    price: BigNumber,
+    blockTimeStamp: Date[],
+    poolWalletAddress: string
+  ) => {
     try {
       if (!writeAsync) return
+      const open_blockTimeStamp = Math.floor(
+        (blockTimeStamp[0]?.getTime() || Date.now()) / 1000
+      )
+      const close_clockTimeStamp = Math.floor(
+        (blockTimeStamp[1]?.getTime() || Date.now()) / 1000
+      )
+
       await writeAsync({
-        recklesslySetUnpreparedArgs: [maxSupply, metaDataURL]
+        recklesslySetUnpreparedArgs: [
+          maxSupply,
+          metaDataURL,
+          price,
+          open_blockTimeStamp,
+          close_clockTimeStamp,
+          poolWalletAddress
+        ]
       })
       return
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      toast({
+        id: 'REGISTER_FAILED',
+        title: error?.message,
+        status: 'error',
+        duration: 5000,
+        position: 'top'
+      })
     }
   }
 
@@ -292,17 +329,91 @@ const CreateTicketForm: FC = () => {
             rules={{ required: t('REQUIRED_INPUT'), min: 1 }}
             render={({ field: { onChange, value }, fieldState }) => (
               <>
-                <Flex gap={4} alignItems="center">
-                  <Input
-                    variant="outline"
-                    id="maxSupply"
-                    type="number"
-                    placeholder={t('NEW_TICKET_MAX_SUPPLY')}
-                    onChange={onChange}
-                    value={value}
-                  />
-                  <CheckHenkaku maxSupply={watch('maxSupply')} />
-                </Flex>
+                <Input
+                  variant="outline"
+                  id="maxSupply"
+                  type="number"
+                  placeholder={t('NEW_TICKET_MAX_SUPPLY')}
+                  onChange={onChange}
+                  value={value}
+                />
+                <Box color="red.300">{fieldState.error?.message}</Box>
+              </>
+            )}
+          />
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel mt="1em" htmlFor="price">
+            {t('NEW_TICKET_PRICE')}
+          </FormLabel>
+          <Controller
+            control={control}
+            name="price"
+            rules={{ required: t('REQUIRED_INPUT'), min: 1 }}
+            render={({ field: { onChange, value }, fieldState }) => (
+              <>
+                <Input
+                  variant="outline"
+                  id="price"
+                  type="number"
+                  placeholder={t('NEW_TICKET_PRICE')}
+                  onChange={onChange}
+                  value={value}
+                />
+                <Box color="red.300">{fieldState.error?.message}</Box>
+              </>
+            )}
+          />
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel mt="1em" htmlFor="poolWalletAddress">
+            {t('NEW_TICKET_POOL_WALLET')}
+          </FormLabel>
+          <Controller
+            control={control}
+            name="poolWalletAddress"
+            rules={{ required: t('REQUIRED_INPUT'), min: 1 }}
+            render={({ field: { onChange, value }, fieldState }) => (
+              <>
+                <Input
+                  variant="outline"
+                  id="poolWalletAddress"
+                  type="text"
+                  placeholder={t('NEW_TICKET_POOL_WALLET')}
+                  onChange={onChange}
+                  value={value}
+                />
+                <Box color="red.300">{fieldState.error?.message}</Box>
+              </>
+            )}
+          />
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel mt="1em" htmlFor="blockTimeStamp">
+            {t('NEW_TICKET_TIMESTAMP')}
+          </FormLabel>
+          <Controller
+            control={control}
+            name="blockTimeStamp"
+            rules={{ required: t('REQUIRED_INPUT'), min: 1 }}
+            render={({ field: { onChange, value }, fieldState }) => (
+              <>
+                <RangeDatepicker
+                  id="blockTimeStamp"
+                  selectedDates={value}
+                  onDateChange={onChange}
+                  configs={{
+                    dateFormat: 'yyyy/MM/dd',
+                    dayNames: '日月火水木金土'.split(''), // length of 7
+                    monthNames:
+                      '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月'.split(
+                        ','
+                      ) // length of 12
+                  }}
+                />
                 <Box color="red.300">{fieldState.error?.message}</Box>
               </>
             )}

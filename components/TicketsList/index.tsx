@@ -13,9 +13,6 @@ import {
 } from '@chakra-ui/react'
 import { Ticket } from '@/types'
 import { useAllTicketsInfo } from '@/hooks/useTicketInfo'
-// Cart機能が実装された際に利用する
-// import { PreviewTicket } from '@/components/MintTicket'
-// import { Search2Icon } from '@chakra-ui/icons'
 import styles from './TicketsList.module.css'
 import useTranslation from 'next-translate/useTranslation'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'

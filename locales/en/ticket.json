@@ -2,16 +2,21 @@
   "TITLE": {
     "CONNECT_WALLET": "You must connect a wallet first!",
     "MAX_SUPPLY": "Max supply",
-    "MINTABLE": "You can mint this Ticket.",
+    "MINTABLE": "You can purchase this Ticket.",
     "NOT_MINTABLE": "You cannot mint this Ticket. To get this Ticket you need to meet a certain criteria.",
     "FREE_MINTABLE": "You can mint this Ticket for free.",
     "MINTED": "🎉🎉 Congratulations! You minted a new Ticket! 🎉🎉",
-    "IS_POSSIBLE_START": "You can get it on January 1, 2023 at 12:00 pm.",
+    "IS_BEFORE_SALE": "You can get it on January 1, 2023 at 12:00 pm.",
+    "IS_END_OF_SALE": "End of sale.",
+    "BEFORE_SALE": "This ticket is not yet sold.",
+    "END_OF_SALE": "This ticket has been sold.",
+    "SOLD_OUT": "This ticket is sold out.",
     "SHARE": "Why not share this Ticket?"
   },
   "APPROVE": "Enable to mint",
-  "MINT": "Mint",
+  "MINT": "Purchase",
+  "SALES_PERIOD": "sales period",
   "CONNECT_WALLET": "Connect your wallet",
-  "IS_POSSIBLE_START_HELPER": "（JST）",
+  "SALES_PERIOD_HELPER": "（JST）",
   "UNTIL_START": "Until obtainable"
 }

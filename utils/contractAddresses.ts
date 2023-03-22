@@ -16,17 +16,17 @@ const contractAddresses: ContractAddresses = {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`) ??
       '',
-    [chainId.polygonMumbai]: '0x069cc1413525a0bA0E40aAAee38D5a1DB05C9cB4',
+    [chainId.polygonMumbai]: '0x0A3c1EBA7289c9cfe8798ac2B3C0CF172c573EBD',
     [chainId.goerli]: '0x02Dd992774aBCacAD7D46155Da2301854903118D',
     [chainId.polygon]: '0x0cc91a5FFC2E9370eC565Ab42ECE33bbC08C11a2'
   },
   ticket: {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_TICKET_ADDRESS as `0x${string}`) ?? '',
-    [chainId.polygonMumbai]: '0x014122281213bCc1CD6f2eB9b9F9e0d199Db070F',
+    [chainId.polygonMumbai]: '0x14651CC863BA601cA3f067c11d7368A9ddAb3E7d',
     [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
     [chainId.polygon]: '0x06032956f2E35b6Fa43C9e75fA3c55A1E1AF8917'
-  },
+  }
 }
 
 const defaultChainID = process.env.production ? chainId.polygon : chainId.goerli
