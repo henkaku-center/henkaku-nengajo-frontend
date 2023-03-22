@@ -30,7 +30,11 @@ const TicketDetail: NextPage = () => {
       {isMounted && (
         <>
           {router.query?.id && ticketInfo && (
-            <MintTicket id={Number(id)} item={ticketInfo} />
+            <MintTicket
+              id={Number(id)}
+              item={ticketInfo}
+              maxSupply={data.maxSupply.toNumber()}
+            />
           )}
         </>
       )}

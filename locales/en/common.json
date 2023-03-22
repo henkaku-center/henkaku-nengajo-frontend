@@ -24,6 +24,7 @@
   "NEW_TICKET_DESCRIPTION": "NFT description",
   "NEW_TICKET_MAX_SUPPLY": "Max supply",
   "NEW_TICKET_PRICE": "Ticket price",
+  "NEW_TICKET_POOL_WALLET": "Wallet Address for receiving ticket fee",
   "NEW_TICKET_TIMESTAMP": "Sales period (JST)",
   "NEW_TICKET_TAKING_TIME": "This might take a while",
   "NEW_TICKET_SECRET_PROMPT": "Would you like to add a secret message for the people who will receive your ticket?",

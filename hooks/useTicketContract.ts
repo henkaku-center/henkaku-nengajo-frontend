@@ -18,6 +18,7 @@ const usePrepareTicketContractWrite = (functionName: string, args: any[]) => {
     address: getContractAddress({ name: 'ticket', chainId }),
     abi: TicketABI.abi,
     functionName,
+    chainId,
     args,
     overrides: {
       gasLimit: BigNumber.from(1100000)
@@ -48,22 +49,44 @@ const useTicketContractEvent = (
   })
 }
 
-export const useRegisterTicket = (maxSupply: number, metadataURI: string, price: number, blockTimeStamp: Date[]) => {
+export const useRegisterTicket = (
+  maxSupply: number,
+  metadataURI: string,
+  price: number,
+  blockTimeStamp: Date[]
+) => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
-  const open_blockTimeStamp = Math.floor((blockTimeStamp[0]?.getTime() || Date.now()) / 1000)
-  const close_clockTimeStamp = Math.floor((blockTimeStamp[1]?.getTime() || Date.now()) / 1000)
+  const open_blockTimeStamp = Math.floor(
+    (blockTimeStamp[0]?.getTime() || Date.now()) / 1000
+  )
+  const close_clockTimeStamp = Math.floor(
+    (blockTimeStamp[1]?.getTime() || Date.now()) / 1000
+  )
   const config = usePrepareTicketContractWrite('registerTicket', [
     maxSupply,
     metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     price,
     open_blockTimeStamp,
     close_clockTimeStamp,
-    process.env.NEXT_PUBLIC_CONTRACT_POOLWALLET_ADDRESS,
+    process.env.NEXT_PUBLIC_CONTRACT_POOLWALLET_ADDRESS ||
+      '0x0000000000000000000000000000000000000000'
   ])
+
+  console.log(config)
+
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
+
   useTicketContractEvent(
     'RegisterTicket',
-    (creator, _tokenId, metaDataURL, maxSupply) => {
+    (
+      creator,
+      open_blockTimeStamp,
+      close_blockTimeStamp,
+      maxSupply,
+      _tokenId,
+      price,
+      metaDataURL
+    ) => {
       setRegisteredTokenId(_tokenId)
     }
   )

@@ -11,7 +11,7 @@
     "SOLD_OUT": "チケットは売り切れました。",
     "SHARE": "このチケットをシェアしてみませんか？"
   },
-  "APPROVE": "購入するための許可をする",
+  "APPROVE": "HENKAKUトークンの支払いを承認",
   "MINT": "購入する",
   "SALES_PERIOD": "販売期間",
   "CONNECT_WALLET": "メタマスクのウォレットに接続する",

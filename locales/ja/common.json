@@ -24,6 +24,7 @@
   "NEW_TICKET_CREATOR_NAME": "作成者名",
   "NEW_TICKET_MAX_SUPPLY": "最大発行枚数",
   "NEW_TICKET_PRICE": "チケットの価格",
+  "NEW_TICKET_POOL_WALLET": "チケット代の受け取りウォレットアドレス",
   "NEW_TICKET_TIMESTAMP": "チケット販売期間（日本時間）",
   "NEW_TICKET_TAKING_TIME": "時間がかかることがあります",
   "NEW_TICKET_SECRET_PROMPT": "チケットを受け取ってくれた人だけが見ることのできる秘密のメッセージを送ってみませんか？",
