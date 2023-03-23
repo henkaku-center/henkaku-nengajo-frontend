@@ -112,11 +112,11 @@ const CreateTicketForm: FC = () => {
         external_url: metadata_external_url,
         attributes: [
           {
-            trait_type: 'CreatorAddress',
+            trait_type: 'OrganizerAddress',
             value: address!
           },
           {
-            trait_type: 'CreatorName',
+            trait_type: 'OrganizerName',
             value: data.creatorName
           }
         ]
