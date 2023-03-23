@@ -25,7 +25,7 @@ const contractAddresses: ContractAddresses = {
       (process.env.NEXT_PUBLIC_CONTRACT_TICKET_ADDRESS as `0x${string}`) ?? '',
     [chainId.polygonMumbai]: '0x14651CC863BA601cA3f067c11d7368A9ddAb3E7d',
     [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
-    [chainId.polygon]: '0x06032956f2E35b6Fa43C9e75fA3c55A1E1AF8917'
+    [chainId.polygon]: '0x05338c40B9A379742fC9b7bA681Ae8CE8Db28AC2'
   }
 }
 
