@@ -72,8 +72,6 @@ export const useRegisterTicket = (
       '0x0000000000000000000000000000000000000000'
   ])
 
-  console.log(config)
-
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
 
   useTicketContractEvent(
