@@ -19,9 +19,10 @@ import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 
 interface TicketsListProps {
   items: Ticket.TicketInfoStructOutput[]
+  type?: 'simple'
 }
 
-const TicketsList: React.FC<TicketsListProps> = ({ items }) => {
+const TicketsList: React.FC<TicketsListProps> = ({ items, type }) => {
   const { allTicketsInfo } = useAllTicketsInfo(items)
   const { t } = useTranslation('common')
 
@@ -59,11 +60,11 @@ const TicketsList: React.FC<TicketsListProps> = ({ items }) => {
             <Text pt={2} pb={2} mb="auto">
               {ticketInfo.tokenURIJSON.name}
             </Text>
-            <Link href={`/ticket/${ticketInfo.id}`}>
+            {type !== 'simple' && <Link href={`/ticket/${ticketInfo.id}`}>
               <Button width="100%" size="sm">
                 {t('GET_TICKET')}
               </Button>
-            </Link>
+            </Link>}
             {/* <div className={styles.preview}>
                 <PreviewTicket id={Number(ticketInfo.id)} item={ticketInfo}>
                   <Search2Icon color="blackAlpha.700" />

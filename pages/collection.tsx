@@ -20,10 +20,7 @@ const Entity: FC = () => {
       <Heading as="h1" size="3xl">
         {t('COLLECTION_LINK')}
       </Heading>
-      <Heading as="h2" size="xl" mt={10}>
-        {collectionTranslation.t('SUB_TITLE')}
-      </Heading>
-      <Box mt={5}>{<TicketsList items={data} />}</Box>
+      <Box mt={5}>{<TicketsList items={data} type='simple' />}</Box>
     </Layout>
   )
 }
