@@ -18,7 +18,6 @@ import CollectionIcon from '@/components/Icon/Collection'
 import GlobalIcon from '@/components/Icon/Global'
 import CreateIcon from '@/components/Icon/Create'
 import setLanguage from 'next-translate/setLanguage'
-import { useAccount, useDisconnect } from 'wagmi'
 
 interface Props {
   isExternal?: boolean
@@ -28,24 +27,10 @@ const Header: FC<Props> = ({ isExternal = false }) => {
   const router = useRouter()
   const { colorMode, toggleColorMode } = useColorMode()
   const { t, lang } = useTranslation('common')
-  const { isConnected } = useAccount()
-  const { disconnect } = useDisconnect()
 
   const SettingElm: FC = () => {
     return (
-      <Stack direction="row" spacing={3} align="center">
-        {isConnected ? (
-          <Button
-            size="sm"
-            colorScheme="gray"
-            borderRadius="full"
-            onClick={() => disconnect()}
-          >
-            {t('DISCONNECT_WALLET_BUTTON')}
-          </Button>
-        ) : (
-          <></>
-        )}
+      <Stack direction="row" spacing={3}>
         <Button size="md" onClick={toggleColorMode} p={4}>
           {colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
         </Button>
@@ -76,7 +61,8 @@ const Header: FC<Props> = ({ isExternal = false }) => {
             </NextLink>
           ) : (
             <Heading size="md">
-              {t('HENKAKU')} <span className="text_ticket">{t('TICKET')}</span>
+              {t('HENKAKU')}{' '}
+              <span className="text_ticket">{t('TICKET')}</span>
             </Heading>
           )}
         </Box>
