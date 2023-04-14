@@ -1,12 +1,14 @@
 import { useRegisterTicket } from '@/hooks/useTicketContract'
 import useTranslation from 'next-translate/useTranslation'
-import { FC, useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { FC, Fragment, useCallback, useEffect, useState } from 'react'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import {
   Box,
   Button,
+  Flex,
   FormControl,
   FormLabel,
+  IconButton,
   Input,
   Text,
   useToast
@@ -17,13 +19,18 @@ import { useAccount } from 'wagmi'
 import { useRouter } from 'next/router'
 import { useLitEncryption } from '@/hooks/useLitProtocol'
 import { BigNumber, ethers } from 'ethers'
+import { AddIcon, MinusIcon } from '@chakra-ui/icons'
+import {
+  useRevenueSharing,
+  RevenueSharingData
+} from '@/hooks/useRevenueSharing'
 
 type FormData = {
   name: string
   description: string
   image: File | null
   secretMessage: File | null
-  poolWalletAddress: string
+  revenueSharingData: RevenueSharingData[]
   creatorName: string
   maxSupply: number
   price: number
@@ -60,18 +67,37 @@ const CreateTicketForm: FC = () => {
   const { initEncrypt, updateEncrypt, encryptedSymmetricKey } =
     useLitEncryption()
 
-  const { control, handleSubmit, formState, watch } = useForm<FormData>({
+  const {
+    control,
+    handleSubmit,
+    formState,
+    watch,
+    formState: { errors }
+  } = useForm<FormData>({
     defaultValues: {
       name: '',
       description: '',
       image: null,
       secretMessage: null,
-      poolWalletAddress: '',
+      revenueSharingData: [{ shareholdersAddress: '', sharesAmount: null }],
       creatorName: '',
       maxSupply: 10,
       price: 10,
       blockTimeStamp: [new Date(), new Date()]
     }
+  })
+
+  const {
+    sharesAmounts,
+    shareholdersAddresses,
+    isCorrectPercentage,
+    mappingAmountPercentage,
+    mappingShareholdersAddresses
+  } = useRevenueSharing({ watch })
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'revenueSharingData'
   })
   const [metadataURI, setMetadataURI] = useState('')
 
@@ -86,6 +112,7 @@ const CreateTicketForm: FC = () => {
     Number(watch('price')),
     watch('blockTimeStamp')
   )
+
   const uploadFile = useUploadImageFile()
   const uploadMetadata = useUploadMetadataJson()
 
@@ -103,7 +130,7 @@ const CreateTicketForm: FC = () => {
 
   const submit = async (data: FormData) => {
     try {
-      if (!data.image) return
+      if (!data.image || !isCorrectPercentage) return
       const imageIPFSHash = await uploadFile(data.image)
       const metadataJson: TicketTokenMetadata = {
         name: data.name,
@@ -135,8 +162,7 @@ const CreateTicketForm: FC = () => {
         data.maxSupply,
         `ipfs://${metadataIPFSHash}`,
         ethers.utils.parseEther(String(data.price)),
-        data.blockTimeStamp,
-        data.poolWalletAddress
+        data.blockTimeStamp
       )
       return
     } catch (error) {
@@ -148,8 +174,7 @@ const CreateTicketForm: FC = () => {
     maxSupply: number,
     metaDataURL: string,
     price: BigNumber,
-    blockTimeStamp: Date[],
-    poolWalletAddress: string
+    blockTimeStamp: Date[]
   ) => {
     try {
       if (!writeAsync) return
@@ -167,7 +192,8 @@ const CreateTicketForm: FC = () => {
           price,
           open_blockTimeStamp,
           close_clockTimeStamp,
-          poolWalletAddress
+          shareholdersAddresses,
+          sharesAmounts
         ]
       })
       return
@@ -358,7 +384,10 @@ const CreateTicketForm: FC = () => {
                   id="price"
                   type="number"
                   placeholder={t('NEW_TICKET_PRICE')}
-                  onChange={onChange}
+                  onChange={(v) => {
+                    onChange(v)
+                    mappingAmountPercentage()
+                  }}
                   value={value}
                 />
                 <Box color="red.300">{fieldState.error?.message}</Box>
@@ -368,27 +397,93 @@ const CreateTicketForm: FC = () => {
         </FormControl>
 
         <FormControl isRequired>
-          <FormLabel mt="1em" htmlFor="poolWalletAddress">
+          <FormLabel mt="1em" htmlFor="revenueSharingData">
             {t('NEW_TICKET_POOL_WALLET')}
           </FormLabel>
-          <Controller
-            control={control}
-            name="poolWalletAddress"
-            rules={{ required: t('REQUIRED_INPUT'), min: 1 }}
-            render={({ field: { onChange, value }, fieldState }) => (
-              <>
-                <Input
-                  variant="outline"
-                  id="poolWalletAddress"
-                  type="text"
-                  placeholder={t('NEW_TICKET_POOL_WALLET')}
-                  onChange={onChange}
-                  value={value}
-                />
-                <Box color="red.300">{fieldState.error?.message}</Box>
-              </>
-            )}
-          />
+          {fields.map((field, index) => (
+            <Flex justifyContent="flex-end" key={field.id} mb={2}>
+              <Controller
+                control={control}
+                name={`revenueSharingData.${index}.shareholdersAddress`}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <Input
+                      variant="outline"
+                      type="text"
+                      placeholder={t('NEW_TICKET_POOL_WALLET')}
+                      value={value}
+                      isRequired
+                      onChange={(v) => {
+                        onChange(v)
+                        mappingShareholdersAddresses()
+                      }}
+                    />
+                  </>
+                )}
+              />
+              <Controller
+                control={control}
+                name={`revenueSharingData.${index}.sharesAmount`}
+                rules={{
+                  required: t('REQUIRED_INPUT')
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <Box>
+                    <Flex alignItems="center">
+                      <Input
+                        variant="outline"
+                        type="number"
+                        width="60px"
+                        ml={2}
+                        mr={1}
+                        placeholder="0"
+                        textAlign="right"
+                        value={String(value)}
+                        isRequired
+                        onChange={(v) => {
+                          onChange(v)
+                          mappingAmountPercentage()
+                        }}
+                      />
+                      %
+                    </Flex>
+                    {sharesAmounts.length > 0 && (
+                      <Text fontSize="xs" mt={2}>
+                        {sharesAmounts[index]} HENKAKU
+                      </Text>
+                    )}
+                  </Box>
+                )}
+              />
+            </Flex>
+          ))}
+          {!isCorrectPercentage && (
+            <Box color="red.300">
+              {t('NEW_TICKET_INCORRECT_TOTAL_PERCENTAGE')}
+            </Box>
+          )}
+          <Flex justifyContent="flex-end">
+            <IconButton
+              colorScheme="teal"
+              aria-label="Add Wallet Address"
+              size="md"
+              icon={<AddIcon />}
+              onClick={() =>
+                append({
+                  shareholdersAddress: '',
+                  sharesAmount: null
+                })
+              }
+              mr={2}
+            />
+            <IconButton
+              colorScheme="teal"
+              aria-label="Add Wallet Address"
+              size="md"
+              icon={<MinusIcon />}
+              onClick={() => fields.length > 1 && remove(fields.length - 1)}
+            />
+          </Flex>
         </FormControl>
 
         <FormControl isRequired>

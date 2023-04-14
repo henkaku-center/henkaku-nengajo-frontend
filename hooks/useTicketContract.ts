@@ -68,8 +68,11 @@ export const useRegisterTicket = (
     price,
     open_blockTimeStamp,
     close_clockTimeStamp,
-    process.env.NEXT_PUBLIC_CONTRACT_POOLWALLET_ADDRESS ||
-      '0x0000000000000000000000000000000000000000'
+    [
+      process.env.NEXT_PUBLIC_CONTRACT_POOLWALLET_ADDRESS ||
+        '0x0000000000000000000000000000000000000000'
+    ],
+    [100]
   ])
 
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
