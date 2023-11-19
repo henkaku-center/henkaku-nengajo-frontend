@@ -16,15 +16,15 @@ const contractAddresses: ContractAddresses = {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_HENKAKUV2_ADDRESS as `0x${string}`) ??
       '',
-    [chainId.polygonMumbai]: '0x069cc1413525a0bA0E40aAAee38D5a1DB05C9cB4',
-    [chainId.goerli]: '0x02Dd992774aBCacAD7D46155Da2301854903118D',
+    [chainId.polygonMumbai]: '0x095F411f6759Fa8C088327399293eCc9a0E35fbb',
+    // [chainId.goerli]: '0x02Dd992774aBCacAD7D46155Da2301854903118D',
     [chainId.polygon]: '0x0cc91a5FFC2E9370eC565Ab42ECE33bbC08C11a2'
   },
   nengajo: {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS as `0x${string}`) ?? '',
-    [chainId.polygonMumbai]: '0x014122281213bCc1CD6f2eB9b9F9e0d199Db070F',
-    [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
+    [chainId.polygonMumbai]: '0x7F87F4EC0F78e72E9A4a5a93EA6e98c1Cf23E41f',
+    // [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
     [chainId.polygon]: '0x06032956f2E35b6Fa43C9e75fA3c55A1E1AF8917'
   },
   podcastNengajo: {
