@@ -24,7 +24,7 @@ import { NengajoInfoProps } from '@/hooks/useNengajoInfo'
 import {
   useCurrentSupply,
   useIsHoldingByTokenId,
-  useMintNengajo
+  useMintNengajoWithMx
 } from '@/hooks/useNengajoContract'
 import { useCountdown } from '@/hooks/useCountdown'
 import CountDown from '@/components/CountDown'
@@ -42,33 +42,30 @@ interface Props {
 }
 interface mintStateProps {
   status: 'minted' | 'mintable' | 'noMintable' | 'soldout'
-  freeMintable: boolean
 }
+
 const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { t } = useTranslation('nengajo')
   const toast = useToast()
   const {
-    writeAsync,
+    sendMetaTx,
     isLoading: isMinting,
-    isSuccess,
-    minted
-  } = useMintNengajo(id)
+    isSuccess
+  } = useMintNengajoWithMx(Number(id))
   const { isHolding } = useIsHoldingByTokenId(id)
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply(id)
 
   const [mintState, setMintState] = useState<mintStateProps>({
-    status: 'mintable',
-    freeMintable: false
+    status: 'mintable'
   })
 
   // TODO: useApproval から取得
   const approved = true
 
   const mint = async () => {
-    if (!writeAsync) return
     try {
-      await writeAsync({ recklesslySetUnpreparedArgs: [Number(id)] })
+      await sendMetaTx()
     } catch (error: any) {
       toast({
         id: 'MINT_FAILED',
@@ -81,16 +78,16 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   }
 
   useEffect(() => {
-    if (item.maxSupply <= currentSupply?.toNumber()) {
+    if (Number(item.maxSupply) <= currentSupply?.toNumber()) {
       setMintState({ ...mintState, status: 'soldout' })
     }
   }, [currentSupply])
 
   useEffect(() => {
-    if (minted) {
-      setMintState({ ...mintState, status: 'minted', freeMintable: false })
+    if (isSuccess) {
+      setMintState({ ...mintState, status: 'minted' })
     }
-  }, [minted])
+  }, [isSuccess])
 
   const { isStart, ...countDown } = useCountdown()
 
@@ -177,7 +174,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                             colorScheme="teal"
                             mt={5}
                             loadingText="minting..."
-                            isLoading={isMinting || (isSuccess && !minted)}
+                            isLoading={isMinting}
                             onClick={mint}
                           >
                             {t('MINT')}
@@ -188,26 +185,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                       )}
                     </>
                   )}
-                  {mintState.freeMintable && (
-                    <>
-                      {t('TITLE.FREE_MINTABLE')}
-                      <Box>
-                        <Button
-                          width="100%"
-                          colorScheme="teal"
-                          mt={5}
-                          loadingText="minting..."
-                          isLoading={isMinting || (isSuccess && !minted)}
-                          onClick={mint}
-                        >
-                          {t('MINT')}
-                        </Button>
-                        <Text mt={3}>
-                          {t('TITLE.MAX_SUPPLY')}: {Number(item?.maxSupply)}
-                        </Text>
-                      </Box>
-                    </>
-                  )}
+
                   {item?.tokenURIJSON.encryptedFile &&
                     item?.tokenURIJSON.encryptedSymmetricKey &&
                     isHolding && (

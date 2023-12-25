@@ -14,6 +14,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@lit-protocol/sdk-browser": "^1.1.241",
+    "@openzeppelin/defender-relay-client": "^1.54.1",
     "base64-blob": "^1.4.1",
     "dayjs": "^1.11.7",
     "eth-sig-util": "^3.0.1",
