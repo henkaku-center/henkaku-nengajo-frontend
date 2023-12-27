@@ -62,5 +62,3 @@ export type { Administration } from "./contracts/libs/Administration";
 export { Administration__factory } from "./factories/contracts/libs/Administration__factory";
 export type { MintManager } from "./contracts/libs/MintManager";
 export { MintManager__factory } from "./factories/contracts/libs/MintManager__factory";
-export type { PublicNengajo } from "./contracts/public/Nengajo.sol/PublicNengajo";
-export { PublicNengajo__factory } from "./factories/contracts/public/Nengajo.sol/PublicNengajo__factory";

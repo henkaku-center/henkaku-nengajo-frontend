@@ -124,18 +124,6 @@ declare module "hardhat/types/runtime" {
       name: "MintManager",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MintManager__factory>;
-    getContractFactory(
-      name: "Administration",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Administration__factory>;
-    getContractFactory(
-      name: "MintManager",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MintManager__factory>;
-    getContractFactory(
-      name: "PublicNengajo",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.PublicNengajo__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -277,21 +265,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.MintManager>;
-    getContractAt(
-      name: "Administration",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Administration>;
-    getContractAt(
-      name: "MintManager",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.MintManager>;
-    getContractAt(
-      name: "PublicNengajo",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.PublicNengajo>;
 
     // default types
     getContractFactory(

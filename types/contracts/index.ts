@@ -5,6 +5,4 @@ import type * as community from "./community";
 export type { community };
 import type * as libs from "./libs";
 export type { libs };
-import type * as public from "./public";
-export type { public };
 export type { Forwarder } from "./Forwarder";
