@@ -5,3 +5,4 @@ export * as interactHenkakuTokenSol from "./InteractHenkakuToken.sol";
 export * as external from "./external";
 export * as interfaces from "./interfaces";
 export { Nengajo__factory } from "./Nengajo__factory";
+export { Omamori__factory } from "./Omamori__factory";

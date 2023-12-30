@@ -105,6 +105,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.InteractHenakuToken__factory>;
     getContractFactory(
+      name: "IHenkaku1155Mint",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IHenkaku1155Mint__factory>;
+    getContractFactory(
       name: "IHenkakuToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IHenkakuToken__factory>;
@@ -112,6 +116,10 @@ declare module "hardhat/types/runtime" {
       name: "Nengajo",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Nengajo__factory>;
+    getContractFactory(
+      name: "Omamori",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Omamori__factory>;
     getContractFactory(
       name: "Forwarder",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -124,18 +132,6 @@ declare module "hardhat/types/runtime" {
       name: "MintManager",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MintManager__factory>;
-    getContractFactory(
-      name: "Administration",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Administration__factory>;
-    getContractFactory(
-      name: "MintManager",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MintManager__factory>;
-    getContractFactory(
-      name: "PublicNengajo",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.PublicNengajo__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -253,6 +249,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.InteractHenakuToken>;
     getContractAt(
+      name: "IHenkaku1155Mint",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IHenkaku1155Mint>;
+    getContractAt(
       name: "IHenkakuToken",
       address: string,
       signer?: ethers.Signer
@@ -262,6 +263,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Nengajo>;
+    getContractAt(
+      name: "Omamori",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Omamori>;
     getContractAt(
       name: "Forwarder",
       address: string,
@@ -277,21 +283,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.MintManager>;
-    getContractAt(
-      name: "Administration",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Administration>;
-    getContractAt(
-      name: "MintManager",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.MintManager>;
-    getContractAt(
-      name: "PublicNengajo",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.PublicNengajo>;
 
     // default types
     getContractFactory(

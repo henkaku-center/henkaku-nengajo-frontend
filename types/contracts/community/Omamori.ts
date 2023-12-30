@@ -25,9 +25,9 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../../common";
+} from "../../common";
 
-export declare namespace PublicNengajo {
+export declare namespace Omamori {
   export type NengajoInfoStruct = {
     id: PromiseOrValue<BigNumberish>;
     uri: PromiseOrValue<string>;
@@ -43,7 +43,7 @@ export declare namespace PublicNengajo {
   ] & { id: BigNumber; uri: string; creator: string; maxSupply: BigNumber };
 }
 
-export interface PublicNengajoInterface extends utils.Interface {
+export interface OmamoriInterface extends utils.Interface {
   functions: {
     "addAdmins(address[])": FunctionFragment;
     "balanceOf(address,uint256)": FunctionFragment;
@@ -60,7 +60,9 @@ export interface PublicNengajoInterface extends utils.Interface {
     "mintBatch(uint256[])": FunctionFragment;
     "mintable()": FunctionFragment;
     "name()": FunctionFragment;
+    "nft()": FunctionFragment;
     "open_blockTimestamp()": FunctionFragment;
+    "otakiage()": FunctionFragment;
     "registerNengajo(uint256,string)": FunctionFragment;
     "retrieveAllNengajoes()": FunctionFragment;
     "retrieveMintedNengajoes(address)": FunctionFragment;
@@ -69,6 +71,7 @@ export interface PublicNengajoInterface extends utils.Interface {
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
+    "setNft(address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "switchMintable()": FunctionFragment;
     "symbol()": FunctionFragment;
@@ -96,7 +99,9 @@ export interface PublicNengajoInterface extends utils.Interface {
       | "mintBatch"
       | "mintable"
       | "name"
+      | "nft"
       | "open_blockTimestamp"
+      | "otakiage"
       | "registerNengajo"
       | "retrieveAllNengajoes"
       | "retrieveMintedNengajoes"
@@ -105,6 +110,7 @@ export interface PublicNengajoInterface extends utils.Interface {
       | "safeBatchTransferFrom"
       | "safeTransferFrom"
       | "setApprovalForAll"
+      | "setNft"
       | "supportsInterface"
       | "switchMintable"
       | "symbol"
@@ -169,10 +175,12 @@ export interface PublicNengajoInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "mintable", values?: undefined): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(functionFragment: "nft", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "open_blockTimestamp",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "otakiage", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "registerNengajo",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
@@ -216,6 +224,10 @@ export interface PublicNengajoInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "setApprovalForAll",
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setNft",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
@@ -283,10 +295,12 @@ export interface PublicNengajoInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "mintBatch", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mintable", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "nft", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "open_blockTimestamp",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "otakiage", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "registerNengajo",
     data: BytesLike
@@ -319,6 +333,7 @@ export interface PublicNengajoInterface extends utils.Interface {
     functionFragment: "setApprovalForAll",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setNft", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
@@ -442,12 +457,12 @@ export type URIEvent = TypedEvent<[string, BigNumber], URIEventObject>;
 
 export type URIEventFilter = TypedEventFilter<URIEvent>;
 
-export interface PublicNengajo extends BaseContract {
+export interface Omamori extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: PublicNengajoInterface;
+  interface: OmamoriInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -532,7 +547,13 @@ export interface PublicNengajo extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
+    nft(overrides?: CallOverrides): Promise<[string]>;
+
     open_blockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    otakiage(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     registerNengajo(
       _maxSupply: PromiseOrValue<BigNumberish>,
@@ -542,22 +563,22 @@ export interface PublicNengajo extends BaseContract {
 
     retrieveAllNengajoes(
       overrides?: CallOverrides
-    ): Promise<[PublicNengajo.NengajoInfoStructOutput[]]>;
+    ): Promise<[Omamori.NengajoInfoStructOutput[]]>;
 
     retrieveMintedNengajoes(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[PublicNengajo.NengajoInfoStructOutput[]]>;
+    ): Promise<[Omamori.NengajoInfoStructOutput[]]>;
 
     retrieveRegisteredNengajo(
       _tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[PublicNengajo.NengajoInfoStructOutput]>;
+    ): Promise<[Omamori.NengajoInfoStructOutput]>;
 
     retrieveRegisteredNengajoes(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[PublicNengajo.NengajoInfoStructOutput[]]>;
+    ): Promise<[Omamori.NengajoInfoStructOutput[]]>;
 
     safeBatchTransferFrom(
       from: PromiseOrValue<string>,
@@ -580,6 +601,11 @@ export interface PublicNengajo extends BaseContract {
     setApprovalForAll(
       operator: PromiseOrValue<string>,
       approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setNft(
+      _nft: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -677,7 +703,13 @@ export interface PublicNengajo extends BaseContract {
 
   name(overrides?: CallOverrides): Promise<string>;
 
+  nft(overrides?: CallOverrides): Promise<string>;
+
   open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+  otakiage(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   registerNengajo(
     _maxSupply: PromiseOrValue<BigNumberish>,
@@ -687,22 +719,22 @@ export interface PublicNengajo extends BaseContract {
 
   retrieveAllNengajoes(
     overrides?: CallOverrides
-  ): Promise<PublicNengajo.NengajoInfoStructOutput[]>;
+  ): Promise<Omamori.NengajoInfoStructOutput[]>;
 
   retrieveMintedNengajoes(
     _address: PromiseOrValue<string>,
     overrides?: CallOverrides
-  ): Promise<PublicNengajo.NengajoInfoStructOutput[]>;
+  ): Promise<Omamori.NengajoInfoStructOutput[]>;
 
   retrieveRegisteredNengajo(
     _tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<PublicNengajo.NengajoInfoStructOutput>;
+  ): Promise<Omamori.NengajoInfoStructOutput>;
 
   retrieveRegisteredNengajoes(
     _address: PromiseOrValue<string>,
     overrides?: CallOverrides
-  ): Promise<PublicNengajo.NengajoInfoStructOutput[]>;
+  ): Promise<Omamori.NengajoInfoStructOutput[]>;
 
   safeBatchTransferFrom(
     from: PromiseOrValue<string>,
@@ -725,6 +757,11 @@ export interface PublicNengajo extends BaseContract {
   setApprovalForAll(
     operator: PromiseOrValue<string>,
     approved: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setNft(
+    _nft: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -822,7 +859,11 @@ export interface PublicNengajo extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<string>;
 
+    nft(overrides?: CallOverrides): Promise<string>;
+
     open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    otakiage(overrides?: CallOverrides): Promise<void>;
 
     registerNengajo(
       _maxSupply: PromiseOrValue<BigNumberish>,
@@ -832,22 +873,22 @@ export interface PublicNengajo extends BaseContract {
 
     retrieveAllNengajoes(
       overrides?: CallOverrides
-    ): Promise<PublicNengajo.NengajoInfoStructOutput[]>;
+    ): Promise<Omamori.NengajoInfoStructOutput[]>;
 
     retrieveMintedNengajoes(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<PublicNengajo.NengajoInfoStructOutput[]>;
+    ): Promise<Omamori.NengajoInfoStructOutput[]>;
 
     retrieveRegisteredNengajo(
       _tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<PublicNengajo.NengajoInfoStructOutput>;
+    ): Promise<Omamori.NengajoInfoStructOutput>;
 
     retrieveRegisteredNengajoes(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<PublicNengajo.NengajoInfoStructOutput[]>;
+    ): Promise<Omamori.NengajoInfoStructOutput[]>;
 
     safeBatchTransferFrom(
       from: PromiseOrValue<string>,
@@ -870,6 +911,11 @@ export interface PublicNengajo extends BaseContract {
     setApprovalForAll(
       operator: PromiseOrValue<string>,
       approved: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setNft(
+      _nft: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1046,7 +1092,13 @@ export interface PublicNengajo extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
+    nft(overrides?: CallOverrides): Promise<BigNumber>;
+
     open_blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    otakiage(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
 
     registerNengajo(
       _maxSupply: PromiseOrValue<BigNumberish>,
@@ -1092,6 +1144,11 @@ export interface PublicNengajo extends BaseContract {
     setApprovalForAll(
       operator: PromiseOrValue<string>,
       approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setNft(
+      _nft: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1196,8 +1253,14 @@ export interface PublicNengajo extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    nft(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     open_blockTimestamp(
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    otakiage(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     registerNengajo(
@@ -1246,6 +1309,11 @@ export interface PublicNengajo extends BaseContract {
     setApprovalForAll(
       operator: PromiseOrValue<string>,
       approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setNft(
+      _nft: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

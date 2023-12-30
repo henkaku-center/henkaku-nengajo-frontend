@@ -3,6 +3,10 @@ import { developmentSigner, ozSigner } from './utils/relayer'
 import { Contract } from 'ethers'
 import ZCAForwarderABI from '@/abi/Forwarder.json'
 import { Forwarder } from '@/types'
+import {
+  contractAddresses,
+  getContractAddress
+} from '@/utils/contractAddresses'
 
 export default async function handler(
   req: NextApiRequest,
@@ -29,8 +33,13 @@ export default async function handler(
   try {
     const { request, signature } = req.body
 
+    const forwarderAddress = getContractAddress({
+      name: 'Forwarder',
+      chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID)
+    })
+
     const forwarder: Forwarder = new Contract(
-      process.env.NEXT_PUBLIC_CONTRACT_FORWARDER_ADDRESS!,
+      forwarderAddress,
       ZCAForwarderABI.abi,
       relayerSigner
     ) as any
@@ -40,8 +49,6 @@ export default async function handler(
     if (!valid) throw new Error('invalid signature')
 
     const tx = await forwarder.execute(request, signature)
-
-    console.log(tx)
 
     res.status(200).json({ tx: tx })
   } catch (error) {
