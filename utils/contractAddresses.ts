@@ -25,22 +25,22 @@ const contractAddresses: ContractAddresses = {
       (process.env.NEXT_PUBLIC_CONTRACT_NENGAJO_ADDRESS as `0x${string}`) ?? '',
     [chainId.polygonMumbai]: '0x6aDbE62B4D7A8fA01705f74b2a27e5Cc6b998394',
     // [chainId.goerli]: '0x6beD9e854eC468373B70a00d864E660b9F224D32',
-    [chainId.polygon]: '0x06032956f2E35b6Fa43C9e75fA3c55A1E1AF8917'
+    [chainId.polygon]: '0x4711313De918B66661fC826497e228526Cbc1067'
   },
   Forwarder: {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_FORWARDER_ADDRESS as `0x${string}`) ??
       '',
     [chainId.polygonMumbai]: '0xe64B04dBd4933b5F5bfF80d1d7616A908F6DCF08',
-    [chainId.polygon]: '0xFe6989B0db606E52e22c7a0Eaf63cf179aEAAAaC'
+    [chainId.polygon]: '0x802422C3cc18ED1f765bb6932Ec9A45cc6A1Fa6E'
   },
   podcastNengajo: {
     [chainId.polygonMumbai]: '0x3F359Ec705F25a9D287EdDc5370b57e20C237c1E',
-    [chainId.polygon]: '0xd6Bf2bb451458A308B53A8c02F1beC638BbcCA10'
+    [chainId.polygon]: '0xAC42aA54DfF142b5cEB4196B94cc013bbCf074C5'
   },
   podcastForwarder: {
     [chainId.polygonMumbai]: '0xd68752aE770Bc2852480eb41669018727680C3C3',
-    [chainId.polygon]: '0xFe6989B0db606E52e22c7a0Eaf63cf179aEAAAaC'
+    [chainId.polygon]: '0x802422C3cc18ED1f765bb6932Ec9A45cc6A1Fa6E'
   }
 }
 
