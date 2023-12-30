@@ -177,17 +177,12 @@ export const useMintNengajoWithMx = (id: number) => {
   })
   const { address } = useAccount()
   const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setSuccess] = useState(false)
+  const [minted, setMinted] = useState(false)
 
-  useContractEvent({
-    address: getContractAddress({ name: 'podcastNengajo', chainId }),
-    abi: NengajoABI.abi,
-    eventName: 'Mint',
-    listener: (minter: string, tokenId: BigNumber) => {
-      if (minter === address && tokenId.toNumber() === id) {
-        setIsLoading(false)
-        setSuccess(true)
-      }
+  useNengajoContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
+    if (tokenId.toNumber() === id && minter === address) {
+      setIsLoading(false)
+      setMinted(true)
     }
   })
 
@@ -225,5 +220,5 @@ export const useMintNengajoWithMx = (id: number) => {
     }
   }, [signer, chainId])
 
-  return { sendMetaTx, isLoading, isSuccess }
+  return { sendMetaTx, isLoading, minted }
 }

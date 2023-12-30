@@ -50,7 +50,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const {
     sendMetaTx,
     isLoading: isMinting,
-    isSuccess
+    minted
   } = useMintNengajoWithMx(Number(id))
   const { isHolding } = useIsHoldingByTokenId(id)
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
@@ -84,10 +84,10 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   }, [currentSupply])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (minted) {
       setMintState({ ...mintState, status: 'minted' })
     }
-  }, [isSuccess])
+  }, [minted])
 
   const { isStart, ...countDown } = useCountdown()
 
@@ -104,6 +104,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
 
   return (
     <>
+      <Text>{String(minted)}</Text>
       <Box>
         <Heading mt={imageOnly ? 5 : 50} size="lg">
           {item?.tokenURIJSON?.name}
