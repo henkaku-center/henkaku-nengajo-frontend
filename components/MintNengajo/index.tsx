@@ -104,7 +104,6 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
 
   return (
     <>
-      <Text>{String(minted)}</Text>
       <Box>
         <Heading mt={imageOnly ? 5 : 50} size="lg">
           {item?.tokenURIJSON?.name}

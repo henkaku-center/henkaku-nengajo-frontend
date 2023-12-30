@@ -52,10 +52,14 @@ export type { HenkakuToken } from "./contracts/community/external/henkaku-v2/Hen
 export { HenkakuToken__factory } from "./factories/contracts/community/external/henkaku-v2/HenkakuToken__factory";
 export type { InteractHenakuToken } from "./contracts/community/InteractHenkakuToken.sol/InteractHenakuToken";
 export { InteractHenakuToken__factory } from "./factories/contracts/community/InteractHenkakuToken.sol/InteractHenakuToken__factory";
+export type { IHenkaku1155Mint } from "./contracts/community/interfaces/IHenkaku1155Mint";
+export { IHenkaku1155Mint__factory } from "./factories/contracts/community/interfaces/IHenkaku1155Mint__factory";
 export type { IHenkakuToken } from "./contracts/community/interfaces/IHenkakuToken";
 export { IHenkakuToken__factory } from "./factories/contracts/community/interfaces/IHenkakuToken__factory";
 export type { Nengajo } from "./contracts/community/Nengajo";
 export { Nengajo__factory } from "./factories/contracts/community/Nengajo__factory";
+export type { Omamori } from "./contracts/community/Omamori";
+export { Omamori__factory } from "./factories/contracts/community/Omamori__factory";
 export type { Forwarder } from "./contracts/Forwarder";
 export { Forwarder__factory } from "./factories/contracts/Forwarder__factory";
 export type { Administration } from "./contracts/libs/Administration";
