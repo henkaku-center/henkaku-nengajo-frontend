@@ -8,9 +8,9 @@ import {
   useSigner
 } from 'wagmi'
 import { getContractAddress } from '@/utils/contractAddresses'
-import NengajoABI from '@/abi/Nengajo.json'
+import OmamoriABI from '@/abi/Omamori.json'
 import FowarderABI from '@/abi/Forwarder.json'
-import { Nengajo } from '@/types'
+import { Omamori } from '@/types'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { BigNumber, ethers } from 'ethers'
 import { signMetaTxRequest } from '@/utils/signer'
@@ -18,10 +18,10 @@ import axios from 'axios'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
-const usePrepareNengajoContractWrite = (functionName: string, args: any[]) => {
+const usePrepareOmamoriContractWrite = (functionName: string, args: any[]) => {
   const { config } = usePrepareContractWrite({
-    address: getContractAddress({ name: 'nengajo', chainId }),
-    abi: NengajoABI.abi,
+    address: getContractAddress({ name: 'omamori', chainId }),
+    abi: OmamoriABI.abi,
     functionName,
     args,
     overrides: {
@@ -31,36 +31,36 @@ const usePrepareNengajoContractWrite = (functionName: string, args: any[]) => {
   return config
 }
 
-const useNengajoContractRead = (functionName: string, args: unknown[] = []) => {
+const useOmamoriContractRead = (functionName: string, args: unknown[] = []) => {
   const result = useContractRead({
-    address: getContractAddress({ name: 'nengajo', chainId }),
-    abi: NengajoABI.abi,
+    address: getContractAddress({ name: 'omamori', chainId }),
+    abi: OmamoriABI.abi,
     functionName,
     args
   })
   return result
 }
 
-const useNengajoContractEvent = (
+const useOmamoriContractEvent = (
   eventName: string,
   listener: (...args: any) => void
 ) => {
   useContractEvent({
-    address: getContractAddress({ name: 'nengajo', chainId }),
-    abi: NengajoABI.abi,
+    address: getContractAddress({ name: 'omamori', chainId }),
+    abi: OmamoriABI.abi,
     eventName,
     listener
   })
 }
 
-export const useRegisterNengajo = (maxSupply: number, metadataURI: string) => {
+export const useRegisterOmamori = (maxSupply: number, metadataURI: string) => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
-  const config = usePrepareNengajoContractWrite('registerNengajo', [
+  const config = usePrepareOmamoriContractWrite('registerNengajo', [
     maxSupply,
     metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   ])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useNengajoContractEvent(
+  useOmamoriContractEvent(
     'RegisterNengajo',
     (creator, _tokenId, metaDataURL, maxSupply) => {
       setRegisteredTokenId(_tokenId)
@@ -70,12 +70,12 @@ export const useRegisterNengajo = (maxSupply: number, metadataURI: string) => {
   return { data, isLoading, isSuccess, writeAsync, registeredTokenId }
 }
 
-export const useMintNengajo = (id: number) => {
+export const useMintOmamori = (id: number) => {
   const [minted, setMinted] = useState(false)
   const { address } = useAccount()
-  const config = usePrepareNengajoContractWrite('mint', [id])
+  const config = usePrepareOmamoriContractWrite('mint', [id])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useNengajoContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
+  useOmamoriContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
     if (tokenId.toNumber() === id && minter === address) {
       setMinted(true)
     }
@@ -83,17 +83,17 @@ export const useMintNengajo = (id: number) => {
   return { data, isLoading, isSuccess, writeAsync, minted }
 }
 
-export const useBatchMintNengajoes = (id: number[]) => {
+export const useBatchMintOmamoris = (id: number[]) => {
   // TODO: BatchMint
   return
 }
 
-export const useRetrieveNengajoByTokenId = (tokenId: number) => {
-  const { data, isLoading, isError } = useNengajoContractRead(
+export const useRetrieveOmamoriByTokenId = (tokenId: number) => {
+  const { data, isLoading, isError } = useOmamoriContractRead(
     'retrieveRegisteredNengajo',
     [tokenId]
   ) as {
-    data: Nengajo.NengajoInfoStructOutput
+    data: Omamori.NengajoInfoStructOutput
     isLoading: boolean
     isError: boolean
   }
@@ -101,12 +101,12 @@ export const useRetrieveNengajoByTokenId = (tokenId: number) => {
   return { data, isLoading, isError }
 }
 
-export const useRetrieveHoldingNengajoesByAddress = (address: string) => {
-  const { data, isLoading, isError } = useNengajoContractRead(
+export const useRetrieveHoldingOmamorisByAddress = (address: string) => {
+  const { data, isLoading, isError } = useOmamoriContractRead(
     'retrieveMintedNengajoes',
     [address]
   ) as {
-    data: Nengajo.NengajoInfoStructOutput[]
+    data: Omamori.NengajoInfoStructOutput[]
     isLoading: boolean
     isError: boolean
   }
@@ -114,11 +114,11 @@ export const useRetrieveHoldingNengajoesByAddress = (address: string) => {
   return { data, isLoading, isError }
 }
 
-export const useRetrieveAllNengajo = () => {
-  const { data, isError, isLoading } = useNengajoContractRead(
+export const useRetrieveAllOmamori = () => {
+  const { data, isError, isLoading } = useOmamoriContractRead(
     'retrieveAllNengajoes'
   ) as {
-    data: Nengajo.NengajoInfoStructOutput[]
+    data: Omamori.NengajoInfoStructOutput[]
     isLoading: boolean
     isError: boolean
   }
@@ -129,7 +129,7 @@ export const useRetrieveAllNengajo = () => {
 export const useIsHoldingByTokenId = (tokenId: number) => {
   const [isHolding, setIsHolding] = useState(false)
   const { address } = useAccount()
-  const { data, isError, isLoading } = useNengajoContractRead('balanceOf', [
+  const { data, isError, isLoading } = useOmamoriContractRead('balanceOf', [
     address,
     tokenId
   ]) as {
@@ -154,7 +154,7 @@ export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
     return Number(maxSupply) ? Number(maxSupply) : 0
   }, [maxSupply])
 
-  const { data, isLoading } = useNengajoContractRead('calcPrice', [
+  const { data, isLoading } = useOmamoriContractRead('calcPrice', [
     normalizedMaxSupply
   ]) as { data: BigNumber; isLoading: boolean }
 
@@ -162,24 +162,24 @@ export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
 }
 
 export const useCurrentSupply = (id: number) => {
-  const { data, isError, isLoading } = useNengajoContractRead('totalSupply', [
+  const { data, isError, isLoading } = useOmamoriContractRead('totalSupply', [
     id
   ]) as { data: BigNumber; isLoading: boolean; isError: boolean }
 
   return { data, isError, isLoading }
 }
 
-export const useMintNengajoWithMx = (id: number) => {
+export const useMintOmamoriWithMx = (id: number) => {
   const { data: signer } = useSigner()
-  const nengajoContract = useContract({
-    address: getContractAddress({ name: 'nengajo', chainId }),
-    abi: NengajoABI.abi
+  const omamoriContract = useContract({
+    address: getContractAddress({ name: 'omamori', chainId }),
+    abi: OmamoriABI.abi
   })
   const { address } = useAccount()
   const [isLoading, setIsLoading] = useState(false)
   const [minted, setMinted] = useState(false)
 
-  useNengajoContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
+  useOmamoriContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
     if (tokenId.toNumber() === id && minter === address) {
       setIsLoading(false)
       setMinted(true)
@@ -188,7 +188,7 @@ export const useMintNengajoWithMx = (id: number) => {
 
   const sendMetaTx = useCallback(async () => {
     try {
-      if (!signer || !nengajoContract) return
+      if (!signer || !omamoriContract) return
       setIsLoading(true)
 
       const forwarder = new ethers.Contract(
@@ -198,8 +198,8 @@ export const useMintNengajoWithMx = (id: number) => {
       )
 
       const from = await signer.getAddress()
-      const data = nengajoContract.interface.encodeFunctionData('mint', [1])
-      const to = nengajoContract.address
+      const data = omamoriContract.interface.encodeFunctionData('mint', [1])
+      const to = omamoriContract.address
 
       if (!signer.provider) throw new Error('Provider is not set')
 
