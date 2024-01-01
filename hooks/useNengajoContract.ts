@@ -198,7 +198,9 @@ export const useMintNengajoWithMx = (id: number) => {
       )
 
       const from = await signer.getAddress()
-      const data = nengajoContract.interface.encodeFunctionData('mint', [1])
+      const data = nengajoContract.interface.encodeFunctionData('mint', [
+        Number(id)
+      ])
       const to = nengajoContract.address
 
       if (!signer.provider) throw new Error('Provider is not set')
