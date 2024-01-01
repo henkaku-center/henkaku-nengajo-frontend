@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import useTranslation from 'next-translate/useTranslation'
 import { FaGithubAlt } from 'react-icons/fa'
-import { AiFillTwitterCircle } from 'react-icons/ai'
+import XIcon from '@/components/Icon/X'
 
 interface SocialButtonProps {
   children: React.ReactNode
@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
             label={'Instagram'}
             href={'https://twitter.com/henkakuorg'}
           >
-            <Icon as={AiFillTwitterCircle} />
+            <Icon as={XIcon} />
           </SocialButton>
           <SocialButton
             label={'github'}

@@ -12,7 +12,8 @@ import {
   ModalBody,
   useDisclosure,
   Stack,
-  useToast
+  useToast,
+  Link
 } from '@chakra-ui/react'
 import { useState, ReactElement, useEffect } from 'react'
 import { NFTImage } from '@/components/NFTImage'
@@ -29,11 +30,13 @@ import {
 import { useCountdown } from '@/hooks/useCountdown'
 import CountDown from '@/components/CountDown'
 import { LinkIcon } from '@chakra-ui/icons'
-import TwitterIcon from '@/components/Icon/Twitter'
+import XIcon from '@/components/Icon/X'
 import OpenseaIcon from '@/components/Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 import SecretMessage from '@/components/MintNengajo/SecretMessage'
 import UpdateSecretMessageCrypt from './UpdateSecretMessageCrypt'
+import { getContractAddress } from '@/utils/contractAddresses'
+import { useChainId } from '@/hooks'
 
 interface Props {
   id: number
@@ -55,6 +58,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { isHolding } = useIsHoldingByTokenId(id)
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply(id)
+  const { chainId } = useChainId()
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable'
@@ -156,8 +160,13 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                         <Stack direction="row" spacing={4} mt={2}>
                           {/* リンクをつける */}
                           <LinkIcon fontSize="25px" />
-                          <TwitterIcon fontSize="30px" />
-                          <OpenseaIcon fontSize="30px" />
+                          <XIcon fontSize="30px" />
+                          <Link href={`https://opensea.io/assets/matic/${getContractAddress({
+    name: 'nengajo',
+    chainId: chainId
+  })}/${id}`} isExternal>
+                            <OpenseaIcon fontSize="30px"/>
+                          </Link>
                         </Stack>
                       </Box>
                     </Box>
