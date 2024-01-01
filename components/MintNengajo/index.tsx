@@ -12,7 +12,8 @@ import {
   ModalBody,
   useDisclosure,
   Stack,
-  useToast
+  useToast,
+  Link
 } from '@chakra-ui/react'
 import { useState, ReactElement, useEffect } from 'react'
 import { NFTImage } from '@/components/NFTImage'
@@ -34,6 +35,8 @@ import OpenseaIcon from '@/components/Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 import SecretMessage from '@/components/MintNengajo/SecretMessage'
 import UpdateSecretMessageCrypt from './UpdateSecretMessageCrypt'
+import { getContractAddress } from '@/utils/contractAddresses'
+import { useChainId } from '@/hooks'
 
 interface Props {
   id: number
@@ -55,6 +58,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { isHolding } = useIsHoldingByTokenId(id)
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply(id)
+  const { chainId } = useChainId()
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable'
@@ -157,7 +161,12 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                           {/* リンクをつける */}
                           <LinkIcon fontSize="25px" />
                           <XIcon fontSize="30px" />
-                          <OpenseaIcon fontSize="30px" />
+                          <Link href={`https://opensea.io/assets/matic/${getContractAddress({
+    name: 'nengajo',
+    chainId: chainId
+  })}/${id}`} isExternal>
+                            <OpenseaIcon fontSize="30px"/>
+                          </Link>
                         </Stack>
                       </Box>
                     </Box>
