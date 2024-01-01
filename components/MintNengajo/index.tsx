@@ -29,7 +29,7 @@ import {
 import { useCountdown } from '@/hooks/useCountdown'
 import CountDown from '@/components/CountDown'
 import { LinkIcon } from '@chakra-ui/icons'
-import TwitterIcon from '@/components/Icon/Twitter'
+import XIcon from '@/components/Icon/X'
 import OpenseaIcon from '@/components/Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 import SecretMessage from '@/components/MintNengajo/SecretMessage'
@@ -156,7 +156,7 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                         <Stack direction="row" spacing={4} mt={2}>
                           {/* リンクをつける */}
                           <LinkIcon fontSize="25px" />
-                          <TwitterIcon fontSize="30px" />
+                          <XIcon fontSize="30px" />
                           <OpenseaIcon fontSize="30px" />
                         </Stack>
                       </Box>
