@@ -18,7 +18,7 @@ const handler = async (
 
   try {
     const { data } = await axios.post(
-      `${process.env.IPFS_API_ENDPOINT!}/pinning/pinJSONToIPFS`,
+      `https://api.pinata.cloud/pinning/pinJSONToIPFS`,
       req.body,
       {
         headers: {

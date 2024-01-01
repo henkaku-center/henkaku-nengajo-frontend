@@ -34,7 +34,7 @@ const handler = async (
     data.append('file', stream, { filename: req.body.filename })
 
     const resFile = await axios.post(
-      `${process.env.IPFS_API_ENDPOINT!}/pinning/pinFileToIPFS`,
+      `https://api.pinata.cloud/pinning/pinFileToIPFS`,
       data,
       {
         maxBodyLength: 'Infinity' as any,
