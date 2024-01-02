@@ -1,0 +1,22 @@
+{
+  "TITLE": {
+    "CONNECT_WALLET": "You must connect a wallet first!",
+    "MINTABLE": "You can mint this Ofuda.",
+    "NOT_MINTABLE": "You cannot mint this Ofuda. To get this Ofuda you need to meet a certain criteria.",
+    "MINTED": "You minted a this Omamori!",
+    "IS_POSSIBLE_START": "You can get it on January 10, 2024 at 12:00 pm.",
+    "SHARE": "Why not share this Omamori?"
+  },
+  "OMAMORI": "Omamori",
+  "NAIFU": "Ofuda",
+  "OMAMORI_LIST": "Omamori / Ofuda list",
+  "OMAMORI_EXPLANATION": "Here, you can mint a message \"Ofuda\" which contains a wish for each of them.\nMinting an \"Ofuda\" will result in a \"Omamori\" NFT.\nThis process is automated using smart contracts and is confirmed and verified on the blockchain.",
+  "APPROVE": "Enable to mint",
+  "MINT": "Mint",
+  "CONNECT_WALLET": "Connect your wallet",
+  "IS_POSSIBLE_START_HELPER": "（JST）",
+  "UNTIL_START": "Until obtainable",
+  "GET_OMAMORI": "Get Omamori",
+  "MESSAGE_BUTTON": "Check the message",
+  "MESSAGE_DESCRIPTION": "※The message with your wish is contained in the \"Omamori\" NFT as an \"Ofuda\".\n1 year later, the \"Ofuda\" will be released at the time of the burning of the \"Omamori\"."
+}

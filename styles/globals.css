@@ -15,7 +15,27 @@ a {
   box-sizing: border-box;
 }
 
-.text_nengajo {
+.text_nengajo,
+.text_serif {
   display: inline-block;
-  font-family: 'Zen Old Mincho', serif;
+  font-family: 'Zen Old Mincho', serif !important;
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flow {
+  0% {
+    padding-top: 0px;
+  }
+  50% {
+    padding-top: 10px;
+  }
+  100% {
+    padding-top: 0;
+  }
 }

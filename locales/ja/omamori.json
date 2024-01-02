@@ -1,0 +1,22 @@
+{
+  "TITLE": {
+    "CONNECT_WALLET": "まずメタマスクのウォレットを接続してください",
+    "MINTABLE": "この「内符」をMintできます",
+    "NOT_MINTABLE": "この「内符」はMintして手に入れることができません。手に入れるためには、条件を満たす必要があります",
+    "MINTED": "この「御守り」は入手済です",
+    "IS_POSSIBLE_START": "2024年1月10日12時から<br></br>受け取ることが出来ます",
+    "SHARE": "この「御守り」をシェアしてみませんか？"
+  },
+  "OMAMORI": "御守り",
+  "NAIFU": "内符",
+  "OMAMORI_LIST": "「御守り・内符」一覧",
+  "OMAMORI_EXPLANATION": "ここではそれぞれ願いが込められたメッセージ「内符」をMintすることができます。\n「内符」をMintすると、「御守り」NFTが手に入ります。\nこのプロセスは、スマートコントラクトを利用して自動化され、ブロックチェーン上で確認と検証が行われます。",
+  "APPROVE": "Mintするための許可をする",
+  "MINT": "Mintする",
+  "CONNECT_WALLET": "メタマスクのウォレットに接続する",
+  "IS_POSSIBLE_START_HELPER": "（日本時間）",
+  "UNTIL_START": "Mint可能になるまで",
+  "GET_OMAMORI": "詳細",
+  "MESSAGE_BUTTON": "願いが込められたメッセージを確認",
+  "MESSAGE_DESCRIPTION": "※願いが込められたメッセージは内符として御守りNFTの中に入っています。\n1年後、お焚上時に内符が公開されます。"
+}

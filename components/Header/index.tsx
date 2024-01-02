@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import useTranslation from 'next-translate/useTranslation'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import HomeIcon from '@/components/Icon/Home'
+import ToriiIcon from '@/components/Icon/Torii'
 import CollectionIcon from '@/components/Icon/Collection'
 import GlobalIcon from '@/components/Icon/Global'
 import CreateIcon from '@/components/Icon/Create'
@@ -85,16 +86,19 @@ const Header: FC<Props> = ({ isExternal = false }) => {
                 </Box>
               </Link>
             </NextLink>
-            {/* <NextLink passHref href="/nengajo" locale={router.locale}>
-            <Link _focus={{ boxShadow: 'none' }} p={4}>
-              {t('NENGAJO_LINK')}
-            </Link>
-          </NextLink> */}
             <NextLink passHref href="/collection" locale={router.locale}>
               <Link _focus={{ boxShadow: 'none' }} p={4}>
                 <CollectionIcon fontSize={20} display={{ md: 'none' }} />
                 <Box as="span" display={{ base: 'none', md: 'block' }}>
                   {t('COLLECTION_LINK')}
+                </Box>
+              </Link>
+            </NextLink>
+            <NextLink passHref href="/omamori" locale={router.locale}>
+              <Link _focus={{ boxShadow: 'none' }} p={4}>
+                <ToriiIcon fontSize={20} display={{ md: 'none' }} />
+                <Box as="span" display={{ base: 'none', md: 'block' }}>
+                  {t('OMAMORI_LINK')}
                 </Box>
               </Link>
             </NextLink>
