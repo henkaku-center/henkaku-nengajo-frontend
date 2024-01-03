@@ -6,7 +6,9 @@ import {
   Button,
   Box,
   useToast,
-  Stack
+  Stack,
+  Link,
+  useColorMode
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { NFTImage } from '@/components/NFTImage'
@@ -18,11 +20,13 @@ import {
   useMintOmamoriWithMx
 } from '@/hooks/useOmamoriContract'
 import { LinkIcon } from '@chakra-ui/icons'
-import TwitterIcon from '@/components/Icon/Twitter'
+import XIcon from '@/components/Icon/X'
 import OpenseaIcon from '@/components/Icon/Opensea'
 import { parseIpfs2Pinata } from '@/utils/ipfs2http'
 import Naifu from '../Naifu'
 import NewlineToBr from '@/utils/NewlineToBr'
+import { getContractAddress } from '@/utils/contractAddresses'
+import { useChainId } from '@/hooks'
 
 interface Props {
   id: number
@@ -35,6 +39,7 @@ interface mintStateProps {
 
 const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { t } = useTranslation('omamori')
+  const { colorMode } = useColorMode()
 
   const toast = useToast()
   const {
@@ -45,6 +50,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { isHolding } = useIsHoldingByTokenId(id)
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply(id)
+  const { chainId } = useChainId()
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable'
@@ -90,7 +96,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
 
   return (
     <>
-      <Box>
+      <Box mb={5}>
         <Heading mt={imageOnly ? 5 : 50} size="lg">
           {mintState.status === 'minted' ? t('OMAMORI') : t('NAIFU')}「
           {item?.tokenURIJSON?.name}」
@@ -141,8 +147,21 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                       <Stack direction="row" spacing={4} mt={2}>
                         {/* リンクをつける */}
                         <LinkIcon fontSize="25px" />
-                        <TwitterIcon fontSize="30px" />
-                        <OpenseaIcon fontSize="30px" />
+                        <XIcon
+                          fontSize="30px"
+                          fill={colorMode === 'dark' ? '#fff' : 'inherit'}
+                        />
+                        <Link
+                          href={`https://opensea.io/assets/matic/${getContractAddress(
+                            {
+                              name: 'nengajo',
+                              chainId: chainId
+                            }
+                          )}/${id}`}
+                          isExternal
+                        >
+                          <OpenseaIcon fontSize="30px" />
+                        </Link>
                       </Stack>
                     </Box>
                   </Box>

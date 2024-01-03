@@ -5,7 +5,8 @@ import {
   Stack,
   Text,
   VisuallyHidden,
-  Icon
+  Icon,
+  useColorMode
 } from '@chakra-ui/react'
 import useTranslation from 'next-translate/useTranslation'
 import { FaGithubAlt } from 'react-icons/fa'
@@ -42,6 +43,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
 
 const Footer: React.FC = () => {
   const { t } = useTranslation('common')
+  const { colorMode } = useColorMode()
   return (
     <Box p={5} bottom={0} position="relative">
       <Container
@@ -54,12 +56,9 @@ const Footer: React.FC = () => {
         align={{ base: 'center', md: 'center' }}
       >
         <Text>{t('COPYRIGHT_LINE')}</Text>
-        <Stack direction={'row'} spacing={6}>
-          <SocialButton
-            label={'Instagram'}
-            href={'https://twitter.com/henkakuorg'}
-          >
-            <Icon as={XIcon} />
+        <Stack direction="row" spacing={3} flexWrap="wrap">
+          <SocialButton label={'X'} href={'https://twitter.com/henkakuorg'}>
+            <Icon as={XIcon} fill={colorMode === 'dark' ? '#fff' : 'inherit'} />
           </SocialButton>
           <SocialButton
             label={'github'}
