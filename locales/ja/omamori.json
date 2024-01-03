@@ -18,5 +18,12 @@
   "UNTIL_START": "Mint可能になるまで",
   "GET_OMAMORI": "詳細",
   "MESSAGE_BUTTON": "願いが込められたメッセージを確認",
-  "MESSAGE_DESCRIPTION": "※願いが込められたメッセージは内符として御守りNFTの中に入っています。\n1年後、お焚上時に内符が公開されます。"
+  "MESSAGE_DESCRIPTION": "※願いが込められたメッセージは内符として御守りNFTの中に入っています。\n1年後、お焚上時に内符が公開されます。",
+  "CREATE": {
+    "NEW_OMAMORI": "御守りを追加する（管理者用）",
+    "NEW_OMAMORI_REQUIRE_HENKAKUTOKEN": "御守りの作成にはHENKAKUトークンが必要です。最大発行枚数によって値段が変わります。",
+    "BUTTON_APPROVE": "御守りNFTコントラクトがHENKAKUトークンの支払い操作をすることを承認",
+    "NEW_OMAMORI_TITLE_LABEL": "御守り タイトル",
+    "NEW_OMAMORI_SECRET_MESSAGE_LABEL": "内符に込めるメッセージカード（500KBまで）"
+  }
 }

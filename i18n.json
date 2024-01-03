@@ -6,6 +6,7 @@
     "/collection": ["collection"],
     "/nengajo/[id]": ["nengajo"],
     "/omamori": ["omamori"],
+    "/omamori/create": ["omamori"],
     "/omamori/[id]": ["omamori"]
   }
 }

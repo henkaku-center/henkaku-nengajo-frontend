@@ -18,5 +18,12 @@
   "UNTIL_START": "Until obtainable",
   "GET_OMAMORI": "Get Omamori",
   "MESSAGE_BUTTON": "Check the message",
-  "MESSAGE_DESCRIPTION": "※The message with your wish is contained in the \"Omamori\" NFT as an \"Ofuda\".\n1 year later, the \"Ofuda\" will be released at the time of the burning of the \"Omamori\"."
+  "MESSAGE_DESCRIPTION": "※The message with your wish is contained in the \"Omamori\" NFT as an \"Ofuda\".\n1 year later, the \"Ofuda\" will be released at the time of the burning of the \"Omamori\".",
+  "CREATE": {
+    "NEW_OMAMORI": "Add Omamori (for Admin)",
+    "NEW_OMAMORI_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create \"Omamori\". The cost varies depending on the max supply of NFTs.",
+    "BUTTON_APPROVE": "Approve the Omamori NFT contract to make payment operations for the HENKAKU token",
+    "NEW_OMAMORI_TITLE_LABEL": "Omamori title",
+    "NEW_OMAMORI_SECRET_MESSAGE_LABEL": "Secret message card for holder（up to 500 KB）"
+  }
 }

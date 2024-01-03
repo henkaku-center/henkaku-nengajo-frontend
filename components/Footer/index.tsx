@@ -11,6 +11,7 @@ import {
 import useTranslation from 'next-translate/useTranslation'
 import { FaGithubAlt } from 'react-icons/fa'
 import XIcon from '@/components/Icon/X'
+import ToriiIcon from '../Icon/Torii'
 
 interface SocialButtonProps {
   children: React.ReactNode
@@ -74,6 +75,19 @@ const Footer: React.FC = () => {
             <Text mr={1}>Contract</Text>
             <Icon as={FaGithubAlt} />
           </SocialButton>
+          <Button
+            rounded={'full'}
+            cursor={'pointer'}
+            as={'a'}
+            href="/omamori/create"
+            display={'inline-flex'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            transition={'background 0.3s ease'}
+          >
+            <Text mr={1}>Admin</Text>
+            <Icon as={ToriiIcon} />
+          </Button>
         </Stack>
       </Container>
     </Box>
