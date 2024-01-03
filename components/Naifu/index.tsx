@@ -1,3 +1,4 @@
+import { OMAMORI_IDS } from '@/constants/Omamori'
 import { Box, Flex } from '@chakra-ui/react'
 import { FC, useMemo } from 'react'
 
@@ -11,17 +12,17 @@ interface Props {
 const Naifu: FC<Props> = ({ id, size }) => {
   const color = useMemo(() => {
     switch (id) {
-      case 1:
+      case OMAMORI_IDS[0]:
         return { base: '#00f', highlight: '#adf' }
-      case 2:
+      case OMAMORI_IDS[1]:
         return { base: '#fff', highlight: '#999' }
-      case 3:
+      case OMAMORI_IDS[2]:
         return { base: '#ff0', highlight: '#ff9' }
-      case 4:
+      case OMAMORI_IDS[3]:
         return { base: '#090', highlight: '#82AC74' }
-      case 5:
+      case OMAMORI_IDS[4]:
         return { base: '#f00', highlight: '#f99' }
-      case 6:
+      case OMAMORI_IDS[5]:
         return { base: '#f0f', highlight: '#f9f' }
       default:
         return { base: '#00f', highlight: '#adf' }
@@ -36,6 +37,7 @@ const Naifu: FC<Props> = ({ id, size }) => {
         justifyContent="center"
         alignItems="center"
         bg="#1A202C"
+        borderRadius={8}
         overflow="hidden"
       >
         <Box
