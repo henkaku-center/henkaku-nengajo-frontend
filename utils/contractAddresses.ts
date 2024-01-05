@@ -35,10 +35,14 @@ const contractAddresses: ContractAddresses = {
     [chainId.polygon]: '0x802422C3cc18ED1f765bb6932Ec9A45cc6A1Fa6E'
   },
   omamori: {
+    [chainId.hardhat]:
+      (process.env.NEXT_PUBLIC_CONTRACT_OMAMORI_ADDRESS as `0x${string}`) ?? '',
     [chainId.polygonMumbai]: '0x3F359Ec705F25a9D287EdDc5370b57e20C237c1E',
     [chainId.polygon]: '0xAC42aA54DfF142b5cEB4196B94cc013bbCf074C5'
   },
   omamoriForwarder: {
+    [chainId.hardhat]:
+      (process.env.NEXT_PUBLIC_CONTRACT_FORWARDER_ADDRESS as `0x${string}`) ?? '',
     [chainId.polygonMumbai]: '0xd68752aE770Bc2852480eb41669018727680C3C3',
     [chainId.polygon]: '0x802422C3cc18ED1f765bb6932Ec9A45cc6A1Fa6E'
   }
