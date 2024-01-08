@@ -133,12 +133,8 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
               <>
                 {(mintState.status === 'minted' || isHolding) && (
                   <Box>
-                    <Text>{t('TITLE.MINTED')}</Text>
-                    <Box mt={5}>
-                      <Button width="100%" isDisabled>
-                        {t('MESSAGE_BUTTON')}
-                      </Button>
-                      <Text size="sm" mt={5}>
+                    <Box>
+                      <Text size="sm">
                         <NewlineToBr>{t('MESSAGE_DESCRIPTION')}</NewlineToBr>
                       </Text>
                     </Box>

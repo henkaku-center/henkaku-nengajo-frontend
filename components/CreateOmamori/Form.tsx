@@ -52,7 +52,7 @@ const metadata_contributors =
   'daishin;FLOTAN;futa;geeknees;imaichiyyy;mindinc;karawapo;RYU;sushi yam;yawn;Yuki aka Ryoma;Yuudai;'
 
 const CreateOmamoriForm: FC = () => {
-  const { t, lang } = useTranslation('common')
+  const { t } = useTranslation('common')
   const { t: o } = useTranslation('omamori')
   const { address } = useAccount()
   const router = useRouter()

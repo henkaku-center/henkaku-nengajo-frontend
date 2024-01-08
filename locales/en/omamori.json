@@ -1,29 +1,29 @@
 {
   "TITLE": {
     "CONNECT_WALLET": "You must connect a wallet first!",
-    "MINTABLE": "You can mint this Ofuda.",
-    "NOT_MINTABLE": "You cannot mint this Ofuda. To get this Ofuda you need to meet a certain criteria.",
-    "MINTED": "You minted a this Omamori!",
+    "MINTABLE": "You can select this Ofuda.",
+    "NOT_MINTABLE": "You cannot select this Ofuda. To get this Ofuda you need to meet a certain criteria.",
+    "MINTED": "You got a this Omamori!",
     "IS_POSSIBLE_START": "You can get it on January 10, 2024 at 12:00 pm.",
     "SHARE": "Why not share this Omamori?"
   },
   "OMAMORI": "Omamori",
   "NAIFU": "Ofuda",
-  "OMAMORI_LIST": "Omamori / Ofuda list",
-  "OMAMORI_EXPLANATION": "Here, you can mint a message \"Ofuda\" which contains a wish for each of them.\nMinting an \"Ofuda\" will result in a \"Omamori\" NFT.\nThis process is automated using smart contracts and is confirmed and verified on the blockchain.",
+  "OMAMORI_LIST": "HENKAKU Omamori / Ofuda list",
+  "OMAMORI_EXPLANATION": "A \"Omamori\" is a symbolic object that represents a wish for protection from bad luck, good fortune, or blessings. They are also called \"Gofu\"(護符、御符) . \n  The contents of the amulet are called \"Ofuda\"(内符), which originally contain small paper or wooden bills, or metal daikokuji or koban. \nIt is said that the \"Ofuda\" is the body of the \"Omamori\", as it is said to contain the power of the gods. Here, you can obtain a HENKAKU \"Omamori\" by selecting the \"Ofuda\" for your wish.",
   "APPROVE": "Enable to mint",
   "MINT": "Mint",
   "CONNECT_WALLET": "Connect your wallet",
   "IS_POSSIBLE_START_HELPER": "（JST）",
   "UNTIL_START": "Until obtainable",
-  "GET_OMAMORI": "Get Omamori",
-  "MESSAGE_BUTTON": "Check the message",
+  "GET_OMAMORI": "Get \"Omamori\"",
   "MESSAGE_DESCRIPTION": "※The message with your wish is contained in the \"Omamori\" NFT as an \"Ofuda\".\n1 year later, the \"Ofuda\" will be released at the time of the burning of the \"Omamori\".",
   "CREATE": {
     "NEW_OMAMORI": "Add Omamori (for Admin)",
-    "NEW_OMAMORI_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create \"Omamori\". The cost varies depending on the max supply of NFTs.",
-    "BUTTON_APPROVE": "Approve the Omamori NFT contract to make payment operations for the HENKAKU token",
-    "NEW_OMAMORI_TITLE_LABEL": "Omamori title",
+    "NEW_OMAMORI_DESCRIPTION": "※Administrative privileges are required to add HENKAKU \"Omamori\". Please note that you will not be able to add HENKAKU \"Omamori\" if you do not have administrative privileges.",
+    "NEW_OMAMORI_REQUIRE_HENKAKUTOKEN": "HENKAKU token is required to create HENKAKU \"Omamori\". The cost varies depending on the max supply of NFTs.",
+    "BUTTON_APPROVE": "Approve the HENKAKU \"Omamori\" NFT contract to make payment operations for the HENKAKU token",
+    "NEW_OMAMORI_TITLE_LABEL": "HENKAKU \"Omamori\" title",
     "NEW_OMAMORI_SECRET_MESSAGE_LABEL": "Secret message card for holder（up to 500 KB）"
   }
 }

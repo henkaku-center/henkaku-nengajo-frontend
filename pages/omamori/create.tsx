@@ -28,6 +28,7 @@ const CreateOmamori: NextPage = () => {
   return (
     <Layout>
       <Heading as="h2">{t('CREATE.NEW_OMAMORI')}</Heading>
+      <Text mt={5}>{t('CREATE.NEW_OMAMORI_DESCRIPTION')}</Text>
       {isMounted && !isConnected && <Connect />}
       {isMounted && isConnected && !approved && (
         <Box mt={5}>
