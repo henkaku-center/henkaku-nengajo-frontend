@@ -37,7 +37,7 @@ const contractAddresses: ContractAddresses = {
   omamori: {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_OMAMORI_ADDRESS as `0x${string}`) ?? '',
-    [chainId.polygonMumbai]: '0xAC42aA54DfF142b5cEB4196B94cc013bbCf074C5',
+    [chainId.polygonMumbai]: '0xc5d4f8918491b114bEd4525E6c3D59AcABf7e183',
     [chainId.polygon]: '0xAC42aA54DfF142b5cEB4196B94cc013bbCf074C5'
   },
   omamoriForwarder: {
