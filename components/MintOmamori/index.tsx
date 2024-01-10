@@ -150,7 +150,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                         <Link
                           href={`https://opensea.io/assets/matic/${getContractAddress(
                             {
-                              name: 'nengajo',
+                              name: 'omamori',
                               chainId: chainId
                             }
                           )}/${id}`}
