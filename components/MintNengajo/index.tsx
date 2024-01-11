@@ -37,6 +37,7 @@ import SecretMessage from '@/components/MintNengajo/SecretMessage'
 import UpdateSecretMessageCrypt from './UpdateSecretMessageCrypt'
 import { getContractAddress } from '@/utils/contractAddresses'
 import { useChainId } from '@/hooks'
+import { useColorMode } from '@chakra-ui/react'
 
 interface Props {
   id: number
@@ -49,6 +50,8 @@ interface mintStateProps {
 
 const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { t } = useTranslation('nengajo')
+  const { colorMode } = useColorMode()
+
   const toast = useToast()
   const {
     sendMetaTx,
@@ -160,12 +163,20 @@ const MintNengajo: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                         <Stack direction="row" spacing={4} mt={2}>
                           {/* リンクをつける */}
                           <LinkIcon fontSize="25px" />
-                          <XIcon fontSize="30px" />
-                          <Link href={`https://opensea.io/assets/matic/${getContractAddress({
-    name: 'nengajo',
-    chainId: chainId
-  })}/${id}`} isExternal>
-                            <OpenseaIcon fontSize="30px"/>
+                          <XIcon
+                            fontSize="30px"
+                            fill={colorMode === 'dark' ? '#fff' : 'inherit'}
+                          />
+                          <Link
+                            href={`https://opensea.io/assets/matic/${getContractAddress(
+                              {
+                                name: 'nengajo',
+                                chainId: chainId
+                              }
+                            )}/${id}`}
+                            isExternal
+                          >
+                            <OpenseaIcon fontSize="30px" />
                           </Link>
                         </Stack>
                       </Box>

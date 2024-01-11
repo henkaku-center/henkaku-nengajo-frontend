@@ -4,6 +4,9 @@
   "pages": {
     "*": ["common", "balance", "connect", "approve", "profile", "collection"],
     "/collection": ["collection"],
-    "/nengajo/[id]": ["nengajo"]
+    "/nengajo/[id]": ["nengajo"],
+    "/omamori": ["omamori"],
+    "/omamori/create": ["omamori"],
+    "/omamori/[id]": ["omamori"]
   }
 }

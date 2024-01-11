@@ -1,0 +1,29 @@
+{
+  "TITLE": {
+    "CONNECT_WALLET": "まずメタマスクのウォレットを接続してください",
+    "MINTABLE": "この「内符」を選択できます",
+    "NOT_MINTABLE": "この「内符」は手に入れることができません。手に入れるためには、条件を満たす必要があります",
+    "MINTED": "このHENKAKU「御守り」は入手済です",
+    "IS_POSSIBLE_START": "2024年1月10日12時から<br></br>受け取ることが出来ます",
+    "SHARE": "このHENKAKU「御守り」をシェアしてみませんか？"
+  },
+  "OMAMORI": "御守り",
+  "NAIFU": "内符",
+  "OMAMORI_LIST": "HENKAKU「御守り・内符」一覧",
+  "OMAMORI_EXPLANATION": "御守りとは、厄除けや招福、加護などの願いを象った縁起物です。護符、御符とも呼ばれています。\n御守りの中身は「内符（ないふ）」と呼ばれ、本来は小さな紙や木のお札、または金属製の大黒様や小判が入っています。内符は神様の力を宿したものだと言われており、お守りの本体になります。\nHENKAKU「御守り」ではブロックチェーンに刻まれたトランザクションが「内符」としての素材になります。ここでは願いごとの「内符」を選択することで、HENKAKU「御守り」を手に入れることができます。是非お願い込めながらお受け取りください。",
+  "APPROVE": "Mintするための許可をする",
+  "MINT": "Mintする",
+  "CONNECT_WALLET": "メタマスクのウォレットに接続する",
+  "IS_POSSIBLE_START_HELPER": "（日本時間）",
+  "UNTIL_START": "Mint可能になるまで",
+  "GET_OMAMORI": "詳細",
+  "MESSAGE_DESCRIPTION": "HENKAKU「御守り」が発行されました、どうぞ大切にお持ちください。\nまた、HENKAKU「御守り」をお持ちの方には、1年後「お焚上」イベントにご招待いたします。",
+  "CREATE": {
+    "NEW_OMAMORI": "HENKAKU「御守り」を追加する（管理者用）",
+    "NEW_OMAMORI_DESCRIPTION": "※HENKAKU「御守り」を追加するには管理者権限が必要です。権限を持っていない方が利用しても御守りを追加することができませんのでご注意ください。",
+    "NEW_OMAMORI_REQUIRE_HENKAKUTOKEN": "HENKAKU「御守り」の作成にはHENKAKUトークンが必要です。最大発行枚数によって値段が変わります。",
+    "BUTTON_APPROVE": "HENKAKU「御守り」NFTコントラクトがHENKAKUトークンの支払い操作をすることを承認",
+    "NEW_OMAMORI_TITLE_LABEL": "HENKAKU「御守り」 タイトル",
+    "NEW_OMAMORI_SECRET_MESSAGE_LABEL": "メッセージカード（500KBまで）"
+  }
+}
