@@ -98,7 +98,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     <>
       <Box mb={5}>
         <Heading mt={imageOnly ? 5 : 50} size="lg">
-          {mintState.status === 'minted' ? t('OMAMORI') : t('NAIFU')}「
+          {mintState.status === 'minted' || isHolding ? t('OMAMORI') : t('NAIFU')}「
           {item?.tokenURIJSON?.name}」
         </Heading>
       </Box>
@@ -111,7 +111,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
       >
         <GridItem>
           {item &&
-            (mintState.status === 'minted' ? (
+            (mintState.status === 'minted' || isHolding ? (
               <NFTImage
                 imageUrl={parseIpfs2Pinata(item?.tokenURIJSON?.image)}
               />
@@ -150,7 +150,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                         <Link
                           href={`https://opensea.io/assets/matic/${getContractAddress(
                             {
-                              name: 'nengajo',
+                              name: 'omamori',
                               chainId: chainId
                             }
                           )}/${id}`}

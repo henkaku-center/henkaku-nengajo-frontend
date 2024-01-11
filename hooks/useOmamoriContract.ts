@@ -198,7 +198,7 @@ export const useMintOmamoriWithMx = (id: number) => {
       )
 
       const from = await signer.getAddress()
-      const data = omamoriContract.interface.encodeFunctionData('mint', [1])
+      const data = omamoriContract.interface.encodeFunctionData('mint', [Number(id)])
       const to = omamoriContract.address
 
       if (!signer.provider) throw new Error('Provider is not set')
