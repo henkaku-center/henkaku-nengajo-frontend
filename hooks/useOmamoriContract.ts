@@ -209,9 +209,7 @@ export const useMintOmamoriWithMx = (id: number) => {
         data
       })
 
-      console.log("before axios post")
       const { data: resData } = await axios.post('/api/relay', request)
-      console.log("after axios post")
       if (resData.status === 'error') {
         throw resData
       }
