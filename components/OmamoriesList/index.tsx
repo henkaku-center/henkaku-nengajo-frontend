@@ -50,7 +50,7 @@ const OmamoriesList: React.FC<OmamoriesListProps> = ({ items }) => {
       {allOmamoriesInfo.map((omamoriInfo, index) => {
         if (!omamoriInfo.tokenURIJSON) return
         const minted = mintedOmamories?.some(
-          (mintedOmamori) => mintedOmamori.id === omamoriInfo.id
+          (mintedOmamori) => Number(mintedOmamori.id) === Number(omamoriInfo.id)
         )
         return (
           <div key={index} className={styles.list}>
