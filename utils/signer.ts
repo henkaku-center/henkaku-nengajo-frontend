@@ -1,5 +1,7 @@
 import { ethers } from 'ethers'
 import ethSignUtil from 'eth-sig-util'
+import { getContractAddress } from '@/utils/contractAddresses'
+import ForwarderABI from '@/abi/Forwarder.json'
 
 // definistion of domainSeparator
 // https://eips.ethereum.org/EIPS/eip-712
@@ -52,12 +54,36 @@ const signTypeData = async (signer: any, from: string, data: any) => {
 }
 
 export const buildRequest = async (forwarder: ethers.Contract, input: any) => {
-  // get nonce from forwarder contract
-  // this nonce is used to prevent replay attack
-  const nonce = await forwarder
-    .getNonce(input.from)
-    .then((nonce: { toString: () => any }) => nonce.toString())
-  return { value: 0, gas: 1e6, nonce, ...input }
+  console.log('buildRequest start')
+  console.log('入力値:', input)
+
+  try {
+    // forwarderコントラクトの状態確認
+    console.log('Forwarderアドレス:', forwarder.address)
+    console.log('Provider:', forwarder.provider)
+
+    // nonceの取得（BigNumber型で返される）
+    const nonce = await forwarder.getNonce(input.from)
+    console.log('取得したnonce:', nonce.toString())
+
+    return {
+      value: 0,
+      gas: 1e6,
+      nonce: nonce.toString(), // BigNumberを文字列に変換
+      ...input
+    }
+  } catch (error) {
+    // エラー情報の詳細なログ
+    console.error('buildRequestでエラー発生:', {
+      error,
+      forwarderAddress: forwarder.address,
+      fromAddress: input.from,
+      providerNetwork: await forwarder.provider
+        .getNetwork()
+        .catch(() => 'unknown')
+    })
+    throw error
+  }
 }
 
 export const buildTypedData = async (
@@ -74,8 +100,12 @@ export const signMetaTxRequest = async (
   forwarder: ethers.Contract,
   input: any
 ) => {
+  console.log('signMetaTxRequest start')
   const request = await buildRequest(forwarder, input)
+  console.log('signMetaTxRequest 0')
   const toSign = await buildTypedData(forwarder, request)
+  console.log('signMetaTxRequest 1')
   const signature = await signTypeData(signer, input.from, toSign)
+  console.log('signMetaTxRequest end')
   return { signature, request }
 }
