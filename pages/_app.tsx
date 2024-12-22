@@ -33,7 +33,7 @@ const holeskyChain: Chain = {
 } as const
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.polygon, holeskyChain] as const,
+  [chain.polygon, holeskyChain],
   [
     jsonRpcProvider({
       rpc: () => ({
