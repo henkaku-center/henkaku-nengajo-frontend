@@ -33,10 +33,12 @@ export default async function handler(
   try {
     const { request, signature } = req.body
 
+    console.log('debug 0')
     const forwarderAddress = getContractAddress({
       name: 'Forwarder',
       chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID)
     })
+    console.log('debug 1')
 
     const forwarder: Forwarder = new Contract(
       forwarderAddress,

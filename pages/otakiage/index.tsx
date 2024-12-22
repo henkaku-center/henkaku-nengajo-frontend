@@ -105,7 +105,13 @@ const OtakiagePage: NextPage = () => {
       {isMounted && omamories && (
         <Box>
           <Flex direction="column" alignItems="center" mt={10}>
-            <Heading className="text_serif" size="2xl" mb={10}>
+            <Heading
+              className="text_serif"
+              size="2xl"
+              mb={10}
+              textAlign="center"
+              width="100%"
+            >
               HENKAKU
               <br />「{ot('OTAKIAGE')}」
             </Heading>

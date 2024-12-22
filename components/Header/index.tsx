@@ -102,6 +102,14 @@ const Header: FC<Props> = ({ isExternal = false }) => {
                 </Box>
               </Link>
             </NextLink>
+            <NextLink passHref href="/otakiage" locale={router.locale}>
+              <Link _focus={{ boxShadow: 'none' }} p={4}>
+                <ToriiIcon fontSize={20} display={{ md: 'none' }} />
+                <Box as="span" display={{ base: 'none', md: 'block' }}>
+                  {t('OTAKIAGE_LINK')}
+                </Box>
+              </Link>
+            </NextLink>
             <SettingElm />
           </Stack>
         ) : (
