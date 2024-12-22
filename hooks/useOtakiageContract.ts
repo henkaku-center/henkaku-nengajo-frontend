@@ -10,9 +10,9 @@ import {
   Chain
 } from 'wagmi'
 import { getContractAddress } from '@/utils/contractAddresses'
-import OmamoriABI from '@/abi/Omamori.json'
+import OtakiageABI from '@/abi/Otakiage.json'
 import FowarderABI from '@/abi/Forwarder.json'
-import { Omamori } from '@/types'
+import { Otakiage } from '@/types/contracts/community/Otakiage'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { BigNumber, ethers, providers } from 'ethers'
 import { signMetaTxRequest } from '@/utils/signer'
@@ -20,10 +20,10 @@ import axios from 'axios'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
-const usePrepareOmamoriContractWrite = (functionName: string, args: any[]) => {
+const usePrepareOtakiageContractWrite = (functionName: string, args: any[]) => {
   const { config } = usePrepareContractWrite({
-    address: getContractAddress({ name: 'omamori', chainId }),
-    abi: OmamoriABI.abi,
+    address: getContractAddress({ name: 'otakiage', chainId }),
+    abi: OtakiageABI.abi,
     functionName,
     args,
     overrides: {
@@ -33,36 +33,39 @@ const usePrepareOmamoriContractWrite = (functionName: string, args: any[]) => {
   return config
 }
 
-const useOmamoriContractRead = (functionName: string, args: unknown[] = []) => {
+const useOtakiageContractRead = (
+  functionName: string,
+  args: unknown[] = []
+) => {
   const result = useContractRead({
-    address: getContractAddress({ name: 'omamori', chainId }),
-    abi: OmamoriABI.abi,
+    address: getContractAddress({ name: 'otakiage', chainId }),
+    abi: OtakiageABI.abi,
     functionName,
     args
   })
   return result
 }
 
-const useOmamoriContractEvent = (
+const useOtakiageContractEvent = (
   eventName: string,
   listener: (...args: any) => void
 ) => {
   useContractEvent({
-    address: getContractAddress({ name: 'omamori', chainId }),
-    abi: OmamoriABI.abi,
+    address: getContractAddress({ name: 'otakiage', chainId }),
+    abi: OtakiageABI.abi,
     eventName,
     listener
   })
 }
 
-export const useRegisterOmamori = (maxSupply: number, metadataURI: string) => {
+export const useRegisterOtakiage = (maxSupply: number, metadataURI: string) => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
-  const config = usePrepareOmamoriContractWrite('registerNengajo', [
+  const config = usePrepareOtakiageContractWrite('registerNengajo', [
     maxSupply,
     metadataURI || 'ipfs://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   ])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useOmamoriContractEvent(
+  useOtakiageContractEvent(
     'RegisterNengajo',
     (creator, _tokenId, metaDataURL, maxSupply) => {
       setRegisteredTokenId(_tokenId)
@@ -72,12 +75,12 @@ export const useRegisterOmamori = (maxSupply: number, metadataURI: string) => {
   return { data, isLoading, isSuccess, writeAsync, registeredTokenId }
 }
 
-export const useMintOmamori = (id: number) => {
+export const useMintOtakiage = (id: number) => {
   const [minted, setMinted] = useState(false)
   const { address } = useAccount()
-  const config = usePrepareOmamoriContractWrite('mint', [id])
+  const config = usePrepareOtakiageContractWrite('mint', [id])
   const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
-  useOmamoriContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
+  useOtakiageContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
     if (tokenId.toNumber() === id && minter === address) {
       setMinted(true)
     }
@@ -85,53 +88,10 @@ export const useMintOmamori = (id: number) => {
   return { data, isLoading, isSuccess, writeAsync, minted }
 }
 
-export const useBatchMintOmamoris = (id: number[]) => {
-  // TODO: BatchMint
-  return
-}
-
-export const useRetrieveOmamoriByTokenId = (tokenId: number) => {
-  const { data, isLoading, isError } = useOmamoriContractRead(
-    'retrieveRegisteredNengajo',
-    [tokenId]
-  ) as {
-    data: Omamori.NengajoInfoStructOutput
-    isLoading: boolean
-    isError: boolean
-  }
-
-  return { data, isLoading, isError }
-}
-
-export const useRetrieveHoldingOmamorisByAddress = (address: string) => {
-  const { data, isLoading, isError } = useOmamoriContractRead(
-    'retrieveMintedNengajoes',
-    [address]
-  ) as {
-    data: Omamori.NengajoInfoStructOutput[]
-    isLoading: boolean
-    isError: boolean
-  }
-
-  return { data, isLoading, isError }
-}
-
-export const useRetrieveAllOmamori = () => {
-  const { data, isError, isLoading } = useOmamoriContractRead(
-    'retrieveAllNengajoes'
-  ) as {
-    data: Omamori.NengajoInfoStructOutput[]
-    isLoading: boolean
-    isError: boolean
-  }
-
-  return { data, isLoading, isError }
-}
-
 export const useIsHoldingByTokenId = (tokenId: number) => {
   const [isHolding, setIsHolding] = useState(false)
   const { address } = useAccount()
-  const { data, isError, isLoading } = useOmamoriContractRead('balanceOf', [
+  const { data, isError, isLoading } = useOtakiageContractRead('balanceOf', [
     address,
     tokenId
   ]) as {
@@ -156,7 +116,7 @@ export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
     return Number(maxSupply) ? Number(maxSupply) : 0
   }, [maxSupply])
 
-  const { data, isLoading } = useOmamoriContractRead('calcPrice', [
+  const { data, isLoading } = useOtakiageContractRead('calcPrice', [
     normalizedMaxSupply
   ]) as { data: BigNumber; isLoading: boolean }
 
@@ -164,24 +124,24 @@ export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
 }
 
 export const useCurrentSupply = (id: number) => {
-  const { data, isError, isLoading } = useOmamoriContractRead('totalSupply', [
+  const { data, isError, isLoading } = useOtakiageContractRead('totalSupply', [
     id
   ]) as { data: BigNumber; isLoading: boolean; isError: boolean }
 
   return { data, isError, isLoading }
 }
 
-export const useMintOmamoriWithMx = (id: number) => {
+export const useMintOtakiageWithMx = (id: number) => {
   const { data: signer } = useSigner()
-  const omamoriContract = useContract({
-    address: getContractAddress({ name: 'omamori', chainId }),
-    abi: OmamoriABI.abi
+  const otakiageContract = useContract({
+    address: getContractAddress({ name: 'otakiage', chainId }),
+    abi: OtakiageABI.abi
   })
   const { address } = useAccount()
   const [isLoading, setIsLoading] = useState(false)
   const [minted, setMinted] = useState(false)
 
-  useOmamoriContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
+  useOtakiageContractEvent('Mint', (minter: string, tokenId: BigNumber) => {
     if (tokenId.toNumber() === id && minter === address) {
       setIsLoading(false)
       setMinted(true)
@@ -193,7 +153,7 @@ export const useMintOmamoriWithMx = (id: number) => {
     try {
       console.log('sendMetaTx 0')
       console.log('signer', signer)
-      if (!signer || !omamoriContract) return
+      if (!signer || !otakiageContract) return
       setIsLoading(true)
 
       console.log('sendMetaTx 1')
@@ -209,13 +169,13 @@ export const useMintOmamoriWithMx = (id: number) => {
       const from = await signer.getAddress()
 
       console.log('sendMetaTx 3')
-      const data = omamoriContract.interface.encodeFunctionData('mint', [
+      const data = otakiageContract.interface.encodeFunctionData('mint', [
         Number(id)
       ])
 
       console.log('sendMetaTx 4')
 
-      const to = omamoriContract.address
+      const to = otakiageContract.address
 
       console.log('sendMetaTx 5')
 
@@ -251,25 +211,36 @@ export const useMintOmamoriWithMx = (id: number) => {
   return { sendMetaTx, isLoading, minted }
 }
 
-export const useSetApprovalForAllOmamoriWithMx = () => {
+export const useOtakiage = () => {
+  const [otakiaged, setOtakiaged] = useState(false)
+  const { address } = useAccount()
+  const config = usePrepareOtakiageContractWrite('otakiage', [])
+  const { data, isLoading, isSuccess, writeAsync } = useContractWrite(config)
+  useOtakiageContractEvent('OtakiageEvent', (users: string[]) => {
+    // if (address && users.includes(address)) {
+    if (address) {
+      setOtakiaged(true)
+    }
+  })
+  return { data, isLoading, isSuccess, writeAsync, otakiaged }
+}
+
+export const useSendAllOmamoriWithMx = () => {
   const { data: signer } = useSigner()
-  const omamoriContract = useContract({
-    address: getContractAddress({ name: 'omamori', chainId }),
-    abi: OmamoriABI.abi
+  const otakiageContract = useContract({
+    address: getContractAddress({ name: 'otakiage', chainId }),
+    abi: OtakiageABI.abi
   })
   const { address } = useAccount()
   const [isLoading, setIsLoading] = useState(false)
-  const [approved, setApproved] = useState(false)
+  const [sent, setSent] = useState(false)
 
-  useOmamoriContractEvent(
-    'ApprovalForAll',
-    (account: string, operator: string, approved: boolean) => {
-      if (
-        account === address &&
-        operator === getContractAddress({ name: 'otakiage', chainId })
-      ) {
+  useOtakiageContractEvent(
+    'SendAllOmamori',
+    (from: string, ids: BigNumber[], values: BigNumber[]) => {
+      if (from === address) {
         setIsLoading(false)
-        setApproved(true)
+        setSent(true)
       }
     }
   )
@@ -279,7 +250,7 @@ export const useSetApprovalForAllOmamoriWithMx = () => {
     try {
       console.log('sendMetaTx 0')
       console.log('signer', signer)
-      if (!signer || !omamoriContract) return
+      if (!signer || !otakiageContract) return
       setIsLoading(true)
 
       console.log('sendMetaTx 1')
@@ -295,14 +266,14 @@ export const useSetApprovalForAllOmamoriWithMx = () => {
       const from = await signer.getAddress()
 
       console.log('sendMetaTx 3')
-      const data = omamoriContract.interface.encodeFunctionData(
-        'setApprovalForAll',
-        [getContractAddress({ name: 'otakiage', chainId }), true]
+      const data = otakiageContract.interface.encodeFunctionData(
+        'sendAllOmamori',
+        []
       )
 
       console.log('sendMetaTx 4')
 
-      const to = omamoriContract.address
+      const to = otakiageContract.address
 
       console.log('sendMetaTx 5')
 
@@ -335,5 +306,5 @@ export const useSetApprovalForAllOmamoriWithMx = () => {
     }
   }, [signer, chainId])
 
-  return { sendMetaTx, isLoading, approved }
+  return { sendMetaTx, isLoading, sent }
 }
