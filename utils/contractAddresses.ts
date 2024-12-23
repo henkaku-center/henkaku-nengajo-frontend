@@ -59,7 +59,7 @@ const contractAddresses: ContractAddresses = {
   }
 }
 
-const defaultChainID = process.env.production ? chainId.polygon : chainId.goerli
+const defaultChainID = process.env.production ? chainId.polygon : holeskyChainId
 
 const getContractAddress = ({ name, chainId }: getContractAddressArg) => {
   return contractAddresses[name][chainId || defaultChainID]
