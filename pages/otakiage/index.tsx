@@ -165,86 +165,94 @@ const OtakiagePage: NextPage = () => {
           {/* <Text className="text_serif" fontSize="lg" mt={10}>
             <NewlineToBr>{ot('OMAMORI_EXPLANATION')}</NewlineToBr>
           </Text> */}
-          {address && !isOtakiaged && (
+          {address && (
             <>
-              <Heading className="text_serif" size="xl" mt={10} pb={10}>
-                {ot('USER_OMAMORI_LIST')}
-              </Heading>
-              <Box mt={0} pb={20}>
-                {<OmamoriesList items={userMintedOmamories} />}
-              </Box>
-              {(IS_RELEASED ||
-                isAdmin ||
-                !(process.env.NODE_ENV === 'production')) && (
+              {!isOtakiaged && (
                 <>
-                  <Flex
-                    justifyContent="center"
-                    alignItems="center"
-                    direction="column"
-                    mt={10}
-                    pb={100}
-                    maxWidth="240px"
-                    margin="0 auto"
-                    gap={10}
-                  >
-                    {userMintedOmamories && userMintedOmamories.length > 0 && (
-                      <>
-                        {!isApproved && !isSuccessApprove ? (
+                  <Heading className="text_serif" size="xl" mt={10} pb={10}>
+                    {ot('USER_OMAMORI_LIST')}
+                  </Heading>
+                  <Box mt={0} pb={20}>
+                    {<OmamoriesList items={userMintedOmamories} />}
+                  </Box>
+                  {(IS_RELEASED ||
+                    isAdmin ||
+                    !(process.env.NODE_ENV === 'production')) && (
+                    <>
+                      <Flex
+                        justifyContent="center"
+                        alignItems="center"
+                        direction="column"
+                        mt={10}
+                        pb={100}
+                        maxWidth="240px"
+                        margin="0 auto"
+                        gap={10}
+                      >
+                        {userMintedOmamories &&
+                          userMintedOmamories.length > 0 && (
+                            <>
+                              {!isApproved && !isSuccessApprove ? (
+                                <Button
+                                  w="100%"
+                                  loadingText="approving..."
+                                  isLoading={isApproving}
+                                  onClick={approve}
+                                >
+                                  {ot('JOIN')}
+                                </Button>
+                              ) : (
+                                <>
+                                  {userHoldingOmamories.length > 0 &&
+                                  !isSuccessSendAllOmamori ? (
+                                    <Button
+                                      w="100%"
+                                      loadingText="sending..."
+                                      isLoading={isSending}
+                                      onClick={sendAllOmamori}
+                                    >
+                                      {ot('SEND_OMAMORI')}
+                                    </Button>
+                                  ) : (
+                                    <Box w="100%">
+                                      <Text>「御守り」を送りました！</Text>
+                                      <Text>
+                                        お焚き上げイベントまで、お待ちください！
+                                      </Text>
+                                    </Box>
+                                  )}
+                                </>
+                              )}
+                            </>
+                          )}
+                        {IS_EVENT_DAY && isAdmin && (
                           <Button
                             w="100%"
-                            loadingText="approving..."
-                            isLoading={isApproving}
-                            onClick={approve}
+                            loadingText="otakiage..."
+                            isLoading={isLoadingOtakiage}
+                            onClick={otakiage}
                           >
-                            {ot('JOIN')}
+                            {ot('OTAKIAGE')}
                           </Button>
-                        ) : (
-                          <>
-                            {userHoldingOmamories.length > 0 &&
-                            !isSuccessSendAllOmamori ? (
-                              <Button
-                                w="100%"
-                                loadingText="sending..."
-                                isLoading={isSending}
-                                onClick={sendAllOmamori}
-                              >
-                                {ot('SEND_OMAMORI')}
-                              </Button>
-                            ) : (
-                              <Box w="100%">
-                                <Text>「御守り」を送りました！</Text>
-                                <Text>
-                                  お焚き上げイベントまで、お待ちください！
-                                </Text>
-                              </Box>
-                            )}
-                          </>
                         )}
-                      </>
-                    )}
-                    {IS_EVENT_DAY && isAdmin && (
-                      <Button
-                        w="100%"
-                        loadingText="otakiage..."
-                        isLoading={isLoadingOtakiage}
-                        onClick={otakiage}
-                      >
-                        {ot('OTAKIAGE')}
-                      </Button>
-                    )}
-                  </Flex>
-                  {isOtakiaged && (
-                    <Box pb={100}>
-                      {IS_EVENT_DAY && (
-                        <Text textAlign="center">お焚き上げ！！！！</Text>
-                      )}
-                      {!IS_EVENT_DAY && address && (
-                        <Text textAlign="center">{ot('END_OTAKIAGE')}</Text>
-                      )}
-                    </Box>
+                      </Flex>
+                    </>
                   )}
                 </>
               )}
+              {(isOtakiaged || isSuccessOtakiage) &&
+                (IS_RELEASED ||
+                  isAdmin ||
+                  !(process.env.NODE_ENV === 'production')) && (
+                  <Box pb={100}>
+                    {IS_EVENT_DAY && (
+                      <Text textAlign="center">お焚き上げ！！！！</Text>
+                    )}
+                    {!IS_EVENT_DAY && address && (
+                      <Text textAlign="center">{ot('END_OTAKIAGE')}</Text>
+                    )}
+                  </Box>
+                )}
             </>
           )}
         </Box>
