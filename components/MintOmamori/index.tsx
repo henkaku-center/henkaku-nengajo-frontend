@@ -89,7 +89,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   }, [minted])
 
   useEffect(() => {
-    if (process.env.production || isMinted) {
+    if (process.env.NODE_ENV === 'production' || isMinted) {
       setShowDetail(true)
     }
   }, [isMinted])

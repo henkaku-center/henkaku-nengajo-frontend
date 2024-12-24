@@ -173,7 +173,9 @@ const OtakiagePage: NextPage = () => {
               <Box mt={0} pb={20}>
                 {<OmamoriesList items={userMintedOmamories} />}
               </Box>
-              {(IS_RELEASED || isAdmin || !process.env.production) && (
+              {(IS_RELEASED ||
+                isAdmin ||
+                !(process.env.NODE_ENV === 'production')) && (
                 <>
                   <Flex
                     justifyContent="center"
