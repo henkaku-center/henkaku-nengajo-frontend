@@ -28,6 +28,8 @@ import NewlineToBr from '@/utils/NewlineToBr'
 import { getContractAddress } from '@/utils/contractAddresses'
 import { useChainId } from '@/hooks'
 import { useIsMintedByTokenId } from '@/hooks/useOmamoriContract'
+import { useIsAdmin } from '@/hooks/useOtakiageContract'
+import { IS_RELEASED } from '@/constants/Otakiage'
 interface Props {
   id: number
   item: OmamoriInfoProps
@@ -52,6 +54,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply(id)
   const { chainId } = useChainId()
+  const { isAdmin } = useIsAdmin()
 
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable'
@@ -89,10 +92,14 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   }, [minted])
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production' || isMinted) {
-      setShowDetail(true)
+    if (
+      !(process.env.NODE_ENV === 'production') ||
+      !IS_RELEASED ||
+      (isAdmin && !isMinted)
+    ) {
+      setShowDetail(false)
     }
-  }, [isMinted])
+  }, [isAdmin, isMinted])
 
   const creatorName =
     item?.tokenURIJSON?.attributes?.length > 0
