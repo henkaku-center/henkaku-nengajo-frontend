@@ -1,4 +1,6 @@
 {
+  "OTAKIAGE": "Otakiage",
+
   "CONNECT_WALLET_BUTTON": "Connect wallet",
   "DISCONNECT_WALLET_BUTTON": "Disconnect wallet",
   "BUTTON_SUBMITTING": "Submitting...",
@@ -41,7 +43,7 @@
   "STATUS_TITLE": "Status",
 
   "REGISTERD_NENGAJO_LIST": "Registered nengajo list",
-  "EMPTY_NENGAJO_LIST": "No relevant nengajo found",
+  "EMPTY_NENGAJO_LIST": "No relevant NFT found",
 
   "CLAIM": {
     "TOAST": {

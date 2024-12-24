@@ -56,7 +56,7 @@ const Header: FC<Props> = ({ isExternal = false }) => {
               <Link href="/">
                 <Heading size={{ base: 'xs', sm: 'md' }}>
                   {t('HENKAKU')}{' '}
-                  <span className="text_nengajo">{t('NENGAJO')}</span>
+                  <span className="text_nengajo">{t('OTAKIAGE')}</span>
                 </Heading>
               </Link>
             </NextLink>
@@ -78,22 +78,22 @@ const Header: FC<Props> = ({ isExternal = false }) => {
                 </Box>
               </Link>
             </NextLink>
-            <NextLink passHref href="/create" locale={router.locale}>
+            {/* <NextLink passHref href="/create" locale={router.locale}>
               <Link _focus={{ boxShadow: 'none' }} p={4}>
                 <CreateIcon fontSize={20} display={{ md: 'none' }} />
                 <Box as="span" display={{ base: 'none', md: 'block' }}>
                   {t('CREATE_LINK')}
                 </Box>
               </Link>
-            </NextLink>
-            <NextLink passHref href="/collection" locale={router.locale}>
+            </NextLink> */}
+            {/* <NextLink passHref href="/collection" locale={router.locale}>
               <Link _focus={{ boxShadow: 'none' }} p={4}>
                 <CollectionIcon fontSize={20} display={{ md: 'none' }} />
                 <Box as="span" display={{ base: 'none', md: 'block' }}>
                   {t('COLLECTION_LINK')}
                 </Box>
               </Link>
-            </NextLink>
+            </NextLink> */}
             <NextLink passHref href="/omamori" locale={router.locale}>
               <Link _focus={{ boxShadow: 'none' }} p={4}>
                 <ToriiIcon fontSize={20} display={{ md: 'none' }} />

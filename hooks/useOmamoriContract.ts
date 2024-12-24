@@ -116,6 +116,12 @@ export const useRetrieveHoldingOmamorisByAddress = (address: string) => {
   return { data, isLoading, isError }
 }
 
+export const useFetchUserMintedOmamories = () => {
+  const { address } = useAccount()
+  const { data } = useRetrieveHoldingOmamorisByAddress(address ?? '')
+  return { data }
+}
+
 export const useRetrieveAllOmamori = () => {
   const { data, isError, isLoading } = useOmamoriContractRead(
     'retrieveAllNengajoes'
@@ -124,6 +130,78 @@ export const useRetrieveAllOmamori = () => {
     isLoading: boolean
     isError: boolean
   }
+
+  return { data, isLoading, isError }
+}
+
+export const useBalanceOfBatch = (accounts: string[], tokenIds: number[]) => {
+  const { data, isError, isLoading } = useOmamoriContractRead(
+    'balanceOfBatch',
+    [accounts, tokenIds]
+  ) as {
+    data: BigNumber[]
+    isLoading: boolean
+    isError: boolean
+  }
+  return { data, isLoading, isError }
+}
+
+export const useFetchUserOmamori = () => {
+  const { address } = useAccount()
+  const [isError, setIsError] = useState(false)
+
+  const { data: userMintedOmamories, isError: isErrorUserMintedOmamories } =
+    useRetrieveHoldingOmamorisByAddress(address ?? '')
+
+  const { data: balanceOfBatchData, isError: isErrorBalanceOfBatch } =
+    useBalanceOfBatch(Array(6).fill(address), [1, 2, 3, 4, 5, 6])
+
+  const userHoldingOmamories = useMemo(() => {
+    const holdings: Omamori.NengajoInfoStructOutput[] = []
+    if (userMintedOmamories && balanceOfBatchData) {
+      balanceOfBatchData.forEach((balance, index) => {
+        if (balance.toNumber() > 0) {
+          holdings.push(userMintedOmamories[index])
+        }
+      })
+    }
+    return holdings
+  }, [userMintedOmamories, balanceOfBatchData])
+
+  useEffect(() => {
+    if (isErrorUserMintedOmamories || isErrorBalanceOfBatch) {
+      setIsError(true)
+    } else {
+      setIsError(false)
+    }
+  }, [isErrorUserMintedOmamories, isErrorBalanceOfBatch])
+
+  return { userMintedOmamories, userHoldingOmamories, isError }
+}
+
+export const useIsApprovedForAll = (address: string, operator: string) => {
+  const { data, isLoading, isError } = useOmamoriContractRead(
+    'isApprovedForAll',
+    [address, operator]
+  ) as {
+    data: boolean
+    isLoading: boolean
+    isError: boolean
+  }
+
+  return { data, isLoading, isError }
+}
+
+export const useIsApprovedForAllToOtakiage = () => {
+  const { address } = useAccount()
+  const otakiageContractAddress = getContractAddress({
+    name: 'otakiage',
+    chainId
+  })
+  const { data, isLoading, isError } = useIsApprovedForAll(
+    address ?? '',
+    otakiageContractAddress
+  )
 
   return { data, isLoading, isError }
 }
@@ -149,6 +227,23 @@ export const useIsHoldingByTokenId = (tokenId: number) => {
   }, [data, address])
 
   return { isHolding, isLoading, isError }
+}
+
+export const useIsMintedByTokenId = (tokenId: number) => {
+  const [isMinted, setIsMinted] = useState(false)
+  const { data: userMintedOmamories } = useFetchUserMintedOmamories()
+
+  useEffect(() => {
+    if (
+      userMintedOmamories?.find((omamori) => omamori.id.toNumber() === tokenId)
+    ) {
+      setIsMinted(true)
+    } else {
+      setIsMinted(false)
+    }
+  }, [userMintedOmamories, tokenId])
+
+  return { isMinted }
 }
 
 export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {
@@ -259,7 +354,7 @@ export const useSetApprovalForAllOmamoriWithMx = () => {
   })
   const { address } = useAccount()
   const [isLoading, setIsLoading] = useState(false)
-  const [approved, setApproved] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   useOmamoriContractEvent(
     'ApprovalForAll',
@@ -269,7 +364,7 @@ export const useSetApprovalForAllOmamoriWithMx = () => {
         operator === getContractAddress({ name: 'otakiage', chainId })
       ) {
         setIsLoading(false)
-        setApproved(true)
+        setIsSuccess(true)
       }
     }
   )
@@ -335,5 +430,5 @@ export const useSetApprovalForAllOmamoriWithMx = () => {
     }
   }, [signer, chainId])
 
-  return { sendMetaTx, isLoading, approved }
+  return { sendMetaTx, isLoading, isSuccess }
 }

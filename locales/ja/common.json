@@ -1,4 +1,6 @@
 {
+  "OTAKIAGE": "お焚き上げ",
+
   "CONNECT_WALLET_BUTTON": "ウォレットを接続",
   "DISCONNECT_WALLET_BUTTON": "ウォレットの接続解除",
   "BUTTON_SUBMITTING": "送信中...",
@@ -41,7 +43,7 @@
   "STATUS_TITLE": "ステータス",
 
   "REGISTERD_NENGAJO_LIST": "投稿された年賀状一覧",
-  "EMPTY_NENGAJO_LIST": "該当する年賀状が見つかりませんでした",
+  "EMPTY_NENGAJO_LIST": "該当するNFTが見つかりませんでした",
 
   "CLAIM": {
     "TOAST": {
