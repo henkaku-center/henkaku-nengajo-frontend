@@ -2,6 +2,8 @@
   "OTAKIAGE": "Otakiage",
   "JOIN": "Join the Otakiage",
   "SEND_OMAMORI": "Send Omamori",
+  "EMPTY_USER_OMAMORI_LIST": "You have not received any Omamori / Ofuda.",
+  "END_OTAKIAGE": "The Otakiage has ended!",
 
   "TITLE": {
     "CONNECT_WALLET": "You must connect a wallet first!",
@@ -13,7 +15,7 @@
   },
   "OMAMORI": "Omamori",
   "NAIFU": "Ofuda",
-  "OMAMORI_LIST": "HENKAKU Omamori / Ofuda list",
+  "USER_OMAMORI_LIST": "Received Omamori / Ofuda list",
   "OMAMORI_EXPLANATION": "A \"Omamori\" is a symbolic object that represents a wish for protection from bad luck, good fortune, or blessings. They are also called \"Gofu\"(護符、御符) . \n  The contents of the amulet are called \"Ofuda\"(内符), which originally contain small paper or wooden bills, or metal daikokuji or koban. \nIn the HENKAKU \"Omamori\", the transaction inscribed on the blockchain is the material for the \"Ofuda\" (内符). You can get the HENKAKU \"Omamori\" by selecting the \"Ofuda\" of your wish. Please make a wish and receive it.",
   "APPROVE": "Enable to mint",
   "MINT": "Mint",

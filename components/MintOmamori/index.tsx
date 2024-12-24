@@ -27,7 +27,7 @@ import Naifu from '../Naifu'
 import NewlineToBr from '@/utils/NewlineToBr'
 import { getContractAddress } from '@/utils/contractAddresses'
 import { useChainId } from '@/hooks'
-
+import { useIsMintedByTokenId } from '@/hooks/useOmamoriContract'
 interface Props {
   id: number
   item: OmamoriInfoProps
@@ -48,6 +48,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     minted
   } = useMintOmamoriWithMx(Number(id))
   const { isHolding } = useIsHoldingByTokenId(id)
+  const { isMinted } = useIsMintedByTokenId(id)
   const { data: currentSupply, isLoading: isLoadingCurrentSupply } =
     useCurrentSupply(id)
   const { chainId } = useChainId()
@@ -55,6 +56,8 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
   const [mintState, setMintState] = useState<mintStateProps>({
     status: 'mintable'
   })
+
+  const [showDetail, setShowDetail] = useState(true)
 
   // TODO: useApproval から取得
   const approved = true
@@ -85,6 +88,12 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     }
   }, [minted])
 
+  useEffect(() => {
+    if (process.env.production || isMinted) {
+      setShowDetail(true)
+    }
+  }, [isMinted])
+
   const creatorName =
     item?.tokenURIJSON?.attributes?.length > 0
       ? item?.tokenURIJSON?.attributes.reduce((text, attribute) => {
@@ -98,8 +107,10 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
     <>
       <Box mb={5}>
         <Heading mt={imageOnly ? 5 : 50} size="lg">
-          {mintState.status === 'minted' || isHolding ? t('OMAMORI') : t('NAIFU')}「
-          {item?.tokenURIJSON?.name}」
+          {mintState.status === 'minted' || showDetail
+            ? t('OMAMORI')
+            : t('NAIFU')}
+          「{item?.tokenURIJSON?.name}」
         </Heading>
       </Box>
       <Grid
@@ -111,7 +122,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
       >
         <GridItem>
           {item &&
-            (mintState.status === 'minted' || isHolding ? (
+            (mintState.status === 'minted' || showDetail ? (
               <NFTImage
                 imageUrl={parseIpfs2Pinata(item?.tokenURIJSON?.image)}
               />
@@ -131,7 +142,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
           <GridItem>
             <Box mb={{ lg: 10 }}>
               <>
-                {(mintState.status === 'minted' || isHolding) && (
+                {(mintState.status === 'minted' || showDetail) && (
                   <Box>
                     <Box>
                       <Text size="sm">
@@ -164,7 +175,7 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
                 )}
                 {mintState.status === 'noMintable' && t('TITLE.NOT_MINTABLE')}
                 {mintState.status === 'soldout' && 'SOLD OUT'}
-                {mintState.status === 'mintable' && !isHolding && (
+                {mintState.status === 'mintable' && !showDetail && (
                   <>
                     {approved ? (
                       <Box>

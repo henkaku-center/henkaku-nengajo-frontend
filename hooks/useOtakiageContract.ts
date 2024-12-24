@@ -211,6 +211,42 @@ export const useMintOtakiageWithMx = (id: number) => {
   return { sendMetaTx, isLoading, minted }
 }
 
+export const useIsAdmin = () => {
+  const { address } = useAccount()
+  const { data, isLoading, isError } = useOtakiageContractRead('isAdmin', [
+    address
+  ]) as {
+    data: boolean
+    isLoading: boolean
+    isError: boolean
+  }
+  return { isAdmin: data, isLoading, isError }
+}
+
+export const useTokenIds = () => {
+  const { data: tokenIds } = useOtakiageContractRead('tokenIds', []) as {
+    data: BigNumber
+  }
+  return { tokenIds }
+}
+
+export const useIsOtakiaged = () => {
+  const [isOtakiaged, setIsOtakiaged] = useState(false)
+  const { tokenIds } = useTokenIds()
+
+  useEffect(() => {
+    if (Number(tokenIds) > 0) {
+      setIsOtakiaged(true)
+    } else {
+      setIsOtakiaged(false)
+    }
+  }, [tokenIds])
+
+  console.log('useIsOtakiaged isOtakiaged', isOtakiaged)
+
+  return { isOtakiaged }
+}
+
 export const useOtakiage = () => {
   const [otakiaged, setOtakiaged] = useState(false)
   const { address } = useAccount()
@@ -222,6 +258,7 @@ export const useOtakiage = () => {
       setOtakiaged(true)
     }
   })
+
   return { data, isLoading, isSuccess, writeAsync, otakiaged }
 }
 
@@ -233,14 +270,14 @@ export const useSendAllOmamoriWithMx = () => {
   })
   const { address } = useAccount()
   const [isLoading, setIsLoading] = useState(false)
-  const [sent, setSent] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   useOtakiageContractEvent(
     'SendAllOmamori',
     (from: string, ids: BigNumber[], values: BigNumber[]) => {
       if (from === address) {
         setIsLoading(false)
-        setSent(true)
+        setIsSuccess(true)
       }
     }
   )
@@ -306,5 +343,5 @@ export const useSendAllOmamoriWithMx = () => {
     }
   }, [signer, chainId])
 
-  return { sendMetaTx, isLoading, sent }
+  return { sendMetaTx, isLoading, isSuccess }
 }

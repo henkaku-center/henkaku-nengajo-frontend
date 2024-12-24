@@ -8,6 +8,6 @@
     "/omamori": ["omamori"],
     "/omamori/create": ["omamori"],
     "/omamori/[id]": ["omamori"],
-    "/otakiage": ["otakiage"]
+    "/otakiage": ["otakiage", "omamori"]
   }
 }

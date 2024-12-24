@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { useAccount } from 'wagmi'
 import { useMounted } from '@/hooks'
-import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
+// import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
 import Layout from '@/components/Layout'
 import { Connect } from '@/components/Connect'
 import NengajoesList from '@/components/NengajoesList'
@@ -26,21 +26,21 @@ const Home: NextPage = () => {
   const isMounted = useMounted()
   const { t } = useTranslation('common')
   const { isConnected } = useAccount()
-  const { data, isError } = useRetrieveAllNengajo()
+  // const { data, isError } = useRetrieveAllNengajo()
 
-  const filteredNengajo = useMemo(() => {
-    return data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber()))
-  }, [data])
+  // const filteredNengajo = useMemo(() => {
+  //   return data?.filter((n) => !HIDE_NENGAJO_LIST.includes(n.id.toNumber()))
+  // }, [data])
 
-  const toast = useToast()
-  if (isError && isConnected && !toast.isActive('RETRIEVE_NENGAJOES_FAILED'))
-    toast({
-      id: 'RETRIEVE_NENGAJOES_FAILED',
-      title: t('CLAIM.TOAST.RETRIEVE_NENGAJOES_FAILED'),
-      status: 'error',
-      duration: 5000,
-      position: 'top'
-    })
+  // const toast = useToast()
+  // if (isError && isConnected && !toast.isActive('RETRIEVE_NENGAJOES_FAILED'))
+  //   toast({
+  //     id: 'RETRIEVE_NENGAJOES_FAILED',
+  //     title: t('CLAIM.TOAST.RETRIEVE_NENGAJOES_FAILED'),
+  //     status: 'error',
+  //     duration: 5000,
+  //     position: 'top'
+  //   })
 
   const { isStart, ...countDown } = useCountdown()
 
@@ -51,8 +51,8 @@ const Home: NextPage = () => {
           {isStart ? (
             <>
               {t('TOP_MINT_START_AKEOME')}
-              <br />
-              {t('TOP_MINT_START_READY')}
+              {/* <br />
+              {t('TOP_MINT_START_READY')} */}
             </>
           ) : (
             <>{t('TOP_UNTIL_START')}</>
@@ -84,14 +84,14 @@ const Home: NextPage = () => {
         </Box>
       )}
       <Divider my={10} borderWidth="2px" />
-      {isMounted && filteredNengajo && (
+      {/* {isMounted && filteredNengajo && (
         <Box>
           <Heading size="lg" mb={5}>
             {t('REGISTERD_NENGAJO_LIST')}
           </Heading>
           {<NengajoesList items={filteredNengajo} />}
         </Box>
-      )}
+      )} */}
     </Layout>
   )
 }
