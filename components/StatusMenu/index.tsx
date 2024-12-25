@@ -35,7 +35,7 @@ const StatusMenu: React.FC<Props> = ({ children }) => {
     chainId: chainId
   }) as `0x${string}`
   const { address } = useAccount()
-  const { approved } = useApproval(henkakuV2, nengajo, address)
+  // const { approved } = useApproval(henkakuV2, nengajo, address)
 
   return (
     <Popover>
