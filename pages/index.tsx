@@ -36,6 +36,9 @@ import {
 import Orb from '@/components/Naifu/Orb'
 import { IS_EVENT_DAY, IS_RELEASED } from '@/constants/Otakiage'
 import OmamoriesList from '@/components/OmamoriesList'
+import Link from 'next/link'
+import { Connect } from '@/components'
+import StatusMenu from '@/components/StatusMenu'
 
 const Home: NextPage = () => {
   const isMounted = useMounted()
@@ -137,6 +140,14 @@ const Home: NextPage = () => {
     <Layout>
       {isMounted && (
         <Box>
+          <Box textAlign="center">
+            <Box mt="2em" display="inline-block">
+              <Flex gap={6} justifyContent="center" textAlign="left">
+                <Connect />
+                <StatusMenu />
+              </Flex>
+            </Box>
+          </Box>
           <Flex direction="column" alignItems="center" mt={10}>
             <Heading
               className="text_serif"
