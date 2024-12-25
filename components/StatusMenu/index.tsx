@@ -52,7 +52,7 @@ const StatusMenu: React.FC<Props> = ({ children }) => {
         </PopoverHeader>
         <PopoverBody>
           <Profile />
-          <Balance />
+          {/* <Balance />
           {approved && (
             <Box mt={3} mb={3}>
               <Text>{t('ERC20APPROVED.APPROVED')}</Text>
@@ -62,7 +62,7 @@ const StatusMenu: React.FC<Props> = ({ children }) => {
             <Box mt={3} mb={3}>
               <Text>{t('ERC20APPROVED.UNAPPROVED')}</Text>
             </Box>
-          )}
+          )} */}
         </PopoverBody>
       </PopoverContent>
     </Popover>
