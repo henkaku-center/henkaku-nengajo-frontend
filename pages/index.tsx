@@ -10,15 +10,15 @@ import {
   Image
 } from '@chakra-ui/react'
 import { useAccount } from 'wagmi'
-import { useMounted } from '@/hooks'
+import { useChainId, useMounted } from '@/hooks'
 // import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
 import Layout from '@/components/Layout'
 // import { Connect } from '@/components/Connect'
 // import NengajoesList from '@/components/NengajoesList'
 // import StatusMenu from '@/components/StatusMenu'
 import useTranslation from 'next-translate/useTranslation'
-import CountDown from '@/components/CountDown'
-import { useCountdown } from '@/hooks/useCountdown'
+// import CountDown from '@/components/CountDown'
+// import { useCountdown } from '@/hooks/useCountdown'
 import {
   useFetchUserOmamori,
   useIsApprovedForAllToOtakiage,
@@ -39,9 +39,11 @@ import OmamoriesList from '@/components/OmamoriesList'
 import Link from 'next/link'
 import { Connect } from '@/components'
 import StatusMenu from '@/components/StatusMenu'
+import { contractAddresses, holeskyChainId } from '@/utils/contractAddresses'
 
 const Home: NextPage = () => {
   const isMounted = useMounted()
+  const { chainId } = useChainId()
   const { t } = useTranslation('common')
   const { isConnected, address } = useAccount()
   // const { data, isError } = useRetrieveAllNengajo()
@@ -83,7 +85,6 @@ const Home: NextPage = () => {
   const { t: ot } = useTranslation('otakiage')
   const { isOtakiaged } = useIsOtakiaged()
 
-  const { isStart, ...countDown } = useCountdown()
   if (isError && isConnected && !toast.isActive('RETRIEVE_NENGAJOES_FAILED'))
     toast({
       id: 'RETRIEVE_NENGAJOES_FAILED',
@@ -135,6 +136,21 @@ const Home: NextPage = () => {
       })
     }
   }
+
+  const scanDomain = () => {
+    switch (chainId) {
+      case 137: // polygon
+        return 'https://polygonscan.com'
+      case holeskyChainId: // holesky
+        return 'https://holesky.etherscan.io'
+      default:
+        return 'https://holesky.etherscan.io'
+    }
+  }
+
+  const otakiageOmamoriScanUrl = `${scanDomain()}/address/${
+    contractAddresses.otakiage[chainId]
+  }#readContract#F7`
 
   return (
     <Layout>
@@ -282,7 +298,22 @@ const Home: NextPage = () => {
                       <Text textAlign="center">お焚き上げ！！！！</Text>
                     )}
                     {!IS_EVENT_DAY && address && (
-                      <Text textAlign="center">{ot('END_OTAKIAGE')}</Text>
+                      <>
+                        <Text textAlign="center">{ot('END_OTAKIAGE')}</Text>
+                        <Link href={otakiageOmamoriScanUrl} passHref>
+                          <a target="_blank" rel="noopener noreferrer">
+                            <Text
+                              mt={5}
+                              textAlign="center"
+                              color="teal.500"
+                              textDecoration="underline"
+                              cursor="pointer"
+                            >
+                              {otakiageOmamoriScanUrl}
+                            </Text>
+                          </a>
+                        </Link>
+                      </>
                     )}
                   </Box>
                 )}
