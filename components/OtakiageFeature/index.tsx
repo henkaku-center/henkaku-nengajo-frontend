@@ -25,6 +25,8 @@ import {
   useSetApprovalForAllOmamoriWithMx
 } from '@/hooks/useOmamoriContract'
 import {
+  useFetchOtakiageOmamories,
+  useGetOtakiageOmamoriBalances,
   useIsAdmin,
   useIsOtakiaged,
   useOtakiage,
@@ -40,6 +42,7 @@ import Link from 'next/link'
 import { Connect } from '@/components'
 import StatusMenu from '@/components/StatusMenu'
 import { contractAddresses, holeskyChainId } from '@/utils/contractAddresses'
+import OtakiageOmamoriesList from '../OtakiageOmamoriesList'
 
 const OtakiageFeature: NextPage = () => {
   const isMounted = useMounted()
@@ -69,6 +72,7 @@ const OtakiageFeature: NextPage = () => {
   const { data: isApproved } = useIsApprovedForAllToOtakiage()
   const { t: ot } = useTranslation('otakiage')
   const { isOtakiaged } = useIsOtakiaged()
+  const { data: otakiageOmamoriInfo = [] } = useFetchOtakiageOmamories()
 
   const approve = async () => {
     try {
@@ -126,7 +130,7 @@ const OtakiageFeature: NextPage = () => {
 
   const otakiageOmamoriScanUrl = `${scanDomain()}/address/${
     contractAddresses.otakiage[chainId]
-  }#readContract#F7`
+  }#readContract#F8`
 
   return (
     <>
@@ -265,7 +269,7 @@ const OtakiageFeature: NextPage = () => {
                     {IS_EVENT_DAY && (
                       <Text textAlign="center">お焚き上げ！！！！</Text>
                     )}
-                    {!IS_EVENT_DAY && address && (
+                    {address && (
                       <>
                         <Text textAlign="center">{ot('END_OTAKIAGE')}</Text>
                         <Link href={otakiageOmamoriScanUrl} passHref>
@@ -281,6 +285,25 @@ const OtakiageFeature: NextPage = () => {
                             </Text>
                           </a>
                         </Link>
+                        <Heading
+                          className="text_serif"
+                          size="xl"
+                          mt={10}
+                          pb={10}
+                        >
+                          {ot('OTAKIAGE_OMAMORI_LIST')}
+                        </Heading>
+                        <Box mt={0} pb={20}>
+                          {
+                            <OtakiageOmamoriesList
+                              items={
+                                Array.isArray(otakiageOmamoriInfo)
+                                  ? otakiageOmamoriInfo
+                                  : []
+                              }
+                            />
+                          }
+                        </Box>
                       </>
                     )}
                   </Box>

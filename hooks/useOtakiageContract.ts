@@ -58,6 +58,50 @@ const useOtakiageContractEvent = (
   })
 }
 
+export const useGetOtakiageOmamoriBalances = () => {
+  const { data, isLoading, isError } = useOtakiageContractRead(
+    'getOmamoriBalances',
+    []
+  ) as {
+    data: BigNumber
+    isLoading: boolean
+    isError: boolean
+  }
+  return { data, isLoading, isError }
+}
+
+export const useFetchOtakiageOmamoriIds = () => {
+  const { data: otakiageOmamoriBalances } = useGetOtakiageOmamoriBalances()
+  const [otakiageOmamoriIds, setOtakiageOmamoriIds] = useState<BigNumber[]>([])
+
+  useEffect(() => {
+    if (otakiageOmamoriBalances) {
+      const balances = otakiageOmamoriBalances as unknown as BigNumber[]
+      const ids: BigNumber[] = []
+      balances.forEach((balance, i) => {
+        if (balance.toNumber() > 0) {
+          ids.push(BigNumber.from(i + 1))
+        }
+      })
+      setOtakiageOmamoriIds(ids)
+    }
+  }, [otakiageOmamoriBalances])
+
+  return { otakiageOmamoriIds }
+}
+
+export const useFetchOtakiageOmamories = () => {
+  const { data, isLoading, isError } = useOtakiageContractRead(
+    'getOtakiageOmamoriInfo',
+    []
+  ) as {
+    data: BigNumber
+    isLoading: boolean
+    isError: boolean
+  }
+  return { data, isLoading, isError }
+}
+
 export const useRegisterOtakiage = (maxSupply: number, metadataURI: string) => {
   const [registeredTokenId, setRegisteredTokenId] = useState<number>()
   const config = usePrepareOtakiageContractWrite('registerNengajo', [

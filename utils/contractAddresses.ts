@@ -37,14 +37,14 @@ const contractAddresses: ContractAddresses = {
       '',
     [chainId.polygonMumbai]: '0xe64B04dBd4933b5F5bfF80d1d7616A908F6DCF08',
     [chainId.polygon]: '0x802422C3cc18ED1f765bb6932Ec9A45cc6A1Fa6E',
-    [holeskyChainId]: '0xbF8C47f13AdB7a8f9c24EF1AE70FdA07b252B844'
+    [holeskyChainId]: '0x74a9c3C332908FA92A7e6C99eff08fBf5B810105'
   },
   omamori: {
     [chainId.hardhat]:
       (process.env.NEXT_PUBLIC_CONTRACT_OMAMORI_ADDRESS as `0x${string}`) ?? '',
     [chainId.polygonMumbai]: '0xc5d4f8918491b114bEd4525E6c3D59AcABf7e183',
     [chainId.polygon]: '0xAC42aA54DfF142b5cEB4196B94cc013bbCf074C5',
-    [holeskyChainId]: '0xEA256653744BE7d41699Be6d3aEF7E8AA845ff50'
+    [holeskyChainId]: '0x000df519f1bf6E0B8862a6c772e33326a472c5f0'
   },
   omamoriForwarder: {
     [chainId.hardhat]:
@@ -52,10 +52,10 @@ const contractAddresses: ContractAddresses = {
       '',
     [chainId.polygonMumbai]: '0xe64B04dBd4933b5F5bfF80d1d7616A908F6DCF08',
     [chainId.polygon]: '0x802422C3cc18ED1f765bb6932Ec9A45cc6A1Fa6E',
-    [holeskyChainId]: '0xbF8C47f13AdB7a8f9c24EF1AE70FdA07b252B844'
+    [holeskyChainId]: '0x74a9c3C332908FA92A7e6C99eff08fBf5B810105'
   },
   otakiage: {
-    [holeskyChainId]: '0xfB1EF7B36CA2e8Ab6185C556dbF72eC2FEBC069f'
+    [holeskyChainId]: '0x55F8949F1fbd8a9A2F9cB972F5775eaef4283e1E'
   }
 }
 
