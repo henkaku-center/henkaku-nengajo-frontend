@@ -266,25 +266,13 @@ const OtakiageFeature: NextPage = () => {
                   isAdmin ||
                   !(process.env.NODE_ENV === 'production')) && (
                   <Box pb={100}>
-                    {IS_EVENT_DAY && (
+                    {IS_EVENT_DAY ? (
                       <Text textAlign="center">お焚き上げ！！！！</Text>
+                    ) : (
+                      <Text textAlign="center">{ot('END_OTAKIAGE')}</Text>
                     )}
                     {address && (
                       <>
-                        <Text textAlign="center">{ot('END_OTAKIAGE')}</Text>
-                        <Link href={otakiageOmamoriScanUrl} passHref>
-                          <a target="_blank" rel="noopener noreferrer">
-                            <Text
-                              mt={5}
-                              textAlign="center"
-                              color="teal.500"
-                              textDecoration="underline"
-                              cursor="pointer"
-                            >
-                              {otakiageOmamoriScanUrl}
-                            </Text>
-                          </a>
-                        </Link>
                         <Heading
                           className="text_serif"
                           size="xl"
@@ -304,6 +292,18 @@ const OtakiageFeature: NextPage = () => {
                             />
                           }
                         </Box>
+                        <Text mt={5}>{ot('OTAKIAGE_RESULT_CHECK')}</Text>
+                        <Link href={otakiageOmamoriScanUrl} passHref>
+                          <a target="_blank" rel="noopener noreferrer">
+                            <Text
+                              color="teal.500"
+                              textDecoration="underline"
+                              cursor="pointer"
+                            >
+                              {otakiageOmamoriScanUrl}
+                            </Text>
+                          </a>
+                        </Link>
                       </>
                     )}
                   </Box>

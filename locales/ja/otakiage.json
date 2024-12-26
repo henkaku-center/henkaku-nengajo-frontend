@@ -5,6 +5,7 @@
   "EMPTY_USER_OMAMORI_LIST": "「御守り」を受け取っていません。",
   "END_OTAKIAGE": "「お焚き上げ」は終了しました！",
   "OTAKIAGE_OMAMORI_LIST": "お焚き上げされた「御守り」一覧",
+  "OTAKIAGE_RESULT_CHECK": "お焚き上げの結果は、こちらの Polygonscanからもご確認いただけます。",
 
   "TITLE": {
     "CONNECT_WALLET": "まずメタマスクのウォレットを接続してください",
