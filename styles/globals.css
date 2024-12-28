@@ -18,6 +18,7 @@ a {
 .text_nengajo,
 .text_serif {
   display: inline-block;
+  vertical-align: top;
   font-family: 'Zen Old Mincho', serif !important;
 }
 
