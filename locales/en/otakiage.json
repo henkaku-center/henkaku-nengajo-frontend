@@ -4,8 +4,8 @@
   "SEND_OMAMORI": "Send Omamori",
   "EMPTY_USER_OMAMORI_LIST": "You have not received any Omamori / Ofuda.",
   "END_OTAKIAGE": "The Otakiage has ended!",
-  "OTAKIAGE_OMAMORI_LIST": "Otakiage Omamori List",
   "OTAKIAGE_RESULT_CHECK": "The result of the Otakiage can also be checked on Polygonscan.",
+  "OTAKIAGE_OMAMORI_LIST": "Otakiage Omamori List",
 
   "PREPARE_FOR_OTAKIAGE": "Preparation for the \"Otakiage\".",
   "PREPARE_FOR_OTAKIAGE_EXPLANATION": "In order to burn the Omamori, you must first send the Omamori. \nPlease operate in the following order.",

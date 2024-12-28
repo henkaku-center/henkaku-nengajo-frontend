@@ -17,6 +17,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { BigNumber, ethers, providers } from 'ethers'
 import { signMetaTxRequest } from '@/utils/signer'
 import axios from 'axios'
+import { IOmamori, Nengajo } from '@/types'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
@@ -95,7 +96,7 @@ export const useFetchOtakiageOmamories = () => {
     'getOtakiageOmamoriInfo',
     []
   ) as {
-    data: BigNumber
+    data: Nengajo.NengajoInfoStructOutput[]
     isLoading: boolean
     isError: boolean
   }

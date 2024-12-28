@@ -4,6 +4,7 @@
   "SEND_OMAMORI": "「御守り」を送る",
   "EMPTY_USER_OMAMORI_LIST": "「御守り」を受け取っていません。",
   "END_OTAKIAGE": "\"お焚上\"イベントは終了しました！",
+  "OTAKIAGE_OMAMORI_LIST": "お焚上げされた御守り一覧",
 
   "PREPARE_FOR_OTAKIAGE": "\"お焚上\"の事前準備",
   "PREPARE_FOR_OTAKIAGE_EXPLANATION": "「御守り」をお焚上するために、まず「御守り」を送信する必要があります。\n以下の順番で操作を行ってください。",

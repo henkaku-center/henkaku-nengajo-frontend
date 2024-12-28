@@ -72,7 +72,7 @@ const OtakiageFeature: NextPage = () => {
   const { data: isApproved } = useIsApprovedForAllToOtakiage()
   const { t: ot } = useTranslation('otakiage')
   const { isOtakiaged } = useIsOtakiaged()
-  const { data: otakiageOmamoriInfo = [] } = useFetchOtakiageOmamories()
+  const { data: otakiageOmamoriInfo } = useFetchOtakiageOmamories()
 
   const approve = async () => {
     try {
@@ -335,7 +335,15 @@ const OtakiageFeature: NextPage = () => {
                 !(process.env.NODE_ENV === 'production')) && (
                 <Box pb={100}>
                   {IS_EVENT_DAY && (
-                    <Text textAlign="center">お焚上！！！！</Text>
+                    <>
+                      <Text textAlign="center">お焚上！！！！</Text>
+                    </>
+                  )}
+                  <Heading className="text_serif" size="l" mt={5} pb={10}>
+                    {ot('OTAKIAGE_OMAMORI_LIST')}
+                  </Heading>
+                  {address && otakiageOmamoriInfo && (
+                    <OtakiageOmamoriesList items={otakiageOmamoriInfo} />
                   )}
                   {!IS_EVENT_DAY && address && (
                     <>
