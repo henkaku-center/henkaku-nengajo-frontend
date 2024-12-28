@@ -130,7 +130,7 @@ const OtakiageFeature: NextPage = () => {
 
   const otakiageOmamoriScanUrl = `${scanDomain()}/address/${
     contractAddresses.otakiage[chainId]
-  }#readContract#F7`
+  }#readContract#F9`
 
   const hasMintedOmamori = userMintedOmamories && userMintedOmamories.length > 0
 
