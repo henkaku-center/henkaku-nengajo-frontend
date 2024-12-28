@@ -21,82 +21,25 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from "../../common";
+} from "../../../common";
 
-export declare namespace IOmamori {
-  export type NengajoInfoStruct = {
-    id: BigNumberish;
-    uri: string;
-    creator: AddressLike;
-    maxSupply: BigNumberish;
-  };
-
-  export type NengajoInfoStructOutput = [
-    id: bigint,
-    uri: string,
-    creator: string,
-    maxSupply: bigint
-  ] & { id: bigint; uri: string; creator: string; maxSupply: bigint };
-}
-
-export declare namespace IOtakiage {
-  export type NengajoInfoWithBalanceStruct = {
-    id: BigNumberish;
-    uri: string;
-    creator: AddressLike;
-    maxSupply: BigNumberish;
-    balance: BigNumberish;
-  };
-
-  export type NengajoInfoWithBalanceStructOutput = [
-    id: bigint,
-    uri: string,
-    creator: string,
-    maxSupply: bigint,
-    balance: bigint
-  ] & {
-    id: bigint;
-    uri: string;
-    creator: string;
-    maxSupply: bigint;
-    balance: bigint;
-  };
-}
-
-export interface OtakiageInterface extends Interface {
+export interface IOtakiageInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "addAdmins"
       | "approve"
       | "balanceOf"
       | "batchMintOtakiage"
-      | "cid"
-      | "deleteAdmin"
       | "fetchHoldingOmamoriBalance"
       | "getApproved"
       | "getCID"
       | "getImage"
-      | "getOtakiageOmamoriBalances"
-      | "getOtakiageOmamoriInfo"
-      | "getOtakiageOmamoriInfoWithBalance"
       | "getOtakiageUserCount"
       | "getOtakiageUserOmamoriIds"
       | "getOtakiageUserOmamoriIdsCount"
       | "getOtakiageUsersArr"
-      | "imageExtension"
-      | "isAdmin"
       | "isApprovedForAll"
-      | "isTrustedForwarder"
       | "mintOtakiage"
-      | "name"
-      | "omamoriContract"
-      | "omamoriTokenIdOffset"
-      | "omamoriTypeCount"
-      | "onERC1155BatchReceived"
-      | "onERC1155Received"
       | "otakiage"
-      | "otakiageUserOmamoriIds"
-      | "otakiageUsersArr"
       | "ownerOf"
       | "recordOtakiageUser"
       | "recordOtakiageUsers"
@@ -110,11 +53,8 @@ export interface OtakiageInterface extends Interface {
       | "setOmamoriTokenIdOffset"
       | "setOmamoriTypeCount"
       | "supportsInterface"
-      | "symbol"
-      | "tokenIds"
       | "tokenURI"
       | "transferFrom"
-      | "trustedForwarder"
   ): FunctionFragment;
 
   getEvent(
@@ -128,10 +68,6 @@ export interface OtakiageInterface extends Interface {
   ): EventFragment;
 
   encodeFunctionData(
-    functionFragment: "addAdmins",
-    values: [AddressLike[]]
-  ): string;
-  encodeFunctionData(
     functionFragment: "approve",
     values: [AddressLike, BigNumberish]
   ): string;
@@ -142,11 +78,6 @@ export interface OtakiageInterface extends Interface {
   encodeFunctionData(
     functionFragment: "batchMintOtakiage",
     values: [AddressLike[]]
-  ): string;
-  encodeFunctionData(functionFragment: "cid", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "deleteAdmin",
-    values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "fetchHoldingOmamoriBalance",
@@ -160,18 +91,6 @@ export interface OtakiageInterface extends Interface {
   encodeFunctionData(
     functionFragment: "getImage",
     values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getOtakiageOmamoriBalances",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getOtakiageOmamoriInfo",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getOtakiageOmamoriInfoWithBalance",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getOtakiageUserCount",
@@ -190,61 +109,14 @@ export interface OtakiageInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "imageExtension",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isAdmin",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [AddressLike, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isTrustedForwarder",
-    values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "mintOtakiage",
     values: [AddressLike]
   ): string;
-  encodeFunctionData(functionFragment: "name", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "omamoriContract",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "omamoriTokenIdOffset",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "omamoriTypeCount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "onERC1155BatchReceived",
-    values: [
-      AddressLike,
-      AddressLike,
-      BigNumberish[],
-      BigNumberish[],
-      BytesLike
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "onERC1155Received",
-    values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike]
-  ): string;
   encodeFunctionData(functionFragment: "otakiage", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "otakiageUserOmamoriIds",
-    values: [AddressLike, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "otakiageUsersArr",
-    values: [BigNumberish]
-  ): string;
   encodeFunctionData(
     functionFragment: "ownerOf",
     values: [BigNumberish]
@@ -294,8 +166,6 @@ export interface OtakiageInterface extends Interface {
     functionFragment: "supportsInterface",
     values: [BytesLike]
   ): string;
-  encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(functionFragment: "tokenIds", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "tokenURI",
     values: [BigNumberish]
@@ -304,21 +174,11 @@ export interface OtakiageInterface extends Interface {
     functionFragment: "transferFrom",
     values: [AddressLike, AddressLike, BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "trustedForwarder",
-    values?: undefined
-  ): string;
 
-  decodeFunctionResult(functionFragment: "addAdmins", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "batchMintOtakiage",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "cid", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "deleteAdmin",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -331,18 +191,6 @@ export interface OtakiageInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "getCID", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getImage", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getOtakiageOmamoriBalances",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getOtakiageOmamoriInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getOtakiageOmamoriInfoWithBalance",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "getOtakiageUserCount",
     data: BytesLike
@@ -360,52 +208,14 @@ export interface OtakiageInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "imageExtension",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "isAdmin", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "isApprovedForAll",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "isTrustedForwarder",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "mintOtakiage",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "omamoriContract",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "omamoriTokenIdOffset",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "omamoriTypeCount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "onERC1155BatchReceived",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "onERC1155Received",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "otakiage", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "otakiageUserOmamoriIds",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "otakiageUsersArr",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "recordOtakiageUser",
@@ -452,15 +262,9 @@ export interface OtakiageInterface extends Interface {
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tokenIds", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "trustedForwarder",
     data: BytesLike
   ): Result;
 }
@@ -566,11 +370,11 @@ export namespace TransferEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface Otakiage extends BaseContract {
-  connect(runner?: ContractRunner | null): Otakiage;
+export interface IOtakiage extends BaseContract {
+  connect(runner?: ContractRunner | null): IOtakiage;
   waitForDeployment(): Promise<this>;
 
-  interface: OtakiageInterface;
+  interface: IOtakiageInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -609,12 +413,6 @@ export interface Otakiage extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  addAdmins: TypedContractMethod<
-    [_newAdmins: AddressLike[]],
-    [void],
-    "nonpayable"
-  >;
-
   approve: TypedContractMethod<
     [to: AddressLike, tokenId: BigNumberish],
     [void],
@@ -625,14 +423,6 @@ export interface Otakiage extends BaseContract {
 
   batchMintOtakiage: TypedContractMethod<
     [tos: AddressLike[]],
-    [void],
-    "nonpayable"
-  >;
-
-  cid: TypedContractMethod<[], [string], "view">;
-
-  deleteAdmin: TypedContractMethod<
-    [_deleteAdmin: AddressLike],
     [void],
     "nonpayable"
   >;
@@ -648,20 +438,6 @@ export interface Otakiage extends BaseContract {
   getCID: TypedContractMethod<[], [string], "view">;
 
   getImage: TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
-
-  getOtakiageOmamoriBalances: TypedContractMethod<[], [bigint[]], "view">;
-
-  getOtakiageOmamoriInfo: TypedContractMethod<
-    [],
-    [IOmamori.NengajoInfoStructOutput[]],
-    "view"
-  >;
-
-  getOtakiageOmamoriInfoWithBalance: TypedContractMethod<
-    [],
-    [IOtakiage.NengajoInfoWithBalanceStructOutput[]],
-    "view"
-  >;
 
   getOtakiageUserCount: TypedContractMethod<[], [bigint], "view">;
 
@@ -679,65 +455,15 @@ export interface Otakiage extends BaseContract {
 
   getOtakiageUsersArr: TypedContractMethod<[], [string[]], "view">;
 
-  imageExtension: TypedContractMethod<[], [string], "view">;
-
-  isAdmin: TypedContractMethod<[_address: AddressLike], [boolean], "view">;
-
   isApprovedForAll: TypedContractMethod<
     [owner: AddressLike, operator: AddressLike],
     [boolean],
     "view"
   >;
 
-  isTrustedForwarder: TypedContractMethod<
-    [forwarder: AddressLike],
-    [boolean],
-    "view"
-  >;
-
   mintOtakiage: TypedContractMethod<[to: AddressLike], [void], "nonpayable">;
 
-  name: TypedContractMethod<[], [string], "view">;
-
-  omamoriContract: TypedContractMethod<[], [string], "view">;
-
-  omamoriTokenIdOffset: TypedContractMethod<[], [bigint], "view">;
-
-  omamoriTypeCount: TypedContractMethod<[], [bigint], "view">;
-
-  onERC1155BatchReceived: TypedContractMethod<
-    [
-      operator: AddressLike,
-      from: AddressLike,
-      ids: BigNumberish[],
-      values: BigNumberish[],
-      data: BytesLike
-    ],
-    [string],
-    "nonpayable"
-  >;
-
-  onERC1155Received: TypedContractMethod<
-    [
-      operator: AddressLike,
-      from: AddressLike,
-      id: BigNumberish,
-      value: BigNumberish,
-      data: BytesLike
-    ],
-    [string],
-    "nonpayable"
-  >;
-
   otakiage: TypedContractMethod<[], [void], "nonpayable">;
-
-  otakiageUserOmamoriIds: TypedContractMethod<
-    [arg0: AddressLike, arg1: BigNumberish],
-    [bigint],
-    "view"
-  >;
-
-  otakiageUsersArr: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
 
   ownerOf: TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
 
@@ -810,10 +536,6 @@ export interface Otakiage extends BaseContract {
     "view"
   >;
 
-  symbol: TypedContractMethod<[], [string], "view">;
-
-  tokenIds: TypedContractMethod<[], [bigint], "view">;
-
   tokenURI: TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
 
   transferFrom: TypedContractMethod<
@@ -822,15 +544,10 @@ export interface Otakiage extends BaseContract {
     "nonpayable"
   >;
 
-  trustedForwarder: TypedContractMethod<[], [string], "view">;
-
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
 
-  getFunction(
-    nameOrSignature: "addAdmins"
-  ): TypedContractMethod<[_newAdmins: AddressLike[]], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "approve"
   ): TypedContractMethod<
@@ -845,12 +562,6 @@ export interface Otakiage extends BaseContract {
     nameOrSignature: "batchMintOtakiage"
   ): TypedContractMethod<[tos: AddressLike[]], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "cid"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "deleteAdmin"
-  ): TypedContractMethod<[_deleteAdmin: AddressLike], [void], "nonpayable">;
-  getFunction(
     nameOrSignature: "fetchHoldingOmamoriBalance"
   ): TypedContractMethod<[], [[bigint[], bigint[]]], "view">;
   getFunction(
@@ -862,19 +573,6 @@ export interface Otakiage extends BaseContract {
   getFunction(
     nameOrSignature: "getImage"
   ): TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
-  getFunction(
-    nameOrSignature: "getOtakiageOmamoriBalances"
-  ): TypedContractMethod<[], [bigint[]], "view">;
-  getFunction(
-    nameOrSignature: "getOtakiageOmamoriInfo"
-  ): TypedContractMethod<[], [IOmamori.NengajoInfoStructOutput[]], "view">;
-  getFunction(
-    nameOrSignature: "getOtakiageOmamoriInfoWithBalance"
-  ): TypedContractMethod<
-    [],
-    [IOtakiage.NengajoInfoWithBalanceStructOutput[]],
-    "view"
-  >;
   getFunction(
     nameOrSignature: "getOtakiageUserCount"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -888,12 +586,6 @@ export interface Otakiage extends BaseContract {
     nameOrSignature: "getOtakiageUsersArr"
   ): TypedContractMethod<[], [string[]], "view">;
   getFunction(
-    nameOrSignature: "imageExtension"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "isAdmin"
-  ): TypedContractMethod<[_address: AddressLike], [boolean], "view">;
-  getFunction(
     nameOrSignature: "isApprovedForAll"
   ): TypedContractMethod<
     [owner: AddressLike, operator: AddressLike],
@@ -901,62 +593,11 @@ export interface Otakiage extends BaseContract {
     "view"
   >;
   getFunction(
-    nameOrSignature: "isTrustedForwarder"
-  ): TypedContractMethod<[forwarder: AddressLike], [boolean], "view">;
-  getFunction(
     nameOrSignature: "mintOtakiage"
   ): TypedContractMethod<[to: AddressLike], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "name"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "omamoriContract"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "omamoriTokenIdOffset"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "omamoriTypeCount"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "onERC1155BatchReceived"
-  ): TypedContractMethod<
-    [
-      operator: AddressLike,
-      from: AddressLike,
-      ids: BigNumberish[],
-      values: BigNumberish[],
-      data: BytesLike
-    ],
-    [string],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "onERC1155Received"
-  ): TypedContractMethod<
-    [
-      operator: AddressLike,
-      from: AddressLike,
-      id: BigNumberish,
-      value: BigNumberish,
-      data: BytesLike
-    ],
-    [string],
-    "nonpayable"
-  >;
-  getFunction(
     nameOrSignature: "otakiage"
   ): TypedContractMethod<[], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "otakiageUserOmamoriIds"
-  ): TypedContractMethod<
-    [arg0: AddressLike, arg1: BigNumberish],
-    [bigint],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "otakiageUsersArr"
-  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
   getFunction(
     nameOrSignature: "ownerOf"
   ): TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
@@ -1030,12 +671,6 @@ export interface Otakiage extends BaseContract {
     nameOrSignature: "supportsInterface"
   ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
   getFunction(
-    nameOrSignature: "symbol"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "tokenIds"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
     nameOrSignature: "tokenURI"
   ): TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
   getFunction(
@@ -1045,9 +680,6 @@ export interface Otakiage extends BaseContract {
     [void],
     "nonpayable"
   >;
-  getFunction(
-    nameOrSignature: "trustedForwarder"
-  ): TypedContractMethod<[], [string], "view">;
 
   getEvent(
     key: "Approval"
