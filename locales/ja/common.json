@@ -1,5 +1,5 @@
 {
-  "OTAKIAGE": "お焚き上げ",
+  "OTAKIAGE": "\"お焚上\"",
 
   "CONNECT_WALLET_BUTTON": "ウォレットを接続",
   "DISCONNECT_WALLET_BUTTON": "ウォレットの接続解除",
@@ -13,7 +13,7 @@
   "CREATE_LINK": "年賀状を作る",
   "NENGAJO_LINK": "年賀状一覧",
   "OMAMORI_LINK": "「御守り」",
-  "OTAKIAGE_LINK": "「お焚き上げ」",
+  "OTAKIAGE_LINK": "\"お焚上\"",
   "LANG_SWITCHER": "English",
 
   "CREATE_NEW_NENGAJO": "新しい年賀状を作る",

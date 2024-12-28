@@ -1,10 +1,5 @@
 import type { NextPage } from 'next'
-import {
-  Box,
-  // Divider,
-  Flex,
-  useToast
-} from '@chakra-ui/react'
+import { Box, Divider, Flex, useToast } from '@chakra-ui/react'
 import { useAccount } from 'wagmi'
 import { useMounted } from '@/hooks'
 // import { useRetrieveAllNengajo } from '@/hooks/useNengajoContract'
@@ -54,20 +49,7 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      {isMounted && (
-        <Box>
-          <Box textAlign="center">
-            <Box mt="2em" display="inline-block">
-              <Flex gap={6} justifyContent="center" textAlign="left">
-                <Connect />
-                <StatusMenu />
-              </Flex>
-            </Box>
-          </Box>
-          <OtakiageFeature />
-        </Box>
-      )}
-      {/* <Divider my={10} borderWidth="2px" /> */}
+      {isMounted && <OtakiageFeature />}
       {/* {isMounted && filteredNengajo && (
         <Box>
           <Heading size="lg" mb={5}>

@@ -5,6 +5,16 @@
   "EMPTY_USER_OMAMORI_LIST": "You have not received any Omamori / Ofuda.",
   "END_OTAKIAGE": "The Otakiage has ended!",
 
+  "PREPARE_FOR_OTAKIAGE": "Preparation for the \"Otakiage\".",
+  "PREPARE_FOR_OTAKIAGE_EXPLANATION": "In order to burn the Omamori, you must first send the Omamori. \nPlease operate in the following order.",
+  "HOWTO_OTAKIAGE": "Howto",
+  "HOWTO_OTAKIAGE_EXPLANATION_1": "First, click the button on the left below to connect your wallet. \nYou can then check the connection status of your wallet by clicking the button on the right.",
+  "HOWTO_OTAKIAGE_EXPLANATION_2": "Next, please confirm the Omamori you wish to Otakiage, click the \"Join the Otakiage\" button to approve, and then click the \"Send Omamori\" button to send the Omamori.",
+  "NO_OMAMORI": "No Omamori in my possession.",
+  "SUCCESS_SEND_OMAMORI": "We have sent you a Omamori!\nPlease wait until the \"Otakiage\" event!",
+  "OTAKIAGE_EXPLANATION": "*If you have any questions, please refer to the manual.",
+  "OTAKIAGE_MANUAL": "Manual for the \"Otakiage\"",
+
   "TITLE": {
     "CONNECT_WALLET": "You must connect a wallet first!",
     "MINTABLE": "You can select this Ofuda.",
