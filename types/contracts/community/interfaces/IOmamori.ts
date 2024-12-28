@@ -3,45 +3,70 @@
 /* eslint-disable */
 import type {
   BaseContract,
+  BigNumber,
   BigNumberish,
   BytesLike,
-  FunctionFragment,
-  Result,
-  Interface,
-  EventFragment,
-  AddressLike,
-  ContractRunner,
-  ContractMethod,
-  Listener,
+  CallOverrides,
+  ContractTransaction,
+  Overrides,
+  PopulatedTransaction,
+  Signer,
+  utils,
 } from "ethers";
 import type {
-  TypedContractEvent,
-  TypedDeferredTopicFilter,
-  TypedEventLog,
-  TypedLogDescription,
+  FunctionFragment,
+  Result,
+  EventFragment,
+} from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
+import type {
+  TypedEventFilter,
+  TypedEvent,
   TypedListener,
-  TypedContractMethod,
+  OnEvent,
+  PromiseOrValue,
 } from "../../../common";
 
 export declare namespace IOmamori {
   export type NengajoInfoStruct = {
-    id: BigNumberish;
-    uri: string;
-    creator: AddressLike;
-    maxSupply: BigNumberish;
+    id: PromiseOrValue<BigNumberish>;
+    uri: PromiseOrValue<string>;
+    creator: PromiseOrValue<string>;
+    maxSupply: PromiseOrValue<BigNumberish>;
   };
 
   export type NengajoInfoStructOutput = [
-    id: bigint,
-    uri: string,
-    creator: string,
-    maxSupply: bigint
-  ] & { id: bigint; uri: string; creator: string; maxSupply: bigint };
+    BigNumber,
+    string,
+    string,
+    BigNumber
+  ] & { id: BigNumber; uri: string; creator: string; maxSupply: BigNumber };
 }
 
-export interface IOmamoriInterface extends Interface {
+export interface IOmamoriInterface extends utils.Interface {
+  functions: {
+    "balanceOf(address,uint256)": FunctionFragment;
+    "balanceOfBatch(address[],uint256[])": FunctionFragment;
+    "isApprovedForAll(address,address)": FunctionFragment;
+    "mint(uint256)": FunctionFragment;
+    "mintBatch(uint256[])": FunctionFragment;
+    "otakiage()": FunctionFragment;
+    "registerNengajo(uint256,string)": FunctionFragment;
+    "retrieveAllNengajoes()": FunctionFragment;
+    "retrieveMintedNengajoes(address)": FunctionFragment;
+    "retrieveRegisteredNengajo(uint256)": FunctionFragment;
+    "retrieveRegisteredNengajoes(address)": FunctionFragment;
+    "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
+    "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
+    "setApprovalForAll(address,bool)": FunctionFragment;
+    "setNft(address)": FunctionFragment;
+    "supportsInterface(bytes4)": FunctionFragment;
+    "tokenURI(uint256)": FunctionFragment;
+    "uri(uint256)": FunctionFragment;
+  };
+
   getFunction(
-    nameOrSignature:
+    nameOrSignatureOrTopic:
       | "balanceOf"
       | "balanceOfBatch"
       | "isApprovedForAll"
@@ -62,38 +87,30 @@ export interface IOmamoriInterface extends Interface {
       | "uri"
   ): FunctionFragment;
 
-  getEvent(
-    nameOrSignatureOrTopic:
-      | "ApprovalForAll"
-      | "Mint"
-      | "MintBatch"
-      | "RegisterNengajo"
-      | "TransferBatch"
-      | "TransferSingle"
-      | "URI"
-  ): EventFragment;
-
   encodeFunctionData(
     functionFragment: "balanceOf",
-    values: [AddressLike, BigNumberish]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "balanceOfBatch",
-    values: [AddressLike[], BigNumberish[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
-    values: [AddressLike, AddressLike]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "mint", values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: "mint",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
   encodeFunctionData(
     functionFragment: "mintBatch",
-    values: [BigNumberish[]]
+    values: [PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(functionFragment: "otakiage", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "registerNengajo",
-    values: [BigNumberish, string]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "retrieveAllNengajoes",
@@ -101,44 +118,56 @@ export interface IOmamoriInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "retrieveMintedNengajoes",
-    values: [AddressLike]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "retrieveRegisteredNengajo",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "retrieveRegisteredNengajoes",
-    values: [AddressLike]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "safeBatchTransferFrom",
     values: [
-      AddressLike,
-      AddressLike,
-      BigNumberish[],
-      BigNumberish[],
-      BytesLike
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<BytesLike>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "safeTransferFrom",
-    values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setApprovalForAll",
-    values: [AddressLike, boolean]
+    values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
-  encodeFunctionData(functionFragment: "setNft", values: [AddressLike]): string;
+  encodeFunctionData(
+    functionFragment: "setNft",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "tokenURI",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(functionFragment: "uri", values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: "uri",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
@@ -191,530 +220,718 @@ export interface IOmamoriInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "uri", data: BytesLike): Result;
+
+  events: {
+    "ApprovalForAll(address,address,bool)": EventFragment;
+    "Mint(address,uint256)": EventFragment;
+    "MintBatch(address,uint256[])": EventFragment;
+    "RegisterNengajo(address,uint256,string,uint256)": EventFragment;
+    "TransferBatch(address,address,address,uint256[],uint256[])": EventFragment;
+    "TransferSingle(address,address,address,uint256,uint256)": EventFragment;
+    "URI(string,uint256)": EventFragment;
+  };
+
+  getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Mint"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "MintBatch"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RegisterNengajo"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TransferBatch"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TransferSingle"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "URI"): EventFragment;
 }
 
-export namespace ApprovalForAllEvent {
-  export type InputTuple = [
-    account: AddressLike,
-    operator: AddressLike,
-    approved: boolean
-  ];
-  export type OutputTuple = [
-    account: string,
-    operator: string,
-    approved: boolean
-  ];
-  export interface OutputObject {
-    account: string;
-    operator: string;
-    approved: boolean;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+export interface ApprovalForAllEventObject {
+  account: string;
+  operator: string;
+  approved: boolean;
 }
+export type ApprovalForAllEvent = TypedEvent<
+  [string, string, boolean],
+  ApprovalForAllEventObject
+>;
 
-export namespace MintEvent {
-  export type InputTuple = [minter: AddressLike, tokenId: BigNumberish];
-  export type OutputTuple = [minter: string, tokenId: bigint];
-  export interface OutputObject {
-    minter: string;
-    tokenId: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
+export type ApprovalForAllEventFilter = TypedEventFilter<ApprovalForAllEvent>;
 
-export namespace MintBatchEvent {
-  export type InputTuple = [minter: AddressLike, tokenIds: BigNumberish[]];
-  export type OutputTuple = [minter: string, tokenIds: bigint[]];
-  export interface OutputObject {
-    minter: string;
-    tokenIds: bigint[];
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+export interface MintEventObject {
+  minter: string;
+  tokenId: BigNumber;
 }
+export type MintEvent = TypedEvent<[string, BigNumber], MintEventObject>;
 
-export namespace RegisterNengajoEvent {
-  export type InputTuple = [
-    creator: AddressLike,
-    tokenId: BigNumberish,
-    metaDataURL: string,
-    maxSupply: BigNumberish
-  ];
-  export type OutputTuple = [
-    creator: string,
-    tokenId: bigint,
-    metaDataURL: string,
-    maxSupply: bigint
-  ];
-  export interface OutputObject {
-    creator: string;
-    tokenId: bigint;
-    metaDataURL: string;
-    maxSupply: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
+export type MintEventFilter = TypedEventFilter<MintEvent>;
 
-export namespace TransferBatchEvent {
-  export type InputTuple = [
-    operator: AddressLike,
-    from: AddressLike,
-    to: AddressLike,
-    ids: BigNumberish[],
-    values: BigNumberish[]
-  ];
-  export type OutputTuple = [
-    operator: string,
-    from: string,
-    to: string,
-    ids: bigint[],
-    values: bigint[]
-  ];
-  export interface OutputObject {
-    operator: string;
-    from: string;
-    to: string;
-    ids: bigint[];
-    values: bigint[];
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+export interface MintBatchEventObject {
+  minter: string;
+  tokenIds: BigNumber[];
 }
+export type MintBatchEvent = TypedEvent<
+  [string, BigNumber[]],
+  MintBatchEventObject
+>;
 
-export namespace TransferSingleEvent {
-  export type InputTuple = [
-    operator: AddressLike,
-    from: AddressLike,
-    to: AddressLike,
-    id: BigNumberish,
-    value: BigNumberish
-  ];
-  export type OutputTuple = [
-    operator: string,
-    from: string,
-    to: string,
-    id: bigint,
-    value: bigint
-  ];
-  export interface OutputObject {
-    operator: string;
-    from: string;
-    to: string;
-    id: bigint;
-    value: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
+export type MintBatchEventFilter = TypedEventFilter<MintBatchEvent>;
 
-export namespace URIEvent {
-  export type InputTuple = [value: string, id: BigNumberish];
-  export type OutputTuple = [value: string, id: bigint];
-  export interface OutputObject {
-    value: string;
-    id: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+export interface RegisterNengajoEventObject {
+  creator: string;
+  tokenId: BigNumber;
+  metaDataURL: string;
+  maxSupply: BigNumber;
 }
+export type RegisterNengajoEvent = TypedEvent<
+  [string, BigNumber, string, BigNumber],
+  RegisterNengajoEventObject
+>;
+
+export type RegisterNengajoEventFilter = TypedEventFilter<RegisterNengajoEvent>;
+
+export interface TransferBatchEventObject {
+  operator: string;
+  from: string;
+  to: string;
+  ids: BigNumber[];
+  values: BigNumber[];
+}
+export type TransferBatchEvent = TypedEvent<
+  [string, string, string, BigNumber[], BigNumber[]],
+  TransferBatchEventObject
+>;
+
+export type TransferBatchEventFilter = TypedEventFilter<TransferBatchEvent>;
+
+export interface TransferSingleEventObject {
+  operator: string;
+  from: string;
+  to: string;
+  id: BigNumber;
+  value: BigNumber;
+}
+export type TransferSingleEvent = TypedEvent<
+  [string, string, string, BigNumber, BigNumber],
+  TransferSingleEventObject
+>;
+
+export type TransferSingleEventFilter = TypedEventFilter<TransferSingleEvent>;
+
+export interface URIEventObject {
+  value: string;
+  id: BigNumber;
+}
+export type URIEvent = TypedEvent<[string, BigNumber], URIEventObject>;
+
+export type URIEventFilter = TypedEventFilter<URIEvent>;
 
 export interface IOmamori extends BaseContract {
-  connect(runner?: ContractRunner | null): IOmamori;
-  waitForDeployment(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this;
+  attach(addressOrName: string): this;
+  deployed(): Promise<this>;
 
   interface: IOmamoriInterface;
 
-  queryFilter<TCEvent extends TypedContractEvent>(
-    event: TCEvent,
+  queryFilter<TEvent extends TypedEvent>(
+    event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
-  queryFilter<TCEvent extends TypedContractEvent>(
-    filter: TypedDeferredTopicFilter<TCEvent>,
-    fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+  ): Promise<Array<TEvent>>;
 
-  on<TCEvent extends TypedContractEvent>(
-    event: TCEvent,
-    listener: TypedListener<TCEvent>
-  ): Promise<this>;
-  on<TCEvent extends TypedContractEvent>(
-    filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>
-  ): Promise<this>;
+  listeners<TEvent extends TypedEvent>(
+    eventFilter?: TypedEventFilter<TEvent>
+  ): Array<TypedListener<TEvent>>;
+  listeners(eventName?: string): Array<Listener>;
+  removeAllListeners<TEvent extends TypedEvent>(
+    eventFilter: TypedEventFilter<TEvent>
+  ): this;
+  removeAllListeners(eventName?: string): this;
+  off: OnEvent<this>;
+  on: OnEvent<this>;
+  once: OnEvent<this>;
+  removeListener: OnEvent<this>;
 
-  once<TCEvent extends TypedContractEvent>(
-    event: TCEvent,
-    listener: TypedListener<TCEvent>
-  ): Promise<this>;
-  once<TCEvent extends TypedContractEvent>(
-    filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>
-  ): Promise<this>;
+  functions: {
+    balanceOf(
+      account: PromiseOrValue<string>,
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
-  listeners<TCEvent extends TypedContractEvent>(
-    event: TCEvent
-  ): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(
-    event?: TCEvent
-  ): Promise<this>;
+    balanceOfBatch(
+      accounts: PromiseOrValue<string>[],
+      ids: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
 
-  balanceOf: TypedContractMethod<
-    [account: AddressLike, id: BigNumberish],
-    [bigint],
-    "view"
-  >;
+    isApprovedForAll(
+      account: PromiseOrValue<string>,
+      operator: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
-  balanceOfBatch: TypedContractMethod<
-    [accounts: AddressLike[], ids: BigNumberish[]],
-    [bigint[]],
-    "view"
-  >;
+    mint(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-  isApprovedForAll: TypedContractMethod<
-    [account: AddressLike, operator: AddressLike],
-    [boolean],
-    "view"
-  >;
+    mintBatch(
+      _tokenIdsList: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-  mint: TypedContractMethod<[_tokenId: BigNumberish], [void], "nonpayable">;
+    otakiage(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-  mintBatch: TypedContractMethod<
-    [_tokenIdsList: BigNumberish[]],
-    [void],
-    "nonpayable"
-  >;
+    registerNengajo(
+      _maxSupply: PromiseOrValue<BigNumberish>,
+      _metaDataURL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-  otakiage: TypedContractMethod<[], [void], "nonpayable">;
+    retrieveAllNengajoes(
+      overrides?: CallOverrides
+    ): Promise<[IOmamori.NengajoInfoStructOutput[]]>;
 
-  registerNengajo: TypedContractMethod<
-    [_maxSupply: BigNumberish, _metaDataURL: string],
-    [void],
-    "nonpayable"
-  >;
+    retrieveMintedNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[IOmamori.NengajoInfoStructOutput[]]>;
 
-  retrieveAllNengajoes: TypedContractMethod<
-    [],
-    [IOmamori.NengajoInfoStructOutput[]],
-    "view"
-  >;
+    retrieveRegisteredNengajo(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[IOmamori.NengajoInfoStructOutput]>;
 
-  retrieveMintedNengajoes: TypedContractMethod<
-    [_address: AddressLike],
-    [IOmamori.NengajoInfoStructOutput[]],
-    "view"
-  >;
+    retrieveRegisteredNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[IOmamori.NengajoInfoStructOutput[]]>;
 
-  retrieveRegisteredNengajo: TypedContractMethod<
-    [_tokenId: BigNumberish],
-    [IOmamori.NengajoInfoStructOutput],
-    "view"
-  >;
+    safeBatchTransferFrom(
+      from: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      ids: PromiseOrValue<BigNumberish>[],
+      values: PromiseOrValue<BigNumberish>[],
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-  retrieveRegisteredNengajoes: TypedContractMethod<
-    [_address: AddressLike],
-    [IOmamori.NengajoInfoStructOutput[]],
-    "view"
-  >;
+    safeTransferFrom(
+      from: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      id: PromiseOrValue<BigNumberish>,
+      value: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-  safeBatchTransferFrom: TypedContractMethod<
-    [
-      from: AddressLike,
-      to: AddressLike,
-      ids: BigNumberish[],
-      values: BigNumberish[],
-      data: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
+    setApprovalForAll(
+      operator: PromiseOrValue<string>,
+      approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-  safeTransferFrom: TypedContractMethod<
-    [
-      from: AddressLike,
-      to: AddressLike,
-      id: BigNumberish,
-      value: BigNumberish,
-      data: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
+    setNft(
+      _nft: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-  setApprovalForAll: TypedContractMethod<
-    [operator: AddressLike, approved: boolean],
-    [void],
-    "nonpayable"
-  >;
+    supportsInterface(
+      interfaceId: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
-  setNft: TypedContractMethod<[_nft: AddressLike], [void], "nonpayable">;
+    tokenURI(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
-  supportsInterface: TypedContractMethod<
-    [interfaceId: BytesLike],
-    [boolean],
-    "view"
-  >;
+    uri(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+  };
 
-  tokenURI: TypedContractMethod<[_tokenId: BigNumberish], [string], "view">;
+  balanceOf(
+    account: PromiseOrValue<string>,
+    id: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
-  uri: TypedContractMethod<[_tokenId: BigNumberish], [string], "view">;
+  balanceOfBatch(
+    accounts: PromiseOrValue<string>[],
+    ids: PromiseOrValue<BigNumberish>[],
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
 
-  getFunction<T extends ContractMethod = ContractMethod>(
-    key: string | FunctionFragment
-  ): T;
+  isApprovedForAll(
+    account: PromiseOrValue<string>,
+    operator: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
-  getFunction(
-    nameOrSignature: "balanceOf"
-  ): TypedContractMethod<
-    [account: AddressLike, id: BigNumberish],
-    [bigint],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "balanceOfBatch"
-  ): TypedContractMethod<
-    [accounts: AddressLike[], ids: BigNumberish[]],
-    [bigint[]],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "isApprovedForAll"
-  ): TypedContractMethod<
-    [account: AddressLike, operator: AddressLike],
-    [boolean],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "mint"
-  ): TypedContractMethod<[_tokenId: BigNumberish], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "mintBatch"
-  ): TypedContractMethod<[_tokenIdsList: BigNumberish[]], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "otakiage"
-  ): TypedContractMethod<[], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "registerNengajo"
-  ): TypedContractMethod<
-    [_maxSupply: BigNumberish, _metaDataURL: string],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "retrieveAllNengajoes"
-  ): TypedContractMethod<[], [IOmamori.NengajoInfoStructOutput[]], "view">;
-  getFunction(
-    nameOrSignature: "retrieveMintedNengajoes"
-  ): TypedContractMethod<
-    [_address: AddressLike],
-    [IOmamori.NengajoInfoStructOutput[]],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "retrieveRegisteredNengajo"
-  ): TypedContractMethod<
-    [_tokenId: BigNumberish],
-    [IOmamori.NengajoInfoStructOutput],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "retrieveRegisteredNengajoes"
-  ): TypedContractMethod<
-    [_address: AddressLike],
-    [IOmamori.NengajoInfoStructOutput[]],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "safeBatchTransferFrom"
-  ): TypedContractMethod<
-    [
-      from: AddressLike,
-      to: AddressLike,
-      ids: BigNumberish[],
-      values: BigNumberish[],
-      data: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "safeTransferFrom"
-  ): TypedContractMethod<
-    [
-      from: AddressLike,
-      to: AddressLike,
-      id: BigNumberish,
-      value: BigNumberish,
-      data: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "setApprovalForAll"
-  ): TypedContractMethod<
-    [operator: AddressLike, approved: boolean],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "setNft"
-  ): TypedContractMethod<[_nft: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "supportsInterface"
-  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
-  getFunction(
-    nameOrSignature: "tokenURI"
-  ): TypedContractMethod<[_tokenId: BigNumberish], [string], "view">;
-  getFunction(
-    nameOrSignature: "uri"
-  ): TypedContractMethod<[_tokenId: BigNumberish], [string], "view">;
+  mint(
+    _tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
-  getEvent(
-    key: "ApprovalForAll"
-  ): TypedContractEvent<
-    ApprovalForAllEvent.InputTuple,
-    ApprovalForAllEvent.OutputTuple,
-    ApprovalForAllEvent.OutputObject
-  >;
-  getEvent(
-    key: "Mint"
-  ): TypedContractEvent<
-    MintEvent.InputTuple,
-    MintEvent.OutputTuple,
-    MintEvent.OutputObject
-  >;
-  getEvent(
-    key: "MintBatch"
-  ): TypedContractEvent<
-    MintBatchEvent.InputTuple,
-    MintBatchEvent.OutputTuple,
-    MintBatchEvent.OutputObject
-  >;
-  getEvent(
-    key: "RegisterNengajo"
-  ): TypedContractEvent<
-    RegisterNengajoEvent.InputTuple,
-    RegisterNengajoEvent.OutputTuple,
-    RegisterNengajoEvent.OutputObject
-  >;
-  getEvent(
-    key: "TransferBatch"
-  ): TypedContractEvent<
-    TransferBatchEvent.InputTuple,
-    TransferBatchEvent.OutputTuple,
-    TransferBatchEvent.OutputObject
-  >;
-  getEvent(
-    key: "TransferSingle"
-  ): TypedContractEvent<
-    TransferSingleEvent.InputTuple,
-    TransferSingleEvent.OutputTuple,
-    TransferSingleEvent.OutputObject
-  >;
-  getEvent(
-    key: "URI"
-  ): TypedContractEvent<
-    URIEvent.InputTuple,
-    URIEvent.OutputTuple,
-    URIEvent.OutputObject
-  >;
+  mintBatch(
+    _tokenIdsList: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  otakiage(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  registerNengajo(
+    _maxSupply: PromiseOrValue<BigNumberish>,
+    _metaDataURL: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  retrieveAllNengajoes(
+    overrides?: CallOverrides
+  ): Promise<IOmamori.NengajoInfoStructOutput[]>;
+
+  retrieveMintedNengajoes(
+    _address: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<IOmamori.NengajoInfoStructOutput[]>;
+
+  retrieveRegisteredNengajo(
+    _tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<IOmamori.NengajoInfoStructOutput>;
+
+  retrieveRegisteredNengajoes(
+    _address: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<IOmamori.NengajoInfoStructOutput[]>;
+
+  safeBatchTransferFrom(
+    from: PromiseOrValue<string>,
+    to: PromiseOrValue<string>,
+    ids: PromiseOrValue<BigNumberish>[],
+    values: PromiseOrValue<BigNumberish>[],
+    data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  safeTransferFrom(
+    from: PromiseOrValue<string>,
+    to: PromiseOrValue<string>,
+    id: PromiseOrValue<BigNumberish>,
+    value: PromiseOrValue<BigNumberish>,
+    data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setApprovalForAll(
+    operator: PromiseOrValue<string>,
+    approved: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setNft(
+    _nft: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  supportsInterface(
+    interfaceId: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  tokenURI(
+    _tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  uri(
+    _tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  callStatic: {
+    balanceOf(
+      account: PromiseOrValue<string>,
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    balanceOfBatch(
+      accounts: PromiseOrValue<string>[],
+      ids: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
+
+    isApprovedForAll(
+      account: PromiseOrValue<string>,
+      operator: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    mint(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    mintBatch(
+      _tokenIdsList: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    otakiage(overrides?: CallOverrides): Promise<void>;
+
+    registerNengajo(
+      _maxSupply: PromiseOrValue<BigNumberish>,
+      _metaDataURL: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    retrieveAllNengajoes(
+      overrides?: CallOverrides
+    ): Promise<IOmamori.NengajoInfoStructOutput[]>;
+
+    retrieveMintedNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<IOmamori.NengajoInfoStructOutput[]>;
+
+    retrieveRegisteredNengajo(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<IOmamori.NengajoInfoStructOutput>;
+
+    retrieveRegisteredNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<IOmamori.NengajoInfoStructOutput[]>;
+
+    safeBatchTransferFrom(
+      from: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      ids: PromiseOrValue<BigNumberish>[],
+      values: PromiseOrValue<BigNumberish>[],
+      data: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    safeTransferFrom(
+      from: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      id: PromiseOrValue<BigNumberish>,
+      value: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setApprovalForAll(
+      operator: PromiseOrValue<string>,
+      approved: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setNft(
+      _nft: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    supportsInterface(
+      interfaceId: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    tokenURI(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    uri(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+  };
 
   filters: {
-    "ApprovalForAll(address,address,bool)": TypedContractEvent<
-      ApprovalForAllEvent.InputTuple,
-      ApprovalForAllEvent.OutputTuple,
-      ApprovalForAllEvent.OutputObject
-    >;
-    ApprovalForAll: TypedContractEvent<
-      ApprovalForAllEvent.InputTuple,
-      ApprovalForAllEvent.OutputTuple,
-      ApprovalForAllEvent.OutputObject
-    >;
+    "ApprovalForAll(address,address,bool)"(
+      account?: PromiseOrValue<string> | null,
+      operator?: PromiseOrValue<string> | null,
+      approved?: null
+    ): ApprovalForAllEventFilter;
+    ApprovalForAll(
+      account?: PromiseOrValue<string> | null,
+      operator?: PromiseOrValue<string> | null,
+      approved?: null
+    ): ApprovalForAllEventFilter;
 
-    "Mint(address,uint256)": TypedContractEvent<
-      MintEvent.InputTuple,
-      MintEvent.OutputTuple,
-      MintEvent.OutputObject
-    >;
-    Mint: TypedContractEvent<
-      MintEvent.InputTuple,
-      MintEvent.OutputTuple,
-      MintEvent.OutputObject
-    >;
+    "Mint(address,uint256)"(
+      minter?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null
+    ): MintEventFilter;
+    Mint(
+      minter?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null
+    ): MintEventFilter;
 
-    "MintBatch(address,uint256[])": TypedContractEvent<
-      MintBatchEvent.InputTuple,
-      MintBatchEvent.OutputTuple,
-      MintBatchEvent.OutputObject
-    >;
-    MintBatch: TypedContractEvent<
-      MintBatchEvent.InputTuple,
-      MintBatchEvent.OutputTuple,
-      MintBatchEvent.OutputObject
-    >;
+    "MintBatch(address,uint256[])"(
+      minter?: PromiseOrValue<string> | null,
+      tokenIds?: null
+    ): MintBatchEventFilter;
+    MintBatch(
+      minter?: PromiseOrValue<string> | null,
+      tokenIds?: null
+    ): MintBatchEventFilter;
 
-    "RegisterNengajo(address,uint256,string,uint256)": TypedContractEvent<
-      RegisterNengajoEvent.InputTuple,
-      RegisterNengajoEvent.OutputTuple,
-      RegisterNengajoEvent.OutputObject
-    >;
-    RegisterNengajo: TypedContractEvent<
-      RegisterNengajoEvent.InputTuple,
-      RegisterNengajoEvent.OutputTuple,
-      RegisterNengajoEvent.OutputObject
-    >;
+    "RegisterNengajo(address,uint256,string,uint256)"(
+      creator?: PromiseOrValue<string> | null,
+      tokenId?: null,
+      metaDataURL?: null,
+      maxSupply?: null
+    ): RegisterNengajoEventFilter;
+    RegisterNengajo(
+      creator?: PromiseOrValue<string> | null,
+      tokenId?: null,
+      metaDataURL?: null,
+      maxSupply?: null
+    ): RegisterNengajoEventFilter;
 
-    "TransferBatch(address,address,address,uint256[],uint256[])": TypedContractEvent<
-      TransferBatchEvent.InputTuple,
-      TransferBatchEvent.OutputTuple,
-      TransferBatchEvent.OutputObject
-    >;
-    TransferBatch: TypedContractEvent<
-      TransferBatchEvent.InputTuple,
-      TransferBatchEvent.OutputTuple,
-      TransferBatchEvent.OutputObject
-    >;
+    "TransferBatch(address,address,address,uint256[],uint256[])"(
+      operator?: PromiseOrValue<string> | null,
+      from?: PromiseOrValue<string> | null,
+      to?: PromiseOrValue<string> | null,
+      ids?: null,
+      values?: null
+    ): TransferBatchEventFilter;
+    TransferBatch(
+      operator?: PromiseOrValue<string> | null,
+      from?: PromiseOrValue<string> | null,
+      to?: PromiseOrValue<string> | null,
+      ids?: null,
+      values?: null
+    ): TransferBatchEventFilter;
 
-    "TransferSingle(address,address,address,uint256,uint256)": TypedContractEvent<
-      TransferSingleEvent.InputTuple,
-      TransferSingleEvent.OutputTuple,
-      TransferSingleEvent.OutputObject
-    >;
-    TransferSingle: TypedContractEvent<
-      TransferSingleEvent.InputTuple,
-      TransferSingleEvent.OutputTuple,
-      TransferSingleEvent.OutputObject
-    >;
+    "TransferSingle(address,address,address,uint256,uint256)"(
+      operator?: PromiseOrValue<string> | null,
+      from?: PromiseOrValue<string> | null,
+      to?: PromiseOrValue<string> | null,
+      id?: null,
+      value?: null
+    ): TransferSingleEventFilter;
+    TransferSingle(
+      operator?: PromiseOrValue<string> | null,
+      from?: PromiseOrValue<string> | null,
+      to?: PromiseOrValue<string> | null,
+      id?: null,
+      value?: null
+    ): TransferSingleEventFilter;
 
-    "URI(string,uint256)": TypedContractEvent<
-      URIEvent.InputTuple,
-      URIEvent.OutputTuple,
-      URIEvent.OutputObject
-    >;
-    URI: TypedContractEvent<
-      URIEvent.InputTuple,
-      URIEvent.OutputTuple,
-      URIEvent.OutputObject
-    >;
+    "URI(string,uint256)"(
+      value?: null,
+      id?: PromiseOrValue<BigNumberish> | null
+    ): URIEventFilter;
+    URI(value?: null, id?: PromiseOrValue<BigNumberish> | null): URIEventFilter;
+  };
+
+  estimateGas: {
+    balanceOf(
+      account: PromiseOrValue<string>,
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    balanceOfBatch(
+      accounts: PromiseOrValue<string>[],
+      ids: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    isApprovedForAll(
+      account: PromiseOrValue<string>,
+      operator: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    mint(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    mintBatch(
+      _tokenIdsList: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    otakiage(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    registerNengajo(
+      _maxSupply: PromiseOrValue<BigNumberish>,
+      _metaDataURL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    retrieveAllNengajoes(overrides?: CallOverrides): Promise<BigNumber>;
+
+    retrieveMintedNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    retrieveRegisteredNengajo(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    retrieveRegisteredNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    safeBatchTransferFrom(
+      from: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      ids: PromiseOrValue<BigNumberish>[],
+      values: PromiseOrValue<BigNumberish>[],
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    safeTransferFrom(
+      from: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      id: PromiseOrValue<BigNumberish>,
+      value: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setApprovalForAll(
+      operator: PromiseOrValue<string>,
+      approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setNft(
+      _nft: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    supportsInterface(
+      interfaceId: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    tokenURI(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uri(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+  };
+
+  populateTransaction: {
+    balanceOf(
+      account: PromiseOrValue<string>,
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    balanceOfBatch(
+      accounts: PromiseOrValue<string>[],
+      ids: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    isApprovedForAll(
+      account: PromiseOrValue<string>,
+      operator: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    mint(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    mintBatch(
+      _tokenIdsList: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    otakiage(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    registerNengajo(
+      _maxSupply: PromiseOrValue<BigNumberish>,
+      _metaDataURL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    retrieveAllNengajoes(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    retrieveMintedNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    retrieveRegisteredNengajo(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    retrieveRegisteredNengajoes(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    safeBatchTransferFrom(
+      from: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      ids: PromiseOrValue<BigNumberish>[],
+      values: PromiseOrValue<BigNumberish>[],
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    safeTransferFrom(
+      from: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      id: PromiseOrValue<BigNumberish>,
+      value: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setApprovalForAll(
+      operator: PromiseOrValue<string>,
+      approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setNft(
+      _nft: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    supportsInterface(
+      interfaceId: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    tokenURI(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uri(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
   };
 }

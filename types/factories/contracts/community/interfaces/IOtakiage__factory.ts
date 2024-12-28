@@ -2,7 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from "ethers";
+import { Contract, Signer, utils } from "ethers";
+import type { Provider } from "@ethersproject/providers";
 import type {
   IOtakiage,
   IOtakiageInterface,
@@ -630,9 +631,12 @@ const _abi = [
 export class IOtakiage__factory {
   static readonly abi = _abi;
   static createInterface(): IOtakiageInterface {
-    return new Interface(_abi) as IOtakiageInterface;
+    return new utils.Interface(_abi) as IOtakiageInterface;
   }
-  static connect(address: string, runner?: ContractRunner | null): IOtakiage {
-    return new Contract(address, _abi, runner) as unknown as IOtakiage;
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): IOtakiage {
+    return new Contract(address, _abi, signerOrProvider) as IOtakiage;
   }
 }

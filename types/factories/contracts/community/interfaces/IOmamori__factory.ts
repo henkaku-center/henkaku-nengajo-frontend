@@ -2,7 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from "ethers";
+import { Contract, Signer, utils } from "ethers";
+import type { Provider } from "@ethersproject/providers";
 import type {
   IOmamori,
   IOmamoriInterface,
@@ -636,9 +637,12 @@ const _abi = [
 export class IOmamori__factory {
   static readonly abi = _abi;
   static createInterface(): IOmamoriInterface {
-    return new Interface(_abi) as IOmamoriInterface;
+    return new utils.Interface(_abi) as IOmamoriInterface;
   }
-  static connect(address: string, runner?: ContractRunner | null): IOmamori {
-    return new Contract(address, _abi, runner) as unknown as IOmamori;
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): IOmamori {
+    return new Contract(address, _abi, signerOrProvider) as IOmamori;
   }
 }
