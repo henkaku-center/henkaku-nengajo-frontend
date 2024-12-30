@@ -55,7 +55,7 @@ const contractAddresses: ContractAddresses = {
     [holeskyChainId]: '0x9b3dD2d6021EfB4676a196A98096299F8bD517ef'
   },
   otakiage: {
-    [chainId.polygon]: '',
+    [chainId.polygon]: '0xdc57E79A5B01a0F96C8Cf31a2356a28999F22e46',
     [holeskyChainId]: '0x2a21AD15340Cb193991fA1E278d77F93Ff4c32DE'
   }
 }
