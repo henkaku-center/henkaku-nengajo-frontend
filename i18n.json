@@ -2,11 +2,21 @@
   "locales": ["en", "ja"],
   "defaultLocale": "ja",
   "pages": {
-    "*": ["common", "balance", "connect", "approve", "profile", "collection"],
+    "*": [
+      "common",
+      "balance",
+      "connect",
+      "approve",
+      "profile",
+      "collection",
+      "otakiage",
+      "omamori"
+    ],
     "/collection": ["collection"],
     "/nengajo/[id]": ["nengajo"],
     "/omamori": ["omamori"],
     "/omamori/create": ["omamori"],
-    "/omamori/[id]": ["omamori"]
+    "/omamori/[id]": ["omamori"],
+    "/otakiage": ["otakiage", "omamori"]
   }
 }

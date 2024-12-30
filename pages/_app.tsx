@@ -7,13 +7,33 @@ import {
   createClient,
   configureChains,
   chain,
-  defaultChains
+  defaultChains,
+  Chain
 } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
 
+// Holesky chain definition
+const holeskyChain: Chain = {
+  id: 17000,
+  name: 'Holesky',
+  network: 'holesky',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Ethereum',
+    symbol: 'ETH'
+  },
+  rpcUrls: {
+    default: 'https://ethereum-holesky.publicnode.com'
+  },
+  blockExplorers: {
+    default: { name: 'HoleskyScan', url: 'https://holesky.etherscan.io' }
+  },
+  testnet: true
+} as const
+
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.hardhat, chain.polygonMumbai],
+  [chain.polygon, holeskyChain],
   [
     jsonRpcProvider({
       rpc: () => ({

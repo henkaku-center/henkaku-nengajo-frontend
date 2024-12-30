@@ -1,4 +1,6 @@
 {
+  "OTAKIAGE": "Otakiage",
+
   "CONNECT_WALLET_BUTTON": "Connect wallet",
   "DISCONNECT_WALLET_BUTTON": "Disconnect wallet",
   "BUTTON_SUBMITTING": "Submitting...",
@@ -11,6 +13,7 @@
   "CREATE_LINK": "Create Nengajo",
   "NENGAJO_LINK": "Nengajo",
   "OMAMORI_LINK": "\"Omamori\"",
+  "OTAKIAGE_LINK": "\"Otakiage\"",
   "LANG_SWITCHER": "日本語",
 
   "CREATE_NEW_NENGAJO": "Create a new nengajo",
@@ -40,7 +43,7 @@
   "STATUS_TITLE": "Status",
 
   "REGISTERD_NENGAJO_LIST": "Registered nengajo list",
-  "EMPTY_NENGAJO_LIST": "No relevant nengajo found",
+  "EMPTY_NENGAJO_LIST": "No relevant NFT found",
 
   "CLAIM": {
     "TOAST": {

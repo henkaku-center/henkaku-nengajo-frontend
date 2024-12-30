@@ -3,3 +3,5 @@
 /* eslint-disable */
 export { IHenkaku1155Mint__factory } from "./IHenkaku1155Mint__factory";
 export { IHenkakuToken__factory } from "./IHenkakuToken__factory";
+export { IOmamori__factory } from "./IOmamori__factory";
+export { IOtakiage__factory } from "./IOtakiage__factory";
