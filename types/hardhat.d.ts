@@ -69,6 +69,22 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
+      name: "ERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721__factory>;
+    getContractFactory(
+      name: "IERC721Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Metadata__factory>;
+    getContractFactory(
+      name: "IERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721__factory>;
+    getContractFactory(
+      name: "IERC721Receiver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Receiver__factory>;
+    getContractFactory(
       name: "ECDSA",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ECDSA__factory>;
@@ -113,6 +129,14 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IHenkakuToken__factory>;
     getContractFactory(
+      name: "IOmamori",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IOmamori__factory>;
+    getContractFactory(
+      name: "IOtakiage",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IOtakiage__factory>;
+    getContractFactory(
       name: "Nengajo",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Nengajo__factory>;
@@ -120,6 +144,10 @@ declare module "hardhat/types/runtime" {
       name: "Omamori",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Omamori__factory>;
+    getContractFactory(
+      name: "Otakiage",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Otakiage__factory>;
     getContractFactory(
       name: "Forwarder",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -204,6 +232,26 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
+      name: "ERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721>;
+    getContractAt(
+      name: "IERC721Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Metadata>;
+    getContractAt(
+      name: "IERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721>;
+    getContractAt(
+      name: "IERC721Receiver",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Receiver>;
+    getContractAt(
       name: "ECDSA",
       address: string,
       signer?: ethers.Signer
@@ -259,6 +307,16 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IHenkakuToken>;
     getContractAt(
+      name: "IOmamori",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IOmamori>;
+    getContractAt(
+      name: "IOtakiage",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IOtakiage>;
+    getContractAt(
       name: "Nengajo",
       address: string,
       signer?: ethers.Signer
@@ -268,6 +326,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Omamori>;
+    getContractAt(
+      name: "Otakiage",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Otakiage>;
     getContractAt(
       name: "Forwarder",
       address: string,

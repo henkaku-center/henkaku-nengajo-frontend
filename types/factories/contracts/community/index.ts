@@ -6,3 +6,4 @@ export * as external from "./external";
 export * as interfaces from "./interfaces";
 export { Nengajo__factory } from "./Nengajo__factory";
 export { Omamori__factory } from "./Omamori__factory";
+export { Otakiage__factory } from "./Otakiage__factory";

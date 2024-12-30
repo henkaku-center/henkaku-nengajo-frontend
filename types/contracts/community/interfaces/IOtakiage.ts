@@ -25,81 +25,24 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../common";
+} from "../../../common";
 
-export declare namespace IOmamori {
-  export type NengajoInfoStruct = {
-    id: PromiseOrValue<BigNumberish>;
-    uri: PromiseOrValue<string>;
-    creator: PromiseOrValue<string>;
-    maxSupply: PromiseOrValue<BigNumberish>;
-  };
-
-  export type NengajoInfoStructOutput = [
-    BigNumber,
-    string,
-    string,
-    BigNumber
-  ] & { id: BigNumber; uri: string; creator: string; maxSupply: BigNumber };
-}
-
-export declare namespace IOtakiage {
-  export type NengajoInfoWithBalanceStruct = {
-    id: PromiseOrValue<BigNumberish>;
-    uri: PromiseOrValue<string>;
-    creator: PromiseOrValue<string>;
-    maxSupply: PromiseOrValue<BigNumberish>;
-    balance: PromiseOrValue<BigNumberish>;
-  };
-
-  export type NengajoInfoWithBalanceStructOutput = [
-    BigNumber,
-    string,
-    string,
-    BigNumber,
-    BigNumber
-  ] & {
-    id: BigNumber;
-    uri: string;
-    creator: string;
-    maxSupply: BigNumber;
-    balance: BigNumber;
-  };
-}
-
-export interface OtakiageInterface extends utils.Interface {
+export interface IOtakiageInterface extends utils.Interface {
   functions: {
-    "addAdmins(address[])": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "batchMintOtakiage(address[])": FunctionFragment;
-    "cid()": FunctionFragment;
-    "deleteAdmin(address)": FunctionFragment;
     "fetchHoldingOmamoriBalance()": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "getCID()": FunctionFragment;
     "getImage(uint256)": FunctionFragment;
-    "getOtakiageOmamoriBalances()": FunctionFragment;
-    "getOtakiageOmamoriInfo()": FunctionFragment;
-    "getOtakiageOmamoriInfoWithBalance()": FunctionFragment;
     "getOtakiageUserCount()": FunctionFragment;
     "getOtakiageUserOmamoriIds(address)": FunctionFragment;
     "getOtakiageUserOmamoriIdsCount(address)": FunctionFragment;
     "getOtakiageUsersArr()": FunctionFragment;
-    "imageExtension()": FunctionFragment;
-    "isAdmin(address)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
-    "isTrustedForwarder(address)": FunctionFragment;
     "mintOtakiage(address)": FunctionFragment;
-    "name()": FunctionFragment;
-    "omamoriContract()": FunctionFragment;
-    "omamoriTokenIdOffset()": FunctionFragment;
-    "omamoriTypeCount()": FunctionFragment;
-    "onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)": FunctionFragment;
-    "onERC1155Received(address,address,uint256,uint256,bytes)": FunctionFragment;
     "otakiage()": FunctionFragment;
-    "otakiageUserOmamoriIds(address,uint256)": FunctionFragment;
-    "otakiageUsersArr(uint256)": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
     "recordOtakiageUser(address,uint256[])": FunctionFragment;
     "recordOtakiageUsers(address[],uint256[])": FunctionFragment;
@@ -113,46 +56,26 @@ export interface OtakiageInterface extends utils.Interface {
     "setOmamoriTokenIdOffset(uint256)": FunctionFragment;
     "setOmamoriTypeCount(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
-    "symbol()": FunctionFragment;
-    "tokenIds()": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
-    "trustedForwarder()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "addAdmins"
       | "approve"
       | "balanceOf"
       | "batchMintOtakiage"
-      | "cid"
-      | "deleteAdmin"
       | "fetchHoldingOmamoriBalance"
       | "getApproved"
       | "getCID"
       | "getImage"
-      | "getOtakiageOmamoriBalances"
-      | "getOtakiageOmamoriInfo"
-      | "getOtakiageOmamoriInfoWithBalance"
       | "getOtakiageUserCount"
       | "getOtakiageUserOmamoriIds"
       | "getOtakiageUserOmamoriIdsCount"
       | "getOtakiageUsersArr"
-      | "imageExtension"
-      | "isAdmin"
       | "isApprovedForAll"
-      | "isTrustedForwarder"
       | "mintOtakiage"
-      | "name"
-      | "omamoriContract"
-      | "omamoriTokenIdOffset"
-      | "omamoriTypeCount"
-      | "onERC1155BatchReceived"
-      | "onERC1155Received"
       | "otakiage"
-      | "otakiageUserOmamoriIds"
-      | "otakiageUsersArr"
       | "ownerOf"
       | "recordOtakiageUser"
       | "recordOtakiageUsers"
@@ -166,17 +89,10 @@ export interface OtakiageInterface extends utils.Interface {
       | "setOmamoriTokenIdOffset"
       | "setOmamoriTypeCount"
       | "supportsInterface"
-      | "symbol"
-      | "tokenIds"
       | "tokenURI"
       | "transferFrom"
-      | "trustedForwarder"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "addAdmins",
-    values: [PromiseOrValue<string>[]]
-  ): string;
   encodeFunctionData(
     functionFragment: "approve",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
@@ -188,11 +104,6 @@ export interface OtakiageInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "batchMintOtakiage",
     values: [PromiseOrValue<string>[]]
-  ): string;
-  encodeFunctionData(functionFragment: "cid", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "deleteAdmin",
-    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "fetchHoldingOmamoriBalance",
@@ -206,18 +117,6 @@ export interface OtakiageInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "getImage",
     values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getOtakiageOmamoriBalances",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getOtakiageOmamoriInfo",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getOtakiageOmamoriInfoWithBalance",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getOtakiageUserCount",
@@ -236,67 +135,14 @@ export interface OtakiageInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "imageExtension",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isAdmin",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isTrustedForwarder",
-    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "mintOtakiage",
     values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "name", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "omamoriContract",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "omamoriTokenIdOffset",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "omamoriTypeCount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "onERC1155BatchReceived",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>[],
-      PromiseOrValue<BigNumberish>[],
-      PromiseOrValue<BytesLike>
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "onERC1155Received",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
-  ): string;
   encodeFunctionData(functionFragment: "otakiage", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "otakiageUserOmamoriIds",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "otakiageUsersArr",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
   encodeFunctionData(
     functionFragment: "ownerOf",
     values: [PromiseOrValue<BigNumberish>]
@@ -358,8 +204,6 @@ export interface OtakiageInterface extends utils.Interface {
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
   ): string;
-  encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(functionFragment: "tokenIds", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "tokenURI",
     values: [PromiseOrValue<BigNumberish>]
@@ -372,21 +216,11 @@ export interface OtakiageInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>
     ]
   ): string;
-  encodeFunctionData(
-    functionFragment: "trustedForwarder",
-    values?: undefined
-  ): string;
 
-  decodeFunctionResult(functionFragment: "addAdmins", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "batchMintOtakiage",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "cid", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "deleteAdmin",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -399,18 +233,6 @@ export interface OtakiageInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "getCID", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getImage", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getOtakiageOmamoriBalances",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getOtakiageOmamoriInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getOtakiageOmamoriInfoWithBalance",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "getOtakiageUserCount",
     data: BytesLike
@@ -428,52 +250,14 @@ export interface OtakiageInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "imageExtension",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "isAdmin", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "isApprovedForAll",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "isTrustedForwarder",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "mintOtakiage",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "omamoriContract",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "omamoriTokenIdOffset",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "omamoriTypeCount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "onERC1155BatchReceived",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "onERC1155Received",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "otakiage", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "otakiageUserOmamoriIds",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "otakiageUsersArr",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "recordOtakiageUser",
@@ -520,15 +304,9 @@ export interface OtakiageInterface extends utils.Interface {
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tokenIds", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "trustedForwarder",
     data: BytesLike
   ): Result;
 
@@ -615,12 +393,12 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface Otakiage extends BaseContract {
+export interface IOtakiage extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: OtakiageInterface;
+  interface: IOtakiageInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -642,11 +420,6 @@ export interface Otakiage extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    addAdmins(
-      _newAdmins: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     approve(
       to: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
@@ -656,17 +429,10 @@ export interface Otakiage extends BaseContract {
     balanceOf(
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    ): Promise<[BigNumber] & { balance: BigNumber }>;
 
     batchMintOtakiage(
       tos: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    cid(overrides?: CallOverrides): Promise<[string]>;
-
-    deleteAdmin(
-      _deleteAdmin: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -677,7 +443,7 @@ export interface Otakiage extends BaseContract {
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[string]>;
+    ): Promise<[string] & { operator: string }>;
 
     getCID(overrides?: CallOverrides): Promise<[string]>;
 
@@ -685,18 +451,6 @@ export interface Otakiage extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string]>;
-
-    getOtakiageOmamoriBalances(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber[]]>;
-
-    getOtakiageOmamoriInfo(
-      overrides?: CallOverrides
-    ): Promise<[IOmamori.NengajoInfoStructOutput[]]>;
-
-    getOtakiageOmamoriInfoWithBalance(
-      overrides?: CallOverrides
-    ): Promise<[IOtakiage.NengajoInfoWithBalanceStructOutput[]]>;
 
     getOtakiageUserCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -712,21 +466,9 @@ export interface Otakiage extends BaseContract {
 
     getOtakiageUsersArr(overrides?: CallOverrides): Promise<[string[]]>;
 
-    imageExtension(overrides?: CallOverrides): Promise<[string]>;
-
-    isAdmin(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
-    isTrustedForwarder(
-      forwarder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
@@ -735,51 +477,14 @@ export interface Otakiage extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    name(overrides?: CallOverrides): Promise<[string]>;
-
-    omamoriContract(overrides?: CallOverrides): Promise<[string]>;
-
-    omamoriTokenIdOffset(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    omamoriTypeCount(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    onERC1155BatchReceived(
-      operator: PromiseOrValue<string>,
-      from: PromiseOrValue<string>,
-      ids: PromiseOrValue<BigNumberish>[],
-      values: PromiseOrValue<BigNumberish>[],
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    onERC1155Received(
-      operator: PromiseOrValue<string>,
-      from: PromiseOrValue<string>,
-      id: PromiseOrValue<BigNumberish>,
-      value: PromiseOrValue<BigNumberish>,
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     otakiage(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    otakiageUserOmamoriIds(
-      arg0: PromiseOrValue<string>,
-      arg1: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    otakiageUsersArr(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
     ownerOf(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[string]>;
+    ): Promise<[string] & { owner: string }>;
 
     recordOtakiageUser(
       user: PromiseOrValue<string>,
@@ -848,10 +553,6 @@ export interface Otakiage extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    symbol(overrides?: CallOverrides): Promise<[string]>;
-
-    tokenIds(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     tokenURI(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -863,14 +564,7 @@ export interface Otakiage extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
-
-    trustedForwarder(overrides?: CallOverrides): Promise<[string]>;
   };
-
-  addAdmins(
-    _newAdmins: PromiseOrValue<string>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   approve(
     to: PromiseOrValue<string>,
@@ -885,13 +579,6 @@ export interface Otakiage extends BaseContract {
 
   batchMintOtakiage(
     tos: PromiseOrValue<string>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  cid(overrides?: CallOverrides): Promise<string>;
-
-  deleteAdmin(
-    _deleteAdmin: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -911,16 +598,6 @@ export interface Otakiage extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  getOtakiageOmamoriBalances(overrides?: CallOverrides): Promise<BigNumber[]>;
-
-  getOtakiageOmamoriInfo(
-    overrides?: CallOverrides
-  ): Promise<IOmamori.NengajoInfoStructOutput[]>;
-
-  getOtakiageOmamoriInfoWithBalance(
-    overrides?: CallOverrides
-  ): Promise<IOtakiage.NengajoInfoWithBalanceStructOutput[]>;
-
   getOtakiageUserCount(overrides?: CallOverrides): Promise<BigNumber>;
 
   getOtakiageUserOmamoriIds(
@@ -935,21 +612,9 @@ export interface Otakiage extends BaseContract {
 
   getOtakiageUsersArr(overrides?: CallOverrides): Promise<string[]>;
 
-  imageExtension(overrides?: CallOverrides): Promise<string>;
-
-  isAdmin(
-    _address: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
   isApprovedForAll(
     owner: PromiseOrValue<string>,
     operator: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
-  isTrustedForwarder(
-    forwarder: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -958,46 +623,9 @@ export interface Otakiage extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  name(overrides?: CallOverrides): Promise<string>;
-
-  omamoriContract(overrides?: CallOverrides): Promise<string>;
-
-  omamoriTokenIdOffset(overrides?: CallOverrides): Promise<BigNumber>;
-
-  omamoriTypeCount(overrides?: CallOverrides): Promise<BigNumber>;
-
-  onERC1155BatchReceived(
-    operator: PromiseOrValue<string>,
-    from: PromiseOrValue<string>,
-    ids: PromiseOrValue<BigNumberish>[],
-    values: PromiseOrValue<BigNumberish>[],
-    data: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  onERC1155Received(
-    operator: PromiseOrValue<string>,
-    from: PromiseOrValue<string>,
-    id: PromiseOrValue<BigNumberish>,
-    value: PromiseOrValue<BigNumberish>,
-    data: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   otakiage(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
-
-  otakiageUserOmamoriIds(
-    arg0: PromiseOrValue<string>,
-    arg1: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  otakiageUsersArr(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<string>;
 
   ownerOf(
     tokenId: PromiseOrValue<BigNumberish>,
@@ -1071,10 +699,6 @@ export interface Otakiage extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  symbol(overrides?: CallOverrides): Promise<string>;
-
-  tokenIds(overrides?: CallOverrides): Promise<BigNumber>;
-
   tokenURI(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -1087,14 +711,7 @@ export interface Otakiage extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  trustedForwarder(overrides?: CallOverrides): Promise<string>;
-
   callStatic: {
-    addAdmins(
-      _newAdmins: PromiseOrValue<string>[],
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     approve(
       to: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
@@ -1108,13 +725,6 @@ export interface Otakiage extends BaseContract {
 
     batchMintOtakiage(
       tos: PromiseOrValue<string>[],
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    cid(overrides?: CallOverrides): Promise<string>;
-
-    deleteAdmin(
-      _deleteAdmin: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1134,16 +744,6 @@ export interface Otakiage extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    getOtakiageOmamoriBalances(overrides?: CallOverrides): Promise<BigNumber[]>;
-
-    getOtakiageOmamoriInfo(
-      overrides?: CallOverrides
-    ): Promise<IOmamori.NengajoInfoStructOutput[]>;
-
-    getOtakiageOmamoriInfoWithBalance(
-      overrides?: CallOverrides
-    ): Promise<IOtakiage.NengajoInfoWithBalanceStructOutput[]>;
-
     getOtakiageUserCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getOtakiageUserOmamoriIds(
@@ -1158,21 +758,9 @@ export interface Otakiage extends BaseContract {
 
     getOtakiageUsersArr(overrides?: CallOverrides): Promise<string[]>;
 
-    imageExtension(overrides?: CallOverrides): Promise<string>;
-
-    isAdmin(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    isTrustedForwarder(
-      forwarder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -1181,44 +769,7 @@ export interface Otakiage extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    name(overrides?: CallOverrides): Promise<string>;
-
-    omamoriContract(overrides?: CallOverrides): Promise<string>;
-
-    omamoriTokenIdOffset(overrides?: CallOverrides): Promise<BigNumber>;
-
-    omamoriTypeCount(overrides?: CallOverrides): Promise<BigNumber>;
-
-    onERC1155BatchReceived(
-      operator: PromiseOrValue<string>,
-      from: PromiseOrValue<string>,
-      ids: PromiseOrValue<BigNumberish>[],
-      values: PromiseOrValue<BigNumberish>[],
-      data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    onERC1155Received(
-      operator: PromiseOrValue<string>,
-      from: PromiseOrValue<string>,
-      id: PromiseOrValue<BigNumberish>,
-      value: PromiseOrValue<BigNumberish>,
-      data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
     otakiage(overrides?: CallOverrides): Promise<void>;
-
-    otakiageUserOmamoriIds(
-      arg0: PromiseOrValue<string>,
-      arg1: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    otakiageUsersArr(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<string>;
 
     ownerOf(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -1290,10 +841,6 @@ export interface Otakiage extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    symbol(overrides?: CallOverrides): Promise<string>;
-
-    tokenIds(overrides?: CallOverrides): Promise<BigNumber>;
-
     tokenURI(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1305,8 +852,6 @@ export interface Otakiage extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    trustedForwarder(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
@@ -1368,11 +913,6 @@ export interface Otakiage extends BaseContract {
   };
 
   estimateGas: {
-    addAdmins(
-      _newAdmins: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     approve(
       to: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
@@ -1386,13 +926,6 @@ export interface Otakiage extends BaseContract {
 
     batchMintOtakiage(
       tos: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    cid(overrides?: CallOverrides): Promise<BigNumber>;
-
-    deleteAdmin(
-      _deleteAdmin: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1410,14 +943,6 @@ export interface Otakiage extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getOtakiageOmamoriBalances(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getOtakiageOmamoriInfo(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getOtakiageOmamoriInfoWithBalance(
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     getOtakiageUserCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getOtakiageUserOmamoriIds(
@@ -1432,21 +957,9 @@ export interface Otakiage extends BaseContract {
 
     getOtakiageUsersArr(overrides?: CallOverrides): Promise<BigNumber>;
 
-    imageExtension(overrides?: CallOverrides): Promise<BigNumber>;
-
-    isAdmin(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    isTrustedForwarder(
-      forwarder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1455,45 +968,8 @@ export interface Otakiage extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    name(overrides?: CallOverrides): Promise<BigNumber>;
-
-    omamoriContract(overrides?: CallOverrides): Promise<BigNumber>;
-
-    omamoriTokenIdOffset(overrides?: CallOverrides): Promise<BigNumber>;
-
-    omamoriTypeCount(overrides?: CallOverrides): Promise<BigNumber>;
-
-    onERC1155BatchReceived(
-      operator: PromiseOrValue<string>,
-      from: PromiseOrValue<string>,
-      ids: PromiseOrValue<BigNumberish>[],
-      values: PromiseOrValue<BigNumberish>[],
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    onERC1155Received(
-      operator: PromiseOrValue<string>,
-      from: PromiseOrValue<string>,
-      id: PromiseOrValue<BigNumberish>,
-      value: PromiseOrValue<BigNumberish>,
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     otakiage(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    otakiageUserOmamoriIds(
-      arg0: PromiseOrValue<string>,
-      arg1: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    otakiageUsersArr(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     ownerOf(
@@ -1568,10 +1044,6 @@ export interface Otakiage extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    symbol(overrides?: CallOverrides): Promise<BigNumber>;
-
-    tokenIds(overrides?: CallOverrides): Promise<BigNumber>;
-
     tokenURI(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1583,16 +1055,9 @@ export interface Otakiage extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
-
-    trustedForwarder(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    addAdmins(
-      _newAdmins: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     approve(
       to: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
@@ -1609,13 +1074,6 @@ export interface Otakiage extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    cid(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    deleteAdmin(
-      _deleteAdmin: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     fetchHoldingOmamoriBalance(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -1629,18 +1087,6 @@ export interface Otakiage extends BaseContract {
 
     getImage(
       tokenId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getOtakiageOmamoriBalances(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getOtakiageOmamoriInfo(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getOtakiageOmamoriInfoWithBalance(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1662,21 +1108,9 @@ export interface Otakiage extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    imageExtension(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    isAdmin(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    isTrustedForwarder(
-      forwarder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1685,47 +1119,8 @@ export interface Otakiage extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    omamoriContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    omamoriTokenIdOffset(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    omamoriTypeCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    onERC1155BatchReceived(
-      operator: PromiseOrValue<string>,
-      from: PromiseOrValue<string>,
-      ids: PromiseOrValue<BigNumberish>[],
-      values: PromiseOrValue<BigNumberish>[],
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    onERC1155Received(
-      operator: PromiseOrValue<string>,
-      from: PromiseOrValue<string>,
-      id: PromiseOrValue<BigNumberish>,
-      value: PromiseOrValue<BigNumberish>,
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     otakiage(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    otakiageUserOmamoriIds(
-      arg0: PromiseOrValue<string>,
-      arg1: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    otakiageUsersArr(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     ownerOf(
@@ -1800,10 +1195,6 @@ export interface Otakiage extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    tokenIds(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     tokenURI(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1815,7 +1206,5 @@ export interface Otakiage extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
-
-    trustedForwarder(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

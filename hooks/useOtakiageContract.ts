@@ -17,6 +17,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { BigNumber, ethers, providers } from 'ethers'
 import { signMetaTxRequest } from '@/utils/signer'
 import axios from 'axios'
+import { IOmamori, Nengajo } from '@/types'
 
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID)
 
@@ -56,6 +57,50 @@ const useOtakiageContractEvent = (
     eventName,
     listener
   })
+}
+
+export const useGetOtakiageOmamoriBalances = () => {
+  const { data, isLoading, isError } = useOtakiageContractRead(
+    'getOmamoriBalances',
+    []
+  ) as {
+    data: BigNumber
+    isLoading: boolean
+    isError: boolean
+  }
+  return { data, isLoading, isError }
+}
+
+export const useFetchOtakiageOmamoriIds = () => {
+  const { data: otakiageOmamoriBalances } = useGetOtakiageOmamoriBalances()
+  const [otakiageOmamoriIds, setOtakiageOmamoriIds] = useState<BigNumber[]>([])
+
+  useEffect(() => {
+    if (otakiageOmamoriBalances) {
+      const balances = otakiageOmamoriBalances as unknown as BigNumber[]
+      const ids: BigNumber[] = []
+      balances.forEach((balance, i) => {
+        if (balance.toNumber() > 0) {
+          ids.push(BigNumber.from(i + 1))
+        }
+      })
+      setOtakiageOmamoriIds(ids)
+    }
+  }, [otakiageOmamoriBalances])
+
+  return { otakiageOmamoriIds }
+}
+
+export const useFetchOtakiageOmamories = () => {
+  const { data, isLoading, isError } = useOtakiageContractRead(
+    'getOtakiageOmamoriInfo',
+    []
+  ) as {
+    data: Nengajo.NengajoInfoStructOutput[]
+    isLoading: boolean
+    isError: boolean
+  }
+  return { data, isLoading, isError }
 }
 
 export const useRegisterOtakiage = (maxSupply: number, metadataURI: string) => {

@@ -9,7 +9,9 @@ import {
   useToast,
   Image,
   ListItem,
-  OrderedList
+  OrderedList,
+  Modal,
+  ModalOverlay
 } from '@chakra-ui/react'
 import { useAccount } from 'wagmi'
 import { useChainId, useMounted } from '@/hooks'
@@ -27,6 +29,8 @@ import {
   useSetApprovalForAllOmamoriWithMx
 } from '@/hooks/useOmamoriContract'
 import {
+  useFetchOtakiageOmamories,
+  useGetOtakiageOmamoriBalances,
   useIsAdmin,
   useIsOtakiaged,
   useOtakiage,
@@ -40,6 +44,8 @@ import { IS_EVENT_DAY, IS_RELEASED } from '@/constants/Otakiage'
 import OmamoriesList from '@/components/OmamoriesList'
 import Link from 'next/link'
 import { contractAddresses, holeskyChainId } from '@/utils/contractAddresses'
+import OtakiageOmamoriesList from '../OtakiageOmamoriesList'
+import { useState } from 'react'
 
 const OtakiageFeature: NextPage = () => {
   const isMounted = useMounted()
@@ -69,6 +75,7 @@ const OtakiageFeature: NextPage = () => {
   const { data: isApproved } = useIsApprovedForAllToOtakiage()
   const { t: ot } = useTranslation('otakiage')
   const { isOtakiaged } = useIsOtakiaged()
+  const { data: otakiageOmamoriInfo } = useFetchOtakiageOmamories()
 
   const approve = async () => {
     try {
@@ -126,9 +133,10 @@ const OtakiageFeature: NextPage = () => {
 
   const otakiageOmamoriScanUrl = `${scanDomain()}/address/${
     contractAddresses.otakiage[chainId]
-  }#readContract#F7`
+  }#readContract#F9`
 
   const hasMintedOmamori = userMintedOmamories && userMintedOmamories.length > 0
+  const [isShowMovie, setShowMovie] = useState(false)
 
   return (
     <>
@@ -331,11 +339,68 @@ const OtakiageFeature: NextPage = () => {
                 !(process.env.NODE_ENV === 'production')) && (
                 <Box pb={100}>
                   {IS_EVENT_DAY && (
-                    <Text textAlign="center">お焚上！！！！</Text>
+                    <>
+                      {isShowMovie && (
+                        <>
+                          <Modal
+                            isOpen={isShowMovie}
+                            onClose={() => setShowMovie(false)}
+                            scrollBehavior="inside"
+                            size="xl"
+                          >
+                            <Box position={'relative'}>
+                              <ModalOverlay onClick={() => setShowMovie(false)}>
+                                <Box
+                                  display={'flex'}
+                                  position={'absolute'}
+                                  zIndex={10000}
+                                  top={'5vh'}
+                                  left={'5vw'}
+                                >
+                                  <iframe
+                                    src="https://www.youtube.com/embed/nFhBLMGyIe8?si=armzc4Pg0v2KfTmk&autoplay=1"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerPolicy="strict-origin-when-cross-origin"
+                                    allowFullScreen
+                                    style={{
+                                      width: '90vw',
+                                      height: '90vh'
+                                    }}
+                                  ></iframe>
+                                </Box>
+                              </ModalOverlay>
+                            </Box>
+                          </Modal>
+                        </>
+                      )}
+                      <Box>
+                        <Button onClick={() => setShowMovie(true)}>
+                          お焚上後の動画再生
+                        </Button>
+                      </Box>
+                    </>
+                  )}
+                  <Heading className="text_serif" size="l" mt={5} pb={10}>
+                    {ot('OTAKIAGE_OMAMORI_LIST')}
+                  </Heading>
+                  {address && otakiageOmamoriInfo ? (
+                    <OtakiageOmamoriesList items={otakiageOmamoriInfo} />
+                  ) : (
+                    <Box mt={0} pb={10}>
+                      <Text className="text_serif">{ot('NO_OMAMORI')}</Text>
+                    </Box>
                   )}
                   {!IS_EVENT_DAY && address && (
-                    <>
-                      <Text textAlign="center">{ot('END_OTAKIAGE')}</Text>
+                    <Box pt={10}>
+                      <Text
+                        className="text_serif"
+                        textAlign="center"
+                        fontWeight="bold"
+                        display="block"
+                      >
+                        {ot('END_OTAKIAGE')}
+                      </Text>
                       <Link href={otakiageOmamoriScanUrl} passHref>
                         <a target="_blank" rel="noopener noreferrer">
                           <Text
@@ -349,7 +414,7 @@ const OtakiageFeature: NextPage = () => {
                           </Text>
                         </a>
                       </Link>
-                    </>
+                    </Box>
                   )}
                 </Box>
               )}

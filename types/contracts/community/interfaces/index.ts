@@ -3,3 +3,5 @@
 /* eslint-disable */
 export type { IHenkaku1155Mint } from "./IHenkaku1155Mint";
 export type { IHenkakuToken } from "./IHenkakuToken";
+export type { IOmamori } from "./IOmamori";
+export type { IOtakiage } from "./IOtakiage";

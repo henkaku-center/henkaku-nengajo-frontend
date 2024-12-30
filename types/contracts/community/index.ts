@@ -9,3 +9,4 @@ import type * as interfaces from "./interfaces";
 export type { interfaces };
 export type { Nengajo } from "./Nengajo";
 export type { Omamori } from "./Omamori";
+export type { Otakiage } from "./Otakiage";

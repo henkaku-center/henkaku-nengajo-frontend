@@ -118,8 +118,8 @@ export const useRetrieveHoldingOmamorisByAddress = (address: string) => {
 
 export const useFetchUserMintedOmamories = () => {
   const { address } = useAccount()
-  const { data } = useRetrieveHoldingOmamorisByAddress(address ?? '')
-  return { data }
+  const { data, isLoading } = useRetrieveHoldingOmamorisByAddress(address ?? '')
+  return { data, isLoading }
 }
 
 export const useRetrieveAllOmamori = () => {
@@ -230,20 +230,22 @@ export const useIsHoldingByTokenId = (tokenId: number) => {
 }
 
 export const useIsMintedByTokenId = (tokenId: number) => {
-  const [isMinted, setIsMinted] = useState(false)
-  const { data: userMintedOmamories } = useFetchUserMintedOmamories()
+  const [isMinted, setIsMinted] = useState<boolean | undefined>(undefined)
+  const { data: userMintedOmamories, isLoading } = useFetchUserMintedOmamories()
 
   useEffect(() => {
-    if (
-      userMintedOmamories?.find((omamori) => omamori.id.toNumber() === tokenId)
-    ) {
-      setIsMinted(true)
-    } else {
-      setIsMinted(false)
-    }
-  }, [userMintedOmamories, tokenId])
+    if (isLoading || !userMintedOmamories) return
 
-  return { isMinted }
+    const found = userMintedOmamories.find(
+      (omamori) => omamori.id.toNumber() === tokenId
+    )
+    setIsMinted(!!found)
+  }, [userMintedOmamories, tokenId, isLoading])
+
+  return {
+    isMinted,
+    isLoading
+  }
 }
 
 export const useCalcRequiredHenkakuAmount = (maxSupply: number) => {

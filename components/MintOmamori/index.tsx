@@ -93,9 +93,10 @@ const MintOmamori: React.FC<Props> = ({ id, item, imageOnly, ...props }) => {
 
   useEffect(() => {
     if (
-      !(process.env.NODE_ENV === 'production') ||
-      !IS_RELEASED ||
-      (isAdmin && !isMinted)
+      isMinted === false &&
+      process.env.NODE_ENV === 'development' &&
+      isAdmin &&
+      !IS_RELEASED
     ) {
       setShowDetail(false)
     }
