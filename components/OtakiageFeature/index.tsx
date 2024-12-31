@@ -136,6 +136,8 @@ const OtakiageFeature: NextPage = () => {
   }#readContract#F9`
 
   const hasMintedOmamori = userMintedOmamories && userMintedOmamories.length > 0
+  const isShowHowtoSection =
+    IS_RELEASED || isAdmin || !(process.env.NODE_ENV === 'production')
   const [isShowMovie, setShowMovie] = useState(false)
 
   return (
@@ -193,231 +195,216 @@ const OtakiageFeature: NextPage = () => {
           <>
             {!isOtakiaged && (
               <>
-                {(IS_RELEASED ||
-                  isAdmin ||
-                  !(process.env.NODE_ENV === 'production')) && (
-                  <>
-                    <Heading className="text_serif" size="xl" mt={10} pb={5}>
-                      {ot('PREPARE_FOR_OTAKIAGE')}
-                    </Heading>
-                    <Text className="text_serif">
-                      {ot('PREPARE_FOR_OTAKIAGE_EXPLANATION')}
-                    </Text>
-                    <Box>
-                      <Heading className="text_serif" size="l" mt={10} pb={5}>
-                        {ot('HOWTO_OTAKIAGE')}
-                      </Heading>
-                      <OrderedList>
-                        <ListItem>
+                <Heading className="text_serif" size="xl" mt={10} pb={5}>
+                  {ot('PREPARE_FOR_OTAKIAGE')}
+                </Heading>
+                <Text className="text_serif">
+                  {ot('PREPARE_FOR_OTAKIAGE_EXPLANATION')}
+                </Text>
+                <Box>
+                  <Heading className="text_serif" size="l" mt={10} pb={5}>
+                    {ot('HOWTO_OTAKIAGE')}
+                  </Heading>
+                  <OrderedList>
+                    <ListItem>
+                      <Text className="text_serif">
+                        {ot('HOWTO_OTAKIAGE_EXPLANATION_1')}
+                      </Text>
+                      <Box textAlign="center" mb={10}>
+                        <Box mt="2em" display="inline-block">
+                          <Flex
+                            gap={6}
+                            justifyContent="center"
+                            textAlign="left"
+                          >
+                            <Connect />
+                            <StatusMenu />
+                          </Flex>
+                        </Box>
+                      </Box>
+                    </ListItem>
+                    {address && isShowHowtoSection && (
+                      <ListItem>
+                        <>
                           <Text className="text_serif">
-                            {ot('HOWTO_OTAKIAGE_EXPLANATION_1')}
+                            {ot('HOWTO_OTAKIAGE_EXPLANATION_2')}
                           </Text>
-                          <Box textAlign="center" mb={10}>
-                            <Box mt="2em" display="inline-block">
-                              <Flex
-                                gap={6}
-                                justifyContent="center"
-                                textAlign="left"
-                              >
-                                <Connect />
-                                <StatusMenu />
-                              </Flex>
-                            </Box>
-                          </Box>
-                        </ListItem>
-                        {address && (
-                          <ListItem>
-                            <>
-                              <Text className="text_serif">
-                                {ot('HOWTO_OTAKIAGE_EXPLANATION_2')}
-                              </Text>
-                              <Heading
-                                className="text_serif"
-                                size="l"
-                                mt={5}
-                                pb={10}
-                              >
-                                {ot('USER_OMAMORI_LIST')}
-                              </Heading>
+                          <Heading
+                            className="text_serif"
+                            size="l"
+                            mt={5}
+                            pb={10}
+                          >
+                            {ot('USER_OMAMORI_LIST')}
+                          </Heading>
 
-                              {hasMintedOmamori ? (
-                                <Box mt={0} pb={10}>
-                                  <OmamoriesList items={userMintedOmamories} />
-                                </Box>
+                          {hasMintedOmamori ? (
+                            <Box mt={0} pb={10}>
+                              <OmamoriesList items={userMintedOmamories} />
+                            </Box>
+                          ) : (
+                            <Box mt={0} pb={10}>
+                              <Text className="text_serif">
+                                {ot('NO_OMAMORI')}
+                              </Text>
+                            </Box>
+                          )}
+                          <Flex
+                            justifyContent="center"
+                            alignItems="center"
+                            direction="column"
+                            py={10}
+                            maxWidth="240px"
+                            margin="0 auto"
+                            gap={10}
+                          >
+                            <>
+                              {!isApproved && !isSuccessApprove ? (
+                                <Button
+                                  w="100%"
+                                  loadingText="approving..."
+                                  isLoading={isApproving}
+                                  onClick={approve}
+                                  isDisabled={!hasMintedOmamori}
+                                >
+                                  {ot('JOIN')}
+                                </Button>
                               ) : (
-                                <Box mt={0} pb={10}>
-                                  <Text className="text_serif">
-                                    {ot('NO_OMAMORI')}
-                                  </Text>
-                                </Box>
-                              )}
-                              <Flex
-                                justifyContent="center"
-                                alignItems="center"
-                                direction="column"
-                                py={10}
-                                maxWidth="240px"
-                                margin="0 auto"
-                                gap={10}
-                              >
                                 <>
-                                  {!isApproved && !isSuccessApprove ? (
+                                  {userHoldingOmamories.length > 0 &&
+                                  !isSuccessSendAllOmamori ? (
                                     <Button
                                       w="100%"
-                                      loadingText="approving..."
-                                      isLoading={isApproving}
-                                      onClick={approve}
-                                      isDisabled={!hasMintedOmamori}
+                                      loadingText="sending..."
+                                      isLoading={isSending}
+                                      onClick={sendAllOmamori}
                                     >
-                                      {ot('JOIN')}
+                                      {ot('SEND_OMAMORI')}
                                     </Button>
                                   ) : (
-                                    <>
-                                      {userHoldingOmamories.length > 0 &&
-                                      !isSuccessSendAllOmamori ? (
-                                        <Button
-                                          w="100%"
-                                          loadingText="sending..."
-                                          isLoading={isSending}
-                                          onClick={sendAllOmamori}
-                                        >
-                                          {ot('SEND_OMAMORI')}
-                                        </Button>
-                                      ) : (
-                                        <Box w="100%">
-                                          <Text>
-                                            {ot('SUCCESS_SEND_OMAMORI')}
-                                          </Text>
-                                        </Box>
-                                      )}
-                                    </>
+                                    <Box w="100%">
+                                      <Text>{ot('SUCCESS_SEND_OMAMORI')}</Text>
+                                    </Box>
                                   )}
                                 </>
-                                {IS_EVENT_DAY && isAdmin && (
-                                  <Button
-                                    w="100%"
-                                    loadingText="otakiage..."
-                                    isLoading={isLoadingOtakiage}
-                                    onClick={otakiage}
-                                  >
-                                    {ot('OTAKIAGE')}
-                                  </Button>
-                                )}
-                              </Flex>
-                              <Text
-                                className="text_serif"
-                                fontSize="small"
-                                mb={10}
-                              >
-                                {ot('OTAKIAGE_EXPLANATION')}（
-                                <Link href="https://imaichiyyy.notion.site/HENKAKU-165910a5a4d080e292d2f813c8758a4a?pvs=4">
-                                  <a target="_blank" rel="noopener noreferrer">
-                                    <Text
-                                      color="teal.500"
-                                      textDecoration="underline"
-                                      cursor="pointer"
-                                      display="inline"
-                                    >
-                                      {ot('OTAKIAGE_MANUAL')}
-                                    </Text>
-                                  </a>
-                                </Link>
-                                ）
-                              </Text>
+                              )}
                             </>
-                          </ListItem>
-                        )}
-                      </OrderedList>
+                            {IS_EVENT_DAY && isAdmin && (
+                              <Button
+                                w="100%"
+                                loadingText="otakiage..."
+                                isLoading={isLoadingOtakiage}
+                                onClick={otakiage}
+                              >
+                                {ot('OTAKIAGE')}
+                              </Button>
+                            )}
+                          </Flex>
+                          <Text className="text_serif" fontSize="small" mb={10}>
+                            {ot('OTAKIAGE_EXPLANATION')}（
+                            <Link href="https://imaichiyyy.notion.site/HENKAKU-165910a5a4d080e292d2f813c8758a4a?pvs=4">
+                              <a target="_blank" rel="noopener noreferrer">
+                                <Text
+                                  color="teal.500"
+                                  textDecoration="underline"
+                                  cursor="pointer"
+                                  display="inline"
+                                >
+                                  {ot('OTAKIAGE_MANUAL')}
+                                </Text>
+                              </a>
+                            </Link>
+                            ）
+                          </Text>
+                        </>
+                      </ListItem>
+                    )}
+                  </OrderedList>
+                </Box>
+              </>
+            )}
+            {(isOtakiaged || isSuccessOtakiage) && isShowHowtoSection && (
+              <Box pb={100}>
+                {IS_EVENT_DAY && (
+                  <>
+                    {isShowMovie && (
+                      <>
+                        <Modal
+                          isOpen={isShowMovie}
+                          onClose={() => setShowMovie(false)}
+                          scrollBehavior="inside"
+                          size="xl"
+                        >
+                          <Box position={'relative'}>
+                            <ModalOverlay onClick={() => setShowMovie(false)}>
+                              <Box
+                                display={'flex'}
+                                position={'absolute'}
+                                zIndex={10000}
+                                top={'5vh'}
+                                left={'5vw'}
+                              >
+                                <iframe
+                                  src="https://www.youtube.com/embed/nFhBLMGyIe8?si=armzc4Pg0v2KfTmk&autoplay=1"
+                                  title="YouTube video player"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  referrerPolicy="strict-origin-when-cross-origin"
+                                  allowFullScreen
+                                  style={{
+                                    width: '90vw',
+                                    height: '90vh'
+                                  }}
+                                ></iframe>
+                              </Box>
+                            </ModalOverlay>
+                          </Box>
+                        </Modal>
+                      </>
+                    )}
+                    <Box>
+                      <Button onClick={() => setShowMovie(true)}>
+                        お焚上後の動画再生
+                      </Button>
                     </Box>
                   </>
                 )}
-              </>
+                <Heading className="text_serif" size="l" mt={5} pb={10}>
+                  {ot('OTAKIAGE_OMAMORI_LIST')}
+                </Heading>
+                {address && otakiageOmamoriInfo ? (
+                  <OtakiageOmamoriesList items={otakiageOmamoriInfo} />
+                ) : (
+                  <Box mt={0} pb={10}>
+                    <Text className="text_serif">{ot('NO_OMAMORI')}</Text>
+                  </Box>
+                )}
+                {!IS_EVENT_DAY && address && (
+                  <Box pt={10}>
+                    <Text
+                      className="text_serif"
+                      textAlign="center"
+                      fontWeight="bold"
+                      display="block"
+                    >
+                      {ot('END_OTAKIAGE')}
+                    </Text>
+                    <Link href={otakiageOmamoriScanUrl} passHref>
+                      <a target="_blank" rel="noopener noreferrer">
+                        <Text
+                          mt={5}
+                          textAlign="center"
+                          color="teal.500"
+                          textDecoration="underline"
+                          cursor="pointer"
+                        >
+                          {otakiageOmamoriScanUrl}
+                        </Text>
+                      </a>
+                    </Link>
+                  </Box>
+                )}
+              </Box>
             )}
-            {(isOtakiaged || isSuccessOtakiage) &&
-              (IS_RELEASED ||
-                isAdmin ||
-                !(process.env.NODE_ENV === 'production')) && (
-                <Box pb={100}>
-                  {IS_EVENT_DAY && (
-                    <>
-                      {isShowMovie && (
-                        <>
-                          <Modal
-                            isOpen={isShowMovie}
-                            onClose={() => setShowMovie(false)}
-                            scrollBehavior="inside"
-                            size="xl"
-                          >
-                            <Box position={'relative'}>
-                              <ModalOverlay onClick={() => setShowMovie(false)}>
-                                <Box
-                                  display={'flex'}
-                                  position={'absolute'}
-                                  zIndex={10000}
-                                  top={'5vh'}
-                                  left={'5vw'}
-                                >
-                                  <iframe
-                                    src="https://www.youtube.com/embed/nFhBLMGyIe8?si=armzc4Pg0v2KfTmk&autoplay=1"
-                                    title="YouTube video player"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerPolicy="strict-origin-when-cross-origin"
-                                    allowFullScreen
-                                    style={{
-                                      width: '90vw',
-                                      height: '90vh'
-                                    }}
-                                  ></iframe>
-                                </Box>
-                              </ModalOverlay>
-                            </Box>
-                          </Modal>
-                        </>
-                      )}
-                      <Box>
-                        <Button onClick={() => setShowMovie(true)}>
-                          お焚上後の動画再生
-                        </Button>
-                      </Box>
-                    </>
-                  )}
-                  <Heading className="text_serif" size="l" mt={5} pb={10}>
-                    {ot('OTAKIAGE_OMAMORI_LIST')}
-                  </Heading>
-                  {address && otakiageOmamoriInfo ? (
-                    <OtakiageOmamoriesList items={otakiageOmamoriInfo} />
-                  ) : (
-                    <Box mt={0} pb={10}>
-                      <Text className="text_serif">{ot('NO_OMAMORI')}</Text>
-                    </Box>
-                  )}
-                  {!IS_EVENT_DAY && address && (
-                    <Box pt={10}>
-                      <Text
-                        className="text_serif"
-                        textAlign="center"
-                        fontWeight="bold"
-                        display="block"
-                      >
-                        {ot('END_OTAKIAGE')}
-                      </Text>
-                      <Link href={otakiageOmamoriScanUrl} passHref>
-                        <a target="_blank" rel="noopener noreferrer">
-                          <Text
-                            mt={5}
-                            textAlign="center"
-                            color="teal.500"
-                            textDecoration="underline"
-                            cursor="pointer"
-                          >
-                            {otakiageOmamoriScanUrl}
-                          </Text>
-                        </a>
-                      </Link>
-                    </Box>
-                  )}
-                </Box>
-              )}
           </>
         </Box>
       )}
