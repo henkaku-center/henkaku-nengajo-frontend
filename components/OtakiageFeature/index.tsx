@@ -345,7 +345,7 @@ const OtakiageFeature: NextPage = () => {
                                 left={'5vw'}
                               >
                                 <iframe
-                                  src="https://www.youtube.com/embed/nFhBLMGyIe8?si=armzc4Pg0v2KfTmk&autoplay=1"
+                                  src="https://www.youtube.com/embed/8nDEi2YKLII?si=armzc4Pg0v2KfTmk&autoplay=1"
                                   title="YouTube video player"
                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                   referrerPolicy="strict-origin-when-cross-origin"
